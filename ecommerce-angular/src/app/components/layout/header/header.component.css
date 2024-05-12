@@ -1,0 +1,10 @@
+.btn-custom{
+    background-color: rgb(63, 126, 22);
+    color: white;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Agregar transición */
+}
+
+.btn-custom:hover{
+    background-color: rgb(53, 107, 17);;
+    color: #ffffff;
+}

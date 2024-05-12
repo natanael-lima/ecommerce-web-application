@@ -1,0 +1,23 @@
+.ver-detalles-container {
+    display: none;
+}
+
+.card:hover .ver-detalles-container {
+    display: block;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 1%;
+    background-color: rgba(0, 0, 0, 0.2); /* Negro semi-transparente */
+    opacity: 0; /* Inicialmente invisible */
+    transition: opacity 0.3s ease; /* Transición suave de la opacidad */
+}
+
+.card:hover .overlay {
+    opacity: 1; /* Hacer visible la superposición cuando se pasa el cursor sobre la tarjeta */
+}

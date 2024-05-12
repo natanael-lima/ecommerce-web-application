@@ -1,0 +1,16 @@
+.product-image {
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+  }
+  .product-info {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  @media (max-width: 768px) {
+    .product-info {
+      margin-top: 20px;
+    }
+  }

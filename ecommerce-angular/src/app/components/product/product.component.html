@@ -1,0 +1,145 @@
+<body class="bg-white">
+    <section class="container mt-2">
+        <div class="row">
+          <div class="m-1">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-chevron p-3 bg-body rounded-3">
+                  <li class="breadcrumb-item">
+                    <a class="link-body-emphasis fw-semibold text-decoration-none" href="#">Home</a>
+                  </li>
+                  <li class="breadcrumb-item">
+                    <a class="link-body-emphasis fw-semibold text-decoration-none" href="#">Product</a>
+                  </li>
+                  <li class="breadcrumb-item active" aria-current="page">
+                    Data
+                  </li>
+                </ol>
+              </nav>
+          </div>
+    
+          <!-- Filtro de Productos -->
+          <div class="col-md-3 mt-2">
+            <h4 class="mb-2">Filtrar por Categoria</h4>
+            <select class="form-select mb-2">
+              <option selected>Todos</option>
+              <option value="1">Cocina y Comedor</option>
+              <option value="2">Calefacción y Electricidad</option>
+              <option value="3">Preparación y Servicio de Bebidas</option>
+            </select>
+           
+            <div class="h5 h6-md mb-3 mt-4 mr-3">Precio</div>
+            <form class="row g-3">
+              <div class="col-6">
+                <label class="form-label">Desde</label>
+                  <input type="number" name="min_price" step="1" min="0" class="form-control" value="" placeholder="1.624">
+              </div>
+              <div class="col-6">
+                <label class="form-label">Hasta</label>
+                <input type="number" name="max_price" step="1" min="0" class="form-control" value="" placeholder="60.843">
+               
+              </div>
+              <button type="submit" class="btn btn-success btn-small rounded-pill" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator-fill" viewBox="0 0 16 16">
+                <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zm2 .5v2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0-.5.5m0 4v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M4.5 9a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM4 12.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M7.5 6a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM7 9.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m.5 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM10 6.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m.5 2.5a.5.5 0 0 0-.5.5v4a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 0-.5-.5z"/>
+              </svg> Aplicar</button>
+          </form>
+          
+            <!-- Otros filtros o categorías pueden ser añadidos aquí -->
+          </div>
+      
+          <!-- Tarjetas de Productos -->
+          <div class="col-md-9 mt-5">
+            <div class="row">
+              <!-- Ejemplo de una tarjeta de producto -->
+              <div class="col-md-4 mb-4">
+                <div class="card" style="width: 100%;">
+                  <img src="https://setabazar.com.ar/wp-content/uploads/2022/06/SET00406-C.jpg" class="card-img-top" alt="Producto" >
+                  <div class="card-body">
+                    <h5 class="card-title">Título del Producto</h5>
+                    <p class="card-text">Descripción breve del producto.</p>
+                    <p class="card-text">$99.99</p>
+                    <div class="ver-detalles-container position-absolute top-50 start-50 translate-middle text-center" style="z-index: 1;">
+                        <a href="/product/product-detail" class="btn btn-success rounded-pill px-3">Ver Detalles</a>
+                    </div>
+                    <div class="overlay"></div> <!-- Superposición semi-transparente -->
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 mb-4">
+                <div class="card" style="width: 100%;">
+                  <img src="https://setabazar.com.ar/wp-content/uploads/2022/06/SET00406-C.jpg" class="card-img-top" alt="Producto">
+                  <div class="card-body">
+                    <h5 class="card-title">Título del Producto</h5>
+                    <p class="card-text">Descripción breve del producto.</p>
+                    <p class="card-text">$99.99</p>
+                    <div class="ver-detalles-container position-absolute top-50 start-50 translate-middle text-center">
+                        <a href="#" class="btn btn-primary">Ver Detalles</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 mb-4">
+                <div class="card" style="width: 100%;">
+                  <img src="https://setabazar.com.ar/wp-content/uploads/2022/06/SET00406-C.jpg" class="card-img-top" alt="Producto">
+                  <div class="card-body">
+                    <h5 class="card-title">Título del Producto</h5>
+                    <p class="card-text">Descripción breve del producto.</p>
+                    <p class="card-text">$99.99</p>
+                    <div class="ver-detalles-container position-absolute top-50 start-50 translate-middle text-center">
+                        <a href="#" class="btn btn-primary">Ver Detalles</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 mb-4">
+                <div class="card" style="width: 100%;">
+                  <img src="https://setabazar.com.ar/wp-content/uploads/2022/06/SET00406-C.jpg" class="card-img-top" alt="Producto">
+                  <div class="card-body">
+                    <h5 class="card-title">Título del Producto</h5>
+                    <p class="card-text">Descripción breve del producto.</p>
+                    <p class="card-text">$99.99</p>
+                    <div class="ver-detalles-container position-absolute top-50 start-50 translate-middle text-center">
+                        <a href="#" class="btn btn-primary">Ver Detalles</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 mb-4">
+                <div class="card" style="width: 100%;">
+                  <img src="https://setabazar.com.ar/wp-content/uploads/2022/06/SET00406-C.jpg" class="card-img-top" alt="Producto">
+                  <div class="card-body">
+                    <h5 class="card-title">Título del Producto</h5>
+                    <p class="card-text">Descripción breve del producto.</p>
+                    <p class="card-text">$99.99</p>
+                    <div class="ver-detalles-container position-absolute top-50 start-50 translate-middle text-center">
+                        <a href="#" class="btn btn-primary">Ver Detalles</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              
+              <!-- Agrega más tarjetas de productos aquí -->
+            </div>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+          </div>
+          
+        </div>
+        
+      </section>
+</body>
