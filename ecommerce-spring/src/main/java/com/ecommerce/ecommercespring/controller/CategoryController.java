@@ -17,7 +17,10 @@ import com.ecommerce.ecommercespring.dto.CategoryDTO;
 import com.ecommerce.ecommercespring.dto.ProductDTO;
 import com.ecommerce.ecommercespring.entity.Category;
 import com.ecommerce.ecommercespring.entity.Product;
+import com.ecommerce.ecommercespring.enums.ActionType;
+import com.ecommerce.ecommercespring.enums.TableType;
 import com.ecommerce.ecommercespring.service.CategoryService;
+import com.ecommerce.ecommercespring.service.HistoryService;
 
 
 @CrossOrigin(origins = "http://localhost:4200") // Reemplaza esto con el dominio de tu frontend
@@ -26,6 +29,9 @@ import com.ecommerce.ecommercespring.service.CategoryService;
 public class CategoryController {
 	@Autowired
     private CategoryService categoryService;
+	
+	@Autowired
+    private HistoryService historyService;
 	
 	// API para obtener una categoria by ID.
     @GetMapping("/find/{id}")
@@ -37,17 +43,18 @@ public class CategoryController {
             return ResponseEntity.noContent().build(); // Retorna un código 204 si el chat no está encontrado
         }
     }
-    
+    // API para registrar una categoria.
     @PostMapping("/registration-category")
     public ResponseEntity<String> registerProducto(@RequestBody Category request)
     {	if (request==null) {
 	        return ResponseEntity.badRequest().body(new String("Error ya existe ese producto o es vacio"));
 	    } else {
 	    	categoryService.saveCategory(request);
+	    	historyService.createHistory(TableType.CATEGORIA,ActionType.CREATE);
 	    	return ResponseEntity.ok("La categoria registro correctamente");
     	   }
     }
-	
+    // API para obtener una lista de todos las categorias.
     @GetMapping("/findAll")
     public ResponseEntity<List<CategoryDTO>> findAll() throws Exception {
         try {
@@ -57,5 +64,7 @@ public class CategoryController {
             return ResponseEntity.noContent().build(); // Retorna un código 204 si el chat no está encontrado
         }
     }
+    
+    
 	
 }

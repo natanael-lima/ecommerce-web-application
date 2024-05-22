@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -54,11 +55,15 @@ public class Product {
  	@JsonBackReference
     private Category categoria;
  	
+ 	//@OneToOne(fetch = FetchType.EAGER)
+    //@JoinColumn(name = "history_id")
+ 	//@JsonBackReference
+    //private History history;
+ 	
  	public Product() {
         this.timestamp = LocalDateTime.now();
     }
  	
- 	 
  		@Override
  		public String toString() {
  		    return "Product [id=" + id + ", name=" + name + ", categoria=" + categoria + "]";
