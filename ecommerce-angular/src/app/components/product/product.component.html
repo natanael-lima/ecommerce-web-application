@@ -19,18 +19,18 @@
     
           <!-- Filtro de Productos -->
           <div class="col-md-3 mt-2">
-            <h4 class="mb-2">Filtrar por Categoria</h4>
+            <h4 class="mb-2">Categorias</h4>
             <select class="form-select mb-2">
               <option selected>Todos</option>
               <option value="1">Cocina y Comedor</option>
               <option value="2">Calefacción y Electricidad</option>
               <option value="3">Preparación y Servicio de Bebidas</option>
             </select>
-           
-            <div class="h5 h6-md mb-3 mt-4 mr-3">Precio</div>
+            <h4 class="mb-2 mt-5 ">Filtrar por</h4>
+            <div class="h5 h6-md mb-3 mt-3 mr-3">Precio</div>
             <form class="row g-3">
               <div class="col-6">
-                <label class="form-label">Desde</label>
+                <label class="form-label ">Desde</label>
                   <input type="number" name="min_price" step="1" min="0" class="form-control" value="" placeholder="1.624">
               </div>
               <div class="col-6">
@@ -42,29 +42,29 @@
                 <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zm2 .5v2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0-.5.5m0 4v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M4.5 9a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM4 12.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M7.5 6a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM7 9.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m.5 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM10 6.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m.5 2.5a.5.5 0 0 0-.5.5v4a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 0-.5-.5z"/>
               </svg> Aplicar</button>
           </form>
-          
             <!-- Otros filtros o categorías pueden ser añadidos aquí -->
           </div>
       
           <!-- Tarjetas de Productos -->
           <div class="col-md-9 mt-5">
             <div class="row">
+              
               <!-- Ejemplo de una tarjeta de producto -->
-              <div class="col-md-4 mb-4">
+              <div *ngFor="let product of products" class="col-md-4 mb-4">
                 <div class="card" style="width: 100%;">
-                  <img src="https://setabazar.com.ar/wp-content/uploads/2022/06/SET00406-C.jpg" class="card-img-top" alt="Producto" >
+                  <img [src]="baseUrl + product.image" class="card-img-top" alt="{{product.image}}">
                   <div class="card-body">
-                    <h5 class="card-title">Título del Producto</h5>
-                    <p class="card-text">Descripción breve del producto.</p>
-                    <p class="card-text">$99.99</p>
+                    <h5 class="card-title">{{product.name}}</h5>
+                    <p class="card-text">{{product.categoria}}</p>
+                     <p class="card-text">${{product.price}}</p>
                     <div class="ver-detalles-container position-absolute top-50 start-50 translate-middle text-center" style="z-index: 1;">
-                        <a href="/product/product-detail" class="btn btn-success rounded-pill px-3">Ver Detalles</a>
+                        <a (click)="navigateToProductDetail(product.id)" class="btn btn-success rounded-pill px-3">Ver Detalles</a>
                     </div>
                     <div class="overlay"></div> <!-- Superposición semi-transparente -->
                   </div>
                 </div>
               </div>
-              <div class="col-md-4 mb-4">
+              <!-- <div class="col-md-4 mb-4">
                 <div class="card" style="width: 100%;">
                   <img src="https://setabazar.com.ar/wp-content/uploads/2022/06/SET00406-C.jpg" class="card-img-top" alt="Producto">
                   <div class="card-body">
@@ -115,11 +115,12 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div>-->
               
               
               <!-- Agrega más tarjetas de productos aquí -->
             </div>
+            
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                   <li class="page-item">

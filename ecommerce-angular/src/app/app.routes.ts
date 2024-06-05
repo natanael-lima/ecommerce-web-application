@@ -11,7 +11,7 @@ export const routes: Routes = [
 { path: 'admin/dashboard', component: AdminDashboardComponent },
 { path: 'home', component: HomeComponent },
 { path: 'product', component: ProductComponent },
-{ path: 'product/product-detail', component: ProductDetailComponent },
+{ path: 'product/product-detail/:id', component: ProductDetailComponent },
 { path: '', redirectTo: '/home', pathMatch: 'full' },
 { path: '**', redirectTo: '/home' }
 ];

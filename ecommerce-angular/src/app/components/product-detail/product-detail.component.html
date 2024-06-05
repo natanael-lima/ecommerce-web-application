@@ -2,13 +2,13 @@
     <div class="row">
       <!-- Imagen del producto -->
       <div class="col-md-8">
-        <img src="https://dcdn.mitiendanube.com/stores/002/316/104/products/batidorel21-e01bd579b4a5e5580816612756316250-1024-1024.webp" alt="Batidor Eléctrico Manual" class="img-fluid product-image">
+        <img [src]="baseUrl + product.image" alt="Batidor Eléctrico Manual" class="img-fluid product-image">
       </div>
       <!-- Información del producto y descripción -->
       <div class="col-md-4">
         <div class="product-info">
-          <h2 class="mb-3">Batidor Eléctrico Manual</h2>
-          <h1 class="card-title pricing-card-title">$15000</h1>
+          <h2 class="mb-3">{{product.name}}</h2>
+          <h1 class="card-title pricing-card-title">${{product.price}}</h1>
           <button type="button" class="w-100 btn btn-lg btn-outline-secondary rounded-pill  mt-5 mb-2">Agregar Carrito</button>
           <p class="mb-3"></p>
           <p class="mb-3"></p>
@@ -27,7 +27,7 @@
             
             <div class="card-body">
               <h3 class="card-title pricing-card-title">Descripción</h3>
-              <p>For more straightforward sizing in CSS, we switch the global box-sizing value from content-box to border-box. This ensures padding does not affect the final computed width of an element, but it can cause problems with some third-party software like Google Maps and Google Custom Search Engine..</p>
+              <p>{{product.description}}</p>
             </div>
           </div>
       </div>

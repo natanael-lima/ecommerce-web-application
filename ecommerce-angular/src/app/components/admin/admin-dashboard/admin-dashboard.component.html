@@ -59,6 +59,14 @@
                 </a>
               </li>
               <li class="nav-item">
+                <a class="btn btn-light nav-link text-dark d-flex align-items-center gap-2" (click)="changeSection('feature_product')" [ngClass]="{ 'active': currentSection === 'feature_product' }">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark-star-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2 15.5V2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.74.439L8 13.069l-5.26 2.87A.5.5 0 0 1 2 15.5M8.16 4.1a.178.178 0 0 0-.32 0l-.634 1.285a.18.18 0 0 1-.134.098l-1.42.206a.178.178 0 0 0-.098.303L6.58 6.993c.042.041.061.1.051.158L6.39 8.565a.178.178 0 0 0 .258.187l1.27-.668a.18.18 0 0 1 .165 0l1.27.668a.178.178 0 0 0 .257-.187L9.368 7.15a.18.18 0 0 1 .05-.158l1.028-1.001a.178.178 0 0 0-.098-.303l-1.42-.206a.18.18 0 0 1-.134-.098z"/>
+                  </svg>
+                  Destacados
+                </a>
+              </li>
+              <li class="nav-item">
                 <a class="btn btn-light nav-link text-dark d-flex align-items-center gap-2" (click)="changeSection('user')" [ngClass]="{ 'active': currentSection === 'user' }">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
                     <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
@@ -188,10 +196,10 @@
                  
                 
       
-                <div class="my-3 p-3 bg-body rounded shadow-sm border-2 ">
+                <div class="my-3 p-3 bg-body rounded shadow-sm border-2 table-responsive small">
                   <h6 class="border-bottom pb-2 mb-0">Historial de Productos</h6>
                                 <!-- Agrega aquí la tabla de historial de productos -->
-                                <table class="table table-hover">
+                                <table class="table table-hover table-sm">
                                     <thead>
                                         <tr>
 
@@ -239,7 +247,8 @@
             </div>
             
           
-        }  
+        }
+          
         @if(currentSection === 'categoria' ){ 
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
              
@@ -289,7 +298,7 @@
                               Lista de Categorias
                           </div>
                           <div class="card-body table-responsive">
-                              <table class="table">
+                              <table class="table table-hover">
                                   <thead>
                                       <tr>
                                           <th>ID</th>
@@ -317,6 +326,105 @@
                                          </a></button> </td>
                                     </tr>
                                   </tbody>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          </section>
+         }
+         @if(currentSection === 'feature_product' ){ 
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+             
+            <h1 class="h2">Panel de Control de Destacados</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+              <div class="btn-group me-2">
+                <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+              </div>
+              <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1">
+                <svg class="bi"><use xlink:href="#calendar3"/></svg>
+                This week
+              </button>
+            </div>
+          </div>
+          <section class="dashboard-section">
+            <div class="container">
+              <div class="row">
+                  <div class="col-md-12 col-sm-12">
+                      <div class="card">
+                          <div class="card-header">
+                              Elegir los productos
+                          </div>
+                          <div class="card-body table-responsive">
+                              <table class="table table-hover">
+                                  <thead>
+                                      <tr>
+                                          <th>ID</th>
+                                          <th>Image</th>
+                                          <th>Nombre</th>
+                                          <th>Date</th>
+                                          <th>Actions</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <td>01</td>
+                                      <td>
+                                        <svg class="bd-placeholder-img" width="50" height="50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                          <rect width="100%" height="100%" fill="#777"></rect>
+                                        </svg>
+                                      </td>
+                                      <td>Pava Electrica</td>
+                                      <td>January 15, 2024</td>
+                                      <td>
+                                        <button class="btn btn-danger rounded-pill px-3 me-2" data-bs-toggle="tooltip" data-bs-placement="top"
+                                        data-bs-custom-class="custom-tooltip"
+                                        data-bs-title="This top tooltip is themed via CSS variables."> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                                      </svg> </button >
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>02</td>
+                                      <td>
+                                        <svg class="bd-placeholder-img" width="50" height="50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                          <rect width="100%" height="100%" fill="#777"></rect>
+                                        </svg>
+                                      </td>
+                                      <td>Sillon Gamer</td>
+                                      <td>January 14, 2024</td>
+                                      <td>
+                                        <button class="btn btn-danger rounded-pill px-3 me-2" data-bs-toggle="tooltip" data-bs-placement="top"
+                                        data-bs-custom-class="custom-tooltip"
+                                        data-bs-title="This top tooltip is themed via CSS variables."> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                                      </svg> </button >
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>03</td>
+                                      <td>
+                                        <svg class="bd-placeholder-img" width="50" height="50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                          <rect width="100%" height="100%" fill="#777"></rect>
+                                        </svg>
+                                      </td>
+                                      <td>Mesa De Pool</td>
+                                      <td>January 13, 2024</td>
+                                      <td>
+                                        <button class="btn btn-danger rounded-pill px-3 me-2" data-bs-toggle="tooltip" data-bs-placement="top"
+                                        data-bs-custom-class="custom-tooltip"
+                                        data-bs-title="This top tooltip is themed via CSS variables."> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                                      </svg> </button >
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                 
                               </table>
                           </div>
                       </div>
@@ -379,7 +487,7 @@
                               Lista de Usuarios
                           </div>
                           <div class="card-body table-responsive">
-                              <table class="table">
+                              <table class="table table-hover">
                                   <thead>
                                       <tr>
                                           <th>ID</th>
@@ -510,44 +618,54 @@
                               Lista de Productos
                           </div>
                           <div class="card-body table-responsive">
-                              <table class="table">
+                              <table class="table table-hover">
                                   <thead>
                                       <tr>
                                           <th>ID</th>
+                                          <th>Imagen</th>
                                           <th>Nombre</th>
                                           <th>Categoría</th>
                                           <th>Precio</th>
                                           <th>Stock</th>
-                                          <th>Imagen</th>
                                           <th>Acciones</th>
                                       </tr>
                                   </thead>
                                   <tbody>
                                     <tr>
                                       <td>1,001</td>
+                                      <td> <img width="50" height="50" src="https://apolomates.com.ar/wp-content/uploads/2023/04/media-manija-black-boca.png" alt=""> </td>
                                       <td>Termo Staley</td>
                                       <td>Bebida</td>
                                       <td>$9999</td>
                                       <td>500</td>
-                                      <td> <img width="50" height="50" src="https://apolomates.com.ar/wp-content/uploads/2023/04/media-manija-black-boca.png" alt=""> </td>
                                       <td><button class="btn btn-danger rounded-pill px-3 me-2" data-bs-toggle="tooltip" data-bs-placement="top"
                                         data-bs-custom-class="custom-tooltip"
                                         data-bs-title="This top tooltip is themed via CSS variables."> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
                                         <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
-                                      </svg> </button > <button class="btn btn-primary rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#editarProductoModal"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                      </svg> </button > <button class="btn btn-primary rounded-pill px-3 me-2" data-bs-toggle="modal" data-bs-target="#editarProductoModal"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                         <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                                         <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
                                       </svg></button> </td>
                                     </tr>
                                     <tr>
                                       <td>1,001</td>
+                                      <td> <svg class="bd-placeholder-img" width="50" height="50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                        <rect width="100%" height="100%" fill="#777"></rect>
+                                      </svg></td>
                                       <td>Termo Staley</td>
                                       <td>Bebida</td>
                                       <td>$9999</td>
                                       <td>500</td>
-                                      <td> <img width="50" height="50" src="https://76338a6a.flyingcdn.com/14544-large_default/ultracomb-pava-electrica-pe-4907-20-lts-luz-indicadora-enc.jpg" alt=""> </td>
-                                      <td><button class="btn btn-danger rounded-pill px-3 me-2">Eliminar </button > <button class="btn btn-primary rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#editarProductoModal">Editar</button> </td>
+                                      <td><button class="btn btn-danger rounded-pill px-3 me-2" data-bs-toggle="tooltip" data-bs-placement="top"
+                                        data-bs-custom-class="custom-tooltip"
+                                        data-bs-title="This top tooltip is themed via CSS variables."> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                                      </svg> </button > <button class="btn btn-primary rounded-pill px-3 me-2" data-bs-toggle="modal" data-bs-target="#editarProductoModal"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                                      </svg></button>  </td>
                                     </tr>
                                     
                                   </tbody>
@@ -735,6 +853,13 @@
                       <input type="file" class="form-control" id="productImage" aria-label="file example" required>
                       <div class="invalid-feedback">Por favor selecciona una imagen.</div>
                     </div>
+                    <div class="mb-3">
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                        <label class="form-check-label" for="flexSwitchCheckDefault">Desctacar Producto</label>
+                      </div>
+                    </div>
+                    
                     <div class="d-grid gap-2">
                       <button type="submit" class="btn btn-primary">Actualizar</button>
                     </div>

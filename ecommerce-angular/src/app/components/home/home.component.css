@@ -1,3 +1,49 @@
 .img-banner{
     object-fit: cover;
 }
+
+.banner-link {
+    display: block;
+    position: relative;
+    color: inherit;
+    text-decoration: none;
+  }
+.banner-link img {
+    width: 100%;
+    height: auto;
+  }
+.banner-logo-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 50px;
+    background: rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+  }
+.banner-logo-text .logo {
+    max-width: 100px;
+    margin-bottom: 25px;
+  }
+.banner-logo-text .primary-title, 
+.banner-logo-text .secondary-title {
+      display: block;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: white;
+    }
+.banner-logo-text .action-button {
+    margin-top: 10px;
+    background-color: #00A650;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
