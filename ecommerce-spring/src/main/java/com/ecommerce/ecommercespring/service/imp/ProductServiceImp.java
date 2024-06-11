@@ -1,6 +1,7 @@
 package com.ecommerce.ecommercespring.service.imp;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -130,7 +131,7 @@ public class ProductServiceImp implements ProductService {
 	            .stock(prod.getStock())
 	            .image(prod.getImage())
 	            .timestamp(prod.getTimestamp())
-	            .categoria(prod.getCategoria())
+	            .categoria(prod.getCategoria().getName())
 	            .build();
 	}
 	
@@ -145,7 +146,7 @@ public class ProductServiceImp implements ProductService {
 	            .stock(prod.getStock())
 	            .image(prod.getImage())
 	            .timestamp(prod.getTimestamp())
-	            .categoria(prod.getCategoria())
+	            .categoria(prod.getCategoria().getName())
 	            .build();
 		} else {
 	        // Manejo de error si el usuario no está presente
@@ -164,7 +165,7 @@ public class ProductServiceImp implements ProductService {
 		producto.setStock(prod.getStock());
 		producto.setImage(prod.getImage());
 		producto.setTimestamp(prod.getTimestamp());
-		producto.setCategoria(prod.getCategoria());
+		//producto.setCategoria(prod.getCategoria());
 	    
 	    // Aquí debes establecer las relaciones, como el sender y el chat
 	    //Category cat = userProfileService.findUserById(messageDTO.getSenderId());
@@ -195,7 +196,10 @@ public class ProductServiceImp implements ProductService {
 		// TODO Auto-generated method stub
 		Product producto = productRepository.findById(dto.getId())
 	            .orElseThrow(() -> new Exception("Producto no encontrado"));
-	    
+		 
+		// Guarda la ruta de la imagen antigua
+	    String oldImageUrl = producto.getImage();
+		
 	    // Actualización de campos del producto
 	    producto.setName(dto.getName());
 	    producto.setDescription(dto.getDescription());
@@ -204,9 +208,9 @@ public class ProductServiceImp implements ProductService {
 	    producto.setTimestamp(LocalDateTime.now());
 	    
 	    // Actualización de la categoría si se proporciona
-	    if (dto.getCategoria() != null && dto.getCategoria().getName() != null) {
-	        Category categoria = categoryRepository.findByName(dto.getCategoria().getName())
-	                .orElseThrow(() -> new Exception("La categoría con nombre " + dto.getCategoria().getName() + " no existe"));
+	    if (dto.getCategoria() != null && dto.getCategoria() != null) {
+	        Category categoria = categoryRepository.findByName(dto.getCategoria())
+	                .orElseThrow(() -> new Exception("La categoría con nombre " + dto.getCategoria() + " no existe"));
 	        producto.setCategoria(categoria);
 	    }
 	    
@@ -214,6 +218,8 @@ public class ProductServiceImp implements ProductService {
 	    if (file != null && !file.isEmpty()) {
 	        String imageUrl = saveImage(file);
 	        producto.setImage(imageUrl);
+	        // Eliminar la imagen antigua
+	        deleteOldImage(oldImageUrl);
 	    }
 	    
 	    // Llamar al método de actualización del repositorio
@@ -229,6 +235,20 @@ public class ProductServiceImp implements ProductService {
 	    );
 	    
 	    return new ApiResponse("El Producto se actualizó satisfactoriamente");
+	}
+	
+
+	// Método para eliminar la imagen antigua del sistema de archivos
+	private void deleteOldImage(String imageUrl) {
+	    if (imageUrl != null && !imageUrl.isEmpty()) {
+	        try {
+	            Path path = Paths.get("src/main/resources" + imageUrl);
+	            Files.deleteIfExists(path);
+	        } catch (IOException e) {
+	            // Manejar el error de eliminación, por ejemplo, loguear el error
+	            System.err.println("Error al eliminar la imagen antigua: " + e.getMessage());
+	        }
+	    }
 	}
 	
 	private String saveImage(MultipartFile file) throws Exception {
@@ -260,4 +280,17 @@ public class ProductServiceImp implements ProductService {
 
         return "/uploads/" + newFileName;
     }
+
+	@Override
+	public List<ProductDTO> searchProductsByPriceRange(Double priceStart, Double priceEnd) {
+		// TODO Auto-generated method stub
+		List<Product>  allProduct = productRepository.findByPriceBetween(priceStart, priceEnd);		 
+		List<ProductDTO> allProductDTO = new ArrayList<>();
+				
+		for (Product prod : allProduct) {
+			allProductDTO.add(convertToDTO(prod));
+		}
+			
+			return allProductDTO;
+	}
 }

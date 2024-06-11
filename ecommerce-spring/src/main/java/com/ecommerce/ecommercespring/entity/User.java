@@ -1,6 +1,12 @@
 package com.ecommerce.ecommercespring.entity;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.ecommerce.ecommercespring.enums.RoleType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -25,7 +31,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name="users", uniqueConstraints= @UniqueConstraint(columnNames = "username"))
-public class User {
+public class User implements UserDetails {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -47,7 +53,39 @@ public class User {
         this.timestamp = LocalDateTime.now();
     }
 	
-	 
+	
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return List.of(new SimpleGrantedAuthority(role.name()));
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	public UserDetails orElseThrow() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	@Override
 	public String toString() {
 	return "User [id=" + id + ", username=" + username + "]";

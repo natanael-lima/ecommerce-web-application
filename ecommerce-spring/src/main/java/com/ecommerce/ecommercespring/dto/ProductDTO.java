@@ -20,5 +20,5 @@ public class ProductDTO {
      int stock;
      String image;
      LocalDateTime timestamp;
-     Category categoria;
+     String categoria;
 }

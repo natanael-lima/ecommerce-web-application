@@ -16,7 +16,8 @@ import jakarta.transaction.Transactional;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product,Long>{
-
+	
+	// Método para buscar productos por nombre (contiene)
 	public List<Product> findByNameContaining (String buscado);
 	
 	@Modifying
@@ -26,4 +27,6 @@ public interface ProductRepository extends JpaRepository<Product,Long>{
                        @Param("price") Double price, @Param("stock") int stock, @Param("image") String image, 
                        @Param("timestamp") LocalDateTime timestamp, @Param("categoria") Category categoria);
 	
+	// Método para buscar productos por rango de precios
+    public List<Product> findByPriceBetween(Double priceStart, Double priceEnd);
 }

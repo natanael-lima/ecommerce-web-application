@@ -61,6 +61,7 @@ public class ProductController {
     	        try {
     	         
     	            productService.saveProduct(request, file);
+    	            historyService.createHistory(TableType.PRODUCTO,ActionType.CREATE);
     	            return ResponseEntity.ok("El producto se registró correctamente");
     	        } catch (IOException ex) {
     	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al guardar la imagen: " + ex.getMessage());
@@ -111,12 +112,17 @@ public class ProductController {
     
     // API para obtener todos los productos por busqueda.
     @GetMapping("/search-products")
-    public ResponseEntity<List<ProductDTO>> searchProducts(@RequestParam String name) {
+    public ResponseEntity<List<ProductDTO>> searchProductsByName(@RequestParam String name) {
         List<ProductDTO> products = productService.searchProductsByName(name);
         return ResponseEntity.ok(products);
     }
     
-    
+    // Endpoint para buscar productos por rango de precios
+    @GetMapping("/price-range")
+    public ResponseEntity<List<ProductDTO>> searchProductsByPriceRange(@RequestParam Double priceStart, @RequestParam Double priceEnd) {
+    	List<ProductDTO> products = productService.searchProductsByPriceRange(priceStart, priceEnd);
+    	return ResponseEntity.ok(products);
+    }
     
     
     // API que registra un like.

@@ -22,6 +22,8 @@ public interface ProductService {
 	
 	List<ProductDTO> searchProductsByName(String name);
 	
+	List<ProductDTO> searchProductsByPriceRange(Double priceStart, Double priceEnd);
+	
 	public List<ProductDTO> getAllProduct() ;
 	
 	
