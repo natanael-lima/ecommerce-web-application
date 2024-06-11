@@ -1,11 +1,16 @@
 package com.ecommerce.ecommercespring.service.imp;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
+import com.ecommerce.ecommercespring.entity.User;
+import com.ecommerce.ecommercespring.enums.RoleType;
 import com.ecommerce.ecommercespring.repository.UserRepository;
 import com.ecommerce.ecommercespring.request.LoginRequest;
 import com.ecommerce.ecommercespring.request.RegisterRequest;
@@ -13,8 +18,10 @@ import com.ecommerce.ecommercespring.response.AuthResponse;
 import com.ecommerce.ecommercespring.service.AuthService;
 import com.ecommerce.ecommercespring.service.JwtService;
 
+import lombok.RequiredArgsConstructor;
 
-
+@Service
+@RequiredArgsConstructor
 public class AuthServiceImp implements AuthService{
 	
 	@Autowired
@@ -27,7 +34,7 @@ public class AuthServiceImp implements AuthService{
 	
 	private final AuthenticationManager authenticationManager;
 
-	/*@Override
+	@Override
 	public AuthResponse registerUser(RegisterRequest request) {
 			// Construir el objeto User con la imagen y otros datos
 				User user = User.builder()
@@ -36,6 +43,7 @@ public class AuthServiceImp implements AuthService{
 				        .lastname(request.getLastname())
 				        .name(request.getName())
 				        .role(RoleType.USER)
+				        .timestamp(LocalDateTime.now())
 				        .build();
 
 				// Guardar el usuario en la base de datos
@@ -45,7 +53,7 @@ public class AuthServiceImp implements AuthService{
 				return AuthResponse.builder()
 				        .token(jwtService.getToken(user))
 				        .build();
-	}*/
+	}
 
 
 

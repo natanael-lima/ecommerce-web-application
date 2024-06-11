@@ -5,13 +5,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
 import com.ecommerce.ecommercespring.dto.UserDTO;
 import com.ecommerce.ecommercespring.entity.User;
 import com.ecommerce.ecommercespring.enums.RoleType;
 import com.ecommerce.ecommercespring.repository.UserRepository;
 import com.ecommerce.ecommercespring.service.UserService;
 
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
 public class UserServiceImp implements UserService {
 
 	@Autowired

@@ -8,5 +8,5 @@ public interface AuthService {
 
 	public AuthResponse loginUser (LoginRequest request);
 	
-	//public AuthResponse registerUser(RegisterRequest request);
+	public AuthResponse registerUser(RegisterRequest request);
 }

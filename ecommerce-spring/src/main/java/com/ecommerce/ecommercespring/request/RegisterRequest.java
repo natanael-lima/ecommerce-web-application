@@ -1,5 +1,7 @@
 package com.ecommerce.ecommercespring.request;
 
+import java.time.LocalDateTime;
+
 import com.ecommerce.ecommercespring.enums.RoleType;
 
 import lombok.AllArgsConstructor;
@@ -18,6 +20,7 @@ public class RegisterRequest {
     private String username;
     private String password;
     private RoleType role;
+    private LocalDateTime timestamp;
     
 }
 
