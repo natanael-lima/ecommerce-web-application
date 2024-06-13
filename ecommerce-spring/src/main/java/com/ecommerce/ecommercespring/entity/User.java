@@ -32,6 +32,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name="users", uniqueConstraints= @UniqueConstraint(columnNames = "username"))
 public class User implements UserDetails {
+	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -8,11 +8,16 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ecommerce.ecommercespring.dto.UserDTO;
+import com.ecommerce.ecommercespring.entity.User;
 import com.ecommerce.ecommercespring.repository.UserRepository;
+import com.ecommerce.ecommercespring.response.ApiResponse;
 import com.ecommerce.ecommercespring.service.UserService;
 
 @CrossOrigin(origins = "http://localhost:4200") // Reemplaza esto con el dominio de tu frontend
@@ -43,4 +48,11 @@ public class UserController {
 	        return (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	}
 
+    
+    // API para actualizar los datos del usuario.
+    @PutMapping("/updateUser")
+    public ResponseEntity<ApiResponse> updateUser(@RequestBody UserDTO userRequest)
+    {
+        return ResponseEntity.ok(userService.updateUser(userRequest));
+    }
 }

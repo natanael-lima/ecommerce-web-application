@@ -1,5 +1,6 @@
-# Ignorar configuración sensible
+# Ignorar configuración sensible prueba
 /application.properties
+/.env
 
 HELP.md
 target/
