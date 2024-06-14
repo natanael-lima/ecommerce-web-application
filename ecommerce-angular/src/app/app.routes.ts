@@ -4,11 +4,12 @@ import { AdminDashboardComponent } from './components/admin/admin-dashboard/admi
 import { ProductComponent } from './components/product/product.component';
 import { LoginComponent } from './components/login/login.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
+import { authGuardGuard } from './guards/auth-guard.guard';
 
 
 export const routes: Routes = [ 
 { path: 'admin', component: LoginComponent },
-{ path: 'admin/dashboard', component: AdminDashboardComponent },
+{ path: 'admin/dashboard',  canActivate: [authGuardGuard],component: AdminDashboardComponent },
 { path: 'home', component: HomeComponent },
 { path: 'product', component: ProductComponent },
 { path: 'product/product-detail/:id', component: ProductDetailComponent },

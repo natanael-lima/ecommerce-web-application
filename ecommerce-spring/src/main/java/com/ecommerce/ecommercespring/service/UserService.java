@@ -17,6 +17,8 @@ public interface UserService {
 	
 	public UserDTO getUserById(Long id) throws Exception;
 	
+	public UserDTO getUser(Long id);
+	
 	public List<UserDTO> getAllUser() throws Exception;
 	
 	public void deleteUser(Long id);

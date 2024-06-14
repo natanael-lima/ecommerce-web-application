@@ -1,13 +1,16 @@
 package com.ecommerce.ecommercespring.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +33,26 @@ public class UserController {
 	
 	@Autowired
     private UserRepository userRepository;
-
+	
+	
+	// API para actualizar los datos del usuario.
+    @PutMapping("/updateUser")
+    public ResponseEntity<ApiResponse> updateUser(@RequestBody UserDTO userRequest)
+    {
+        return ResponseEntity.ok(userService.updateUser(userRequest));
+    }
+    
+    // API para eliminar los datos del usuario.
+    @DeleteMapping("/deleteUser/{id}")
+    public ResponseEntity<ApiResponse> deleteUser(@PathVariable Long id)
+    {    
+    	userService.deleteUser(id);
+    	
+        return ResponseEntity.ok(new ApiResponse ("Usuario eliminado correctamente"));
+    }
+	
+	
+	// API para verficar el username.
     @GetMapping("/checkUsername")
     public ResponseEntity<Map<String, Boolean>> checkUsername(@RequestParam String username) {
     	 System.out.println("Buscando usuario: '" + username + "'");
@@ -47,12 +69,33 @@ public class UserController {
 	        // Obtener los detalles del usuario actualmente autenticado
 	        return (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	}
-
     
-    // API para actualizar los datos del usuario.
-    @PutMapping("/updateUser")
-    public ResponseEntity<ApiResponse> updateUser(@RequestBody UserDTO userRequest)
-    {
-        return ResponseEntity.ok(userService.updateUser(userRequest));
+    // API para obtener el usuario by ID por paramaetro.
+ 	@GetMapping(value = "{id}")
+     public ResponseEntity<UserDTO> getUser(@PathVariable Long id)
+     {
+         UserDTO userDTO = userService.getUser(id);
+         if (userDTO==null)
+         {
+            return ResponseEntity.notFound().build();
+         }
+         return ResponseEntity.ok(userDTO);
+     }
+    
+    
+    
+    // API para mostrar todos los usuarios.
+    @GetMapping("/getAllUsers")
+    public ResponseEntity<List<UserDTO>> getAllUsers() throws Exception
+    {      
+    		List<UserDTO> users = userService.getAllUser(); // Llama al servicio para obtener todos los usuarios
+    
+		    if (users == null || users.isEmpty()) {
+		        return ResponseEntity.notFound().build(); // Retorna 404 si no hay usuarios encontrados
+		    }
+		    
+		    return ResponseEntity.ok(users); // Retorna 200 OK con la lista de usuarios
     }
+    
+
 }

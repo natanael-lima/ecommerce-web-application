@@ -4,8 +4,10 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { customInterceptor } from './interceptors/custom.interceptor';
 
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes),provideClientHydration(), provideHttpClient(withFetch())]
+  providers: [provideRouter(routes), provideClientHydration(), provideHttpClient(withInterceptors([customInterceptor]),withFetch())]
 };
+//providers: [provideRouter(routes),provideClientHydration(), provideHttpClient(withFetch())]

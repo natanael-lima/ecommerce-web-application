@@ -1,7 +1,3 @@
-# Ignorar configuración sensible prueba
-/application.properties
-/.env
-
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar

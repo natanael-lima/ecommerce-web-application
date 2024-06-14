@@ -34,6 +34,7 @@ public class UserServiceImp implements UserService {
 		            .username(user.getUsername())
 			        .lastname(user.getLastname())
 			        .name(user.getName())
+			        .role(user.getRole())
 			        .timestamp(user.getTimestamp())
 		            .build();
 		} else {
@@ -51,6 +52,7 @@ public class UserServiceImp implements UserService {
 	            .username(u.getUsername())
 		        .lastname(u.getLastname())
 		        .name(u.getName())
+		        .role(u.getRole())
 		        .timestamp(u.getTimestamp())
 	            .build();
 	}
@@ -76,6 +78,26 @@ public class UserServiceImp implements UserService {
 		// TODO Auto-generated method stub
 		Optional<User> usuario = userRepository.findById(id);
 		return convertdto(usuario);
+	}
+	
+	@Override
+	public UserDTO getUser(Long id) {
+	        
+		User user= userRepository.findById(id).orElse(null);
+	       
+	        if (user!=null)
+	        {
+	            UserDTO userDTO = UserDTO.builder()
+	            .id(user.getId())
+	            .username(user.getUsername())
+	            .lastname(user.getLastname())
+	            .name(user.getName())
+	            .role(user.getRole())
+	            .timestamp(user.getTimestamp())
+	            .build();
+	            return userDTO;
+	        }
+			return null;      
 	}
 
 	@Override
