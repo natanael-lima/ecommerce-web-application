@@ -12,7 +12,7 @@
 
 <header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow">
     <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="/admin/dashboard">Panel de Control</a>
-    <ul class="navbar-nav flex-row d-md-none">
+      <ul class="navbar-nav flex-row d-md-none">
         <li class="nav-item text-nowrap">
           <button class="nav-link px-3 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
@@ -21,18 +21,20 @@
           </button>
         </li>
       </ul>
+      
+      
 </header>
 
   <div class="container-fluid">
     <div class="row">
-      <div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-light ">
+      <div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-light">
         <div class="offcanvas-md offcanvas-end bg-light" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
           <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="sidebarMenuLabel">E-Commerce</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
           </div>
           <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
-            <ul class="nav flex-column">
+            <ul class="nav flex-column ">
               <li class="nav-item">
                 <a class="btn btn-light nav-link text-dark d-flex align-items-center gap-2" aria-current="page"  (click)="changeSection('dashboard')" [ngClass]="{ 'active': currentSection === 'dashboard' }">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
@@ -75,7 +77,6 @@
                 </a>
               </li>
             </ul>
-           
             <hr class="my-3">
             <ul class="nav flex-column mb-auto">
               <li class="nav-item">
@@ -89,8 +90,6 @@
                   </span>
                 </a>
               </li>
-             
-
               <li class="nav-item">
                 <a class="btn btn-light nav-link text-dark d-flex align-items-center gap-2" href="#" (click)="onLogout()">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-door-open-fill" viewBox="0 0 16 16">
@@ -109,14 +108,18 @@
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <h1 class="h2">Dashboard</h1>
             <div class="btn-toolbar mb-2 mb-md-0">
-              <div class="btn-group me-2">
-                <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+              <div class="dropdown mb-1">
+                <a href="#" class="d-flex align-items-center justify-content-start link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                  <strong>Username</strong>
+                </a>
+                <ul class="dropdown-menu text-small shadow ">
+                  <li><a class="dropdown-item" href="#">New project...</a></li>
+                  <li><a class="dropdown-item" href="#">Profile</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#" (click)="onLogout()">Cerrar Sesion</a></li>
+                </ul>
               </div>
-              <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1">
-                <svg class="bi"><use xlink:href="#calendar3"/></svg>
-                This week
-              </button>
             </div>
           </div>
       
@@ -274,18 +277,32 @@
                           Agregar Categoria
                       </div>
                       <div class="card-body">
-                        <form>
+                        <form class="was-validated" (ngSubmit)="onSubmit()" #categoryForm="ngForm">
                           <div class="mb-3">
-                            <label for="productName" class="form-label">Nombre de la Categoria</label>
-                            <input type="text" class="form-control" id="productName">
+                            <label for="newCategoryName" class="form-label" >Nombre de la Categoria</label>
+                            <input type="text" class="form-control" id="newCategoryName"  name="newCategoryName" [(ngModel)]="categoria.name" [ngModelOptions]="{standalone: true}" required #newCategoryName="ngModel">
+                            <div *ngIf="newCategoryName.invalid && (newCategoryName.dirty || newCategoryName.touched)" class="invalid-feedback">
+                              @if(newCategoryName.errors){
+                                <div >
+                                  Nombre de la Categoría es requerido.
+                                </div>
+                              } 
+                            </div>
                           </div>
                           <div class="mb-3">
-                            <label for="productPrice" class="form-label">Descripcion</label>
-                            <input type="text" class="form-control" id="productPrice">
+                            <label for="newCategoryDescription" class="form-label" >Descripcion</label>
+                            <input type="text" class="form-control" id="newCategoryDescription" name="newCategoryDescription"  [(ngModel)]="categoria.description" [ngModelOptions]="{standalone: true}" required #newCategoryDescription="ngModel">
+                            <div *ngIf="newCategoryDescription.invalid && (newCategoryDescription.dirty || newCategoryDescription.touched)" class="invalid-feedback">
+                              @if(newCategoryDescription.errors){
+                                <div >
+                                 Descripcion es requerido.
+                                </div>
+                              } 
+                            </div>
                           </div>
                          
                           <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary">Actualizar</button>
+                            <button type="submit" class="btn btn-primary rounded-pill" [disabled]="categoryForm.invalid">Guardar</button>
                           </div>
                         </form>
                        </div> 
@@ -308,17 +325,17 @@
                                       </tr>
                                   </thead>
                                   <tbody>
-                                    <tr>
-                                      <td>1,001</td>
-                                      <td>Electrodomesticos</td>
-                                      <td>Tipos de electrodomenticos para el hogar.</td>
+                                    <tr *ngFor="let category of categories">
+                                      <td>{{category.id}}</td>
+                                      <td>{{category.name}}</td>
+                                      <td>{{category.description}}</td>
                                       <td> 
-                                          <button class="btn btn-danger rounded-pill px-3 me-2">Eliminar <a class="link-light"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                          <button class="btn btn-danger rounded-pill px-3 me-2" type="submit" (click)="deleteCategory(category.id)" > <a class="link-light"  ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
                                             <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
                                           </svg></a>
                                          </button > 
-                                         <button class="btn btn-primary rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#editarCategoriaModal">Editar <a class="link-light">
+                                         <button class="btn btn-primary rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#editarCategoriaModal"  (click)="loadCategory(category.id)"> <a class="link-light">
                                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                             <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                                             <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
@@ -880,20 +897,35 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <form>
-                    <div class="mb-3">
-                      <label for="productName" class="form-label">Nombre de la Categoria</label>
-                      <input type="text" class="form-control" id="productName">
+                  <form class="was-validated" (ngSubmit)="updateCategory()" #editForm="ngForm">
+                    <div class=" mb-3">
+                      <label for="categoryName" class="form-label">Nombre de la Categoría</label>
+                      <input type="text" class="form-control" id="categoryName" name="categoryName" [(ngModel)]="editingCategory.name" required #categoryName="ngModel">
+                      <div *ngIf="categoryName.invalid && (categoryName.dirty || categoryName.touched)" class="invalid-feedback">
+                        @if(categoryDescription.errors){
+                          <div >
+                            Nombre de la Categoría es requerido.
+                          </div>
+                        } 
+                      </div>
                     </div>
                     <div class="mb-3">
-                      <label for="productPrice" class="form-label">Descripcion</label>
-                      <input type="text" class="form-control" id="productPrice">
+                      <label for="categoryDescription" class="form-label">Descripción</label>
+                      <input type="text" class="form-control" id="categoryDescription" name="categoryDescription" [(ngModel)]="editingCategory.description" required #categoryDescription="ngModel">
+                      <div *ngIf="categoryDescription.invalid && (categoryDescription.dirty || categoryDescription.touched)" class="invalid-feedback">
+                        @if(categoryDescription.errors){
+                          <div >
+                           Descripcion es requerido.
+                          </div>
+                        } 
+                      </div>
                     </div>
-                   
-                    <div class="d-grid gap-2">
-                      <button type="submit" class="btn btn-primary">Actualizar</button>
+                    <!-- Más campos aquí según tu formulario -->
+                    <div class="col-12">
+                      <button type="submit" class="btn btn-primary rounded-pill" [disabled]="editForm.invalid" data-bs-dismiss="modal">Actualizar</button>
                     </div>
                   </form>
+                  
                 </div>
               </div>
             </div>

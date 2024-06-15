@@ -20,7 +20,7 @@ public class HistoryController {
     private HistoryService historyService;
 	
 	// API para obtener una categoria by ID.
-    @GetMapping("/find/{id}")
+    @GetMapping("/get-history/{id}")
     public ResponseEntity<HistoryDTO> findHistoryById(@PathVariable Long id) throws Exception {
         try {
         	HistoryDTO historyDTO = historyService.getHistoryById(id);
@@ -30,7 +30,7 @@ public class HistoryController {
         }
     }
 	// API para obtener una lista de todos las categorias.
-    @GetMapping("/findAll")
+    @GetMapping("/find-all")
     public ResponseEntity<List<HistoryDTO>> findAll() throws Exception {
         try {
         	List<HistoryDTO> historyAll = historyService.getAllHistory();

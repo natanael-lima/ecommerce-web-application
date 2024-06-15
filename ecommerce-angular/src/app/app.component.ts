@@ -15,7 +15,7 @@ import { filter } from 'rxjs';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule,RouterOutlet, HeaderComponent, FooterComponent, ProductComponent,HomeComponent, LoginComponent,ProductDetailComponent,HttpClientModule,FormsModule],
+  imports: [CommonModule,RouterOutlet, HeaderComponent, FooterComponent, ProductComponent,HomeComponent, LoginComponent,ProductDetailComponent, HttpClientModule,FormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

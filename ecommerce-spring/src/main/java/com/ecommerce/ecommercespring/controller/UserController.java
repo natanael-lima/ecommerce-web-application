@@ -36,14 +36,14 @@ public class UserController {
 	
 	
 	// API para actualizar los datos del usuario.
-    @PutMapping("/updateUser")
+    @PutMapping("/update-user")
     public ResponseEntity<ApiResponse> updateUser(@RequestBody UserDTO userRequest)
     {
         return ResponseEntity.ok(userService.updateUser(userRequest));
     }
     
     // API para eliminar los datos del usuario.
-    @DeleteMapping("/deleteUser/{id}")
+    @DeleteMapping("/delete-user/{id}")
     public ResponseEntity<ApiResponse> deleteUser(@PathVariable Long id)
     {    
     	userService.deleteUser(id);
@@ -53,7 +53,7 @@ public class UserController {
 	
 	
 	// API para verficar el username.
-    @GetMapping("/checkUsername")
+    @GetMapping("/check-username")
     public ResponseEntity<Map<String, Boolean>> checkUsername(@RequestParam String username) {
     	 System.out.println("Buscando usuario: '" + username + "'");
         boolean exists = userRepository.findByUsername(username).isPresent();
@@ -71,7 +71,7 @@ public class UserController {
 	}
     
     // API para obtener el usuario by ID por paramaetro.
- 	@GetMapping(value = "{id}")
+ 	@GetMapping("/get-user/{id}")
      public ResponseEntity<UserDTO> getUser(@PathVariable Long id)
      {
          UserDTO userDTO = userService.getUser(id);
@@ -85,7 +85,7 @@ public class UserController {
     
     
     // API para mostrar todos los usuarios.
-    @GetMapping("/getAllUsers")
+    @GetMapping("/get-all-users")
     public ResponseEntity<List<UserDTO>> getAllUsers() throws Exception
     {      
     		List<UserDTO> users = userService.getAllUser(); // Llama al servicio para obtener todos los usuarios

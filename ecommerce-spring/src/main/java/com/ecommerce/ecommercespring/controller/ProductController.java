@@ -3,6 +3,7 @@ package com.ecommerce.ecommercespring.controller;
 
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,7 @@ import com.ecommerce.ecommercespring.dto.ProductRegistrationDTO;
 import com.ecommerce.ecommercespring.entity.Product;
 import com.ecommerce.ecommercespring.enums.ActionType;
 import com.ecommerce.ecommercespring.enums.TableType;
+import com.ecommerce.ecommercespring.exception.CategoryNotFoundException;
 import com.ecommerce.ecommercespring.response.ApiResponse;
 import com.ecommerce.ecommercespring.service.HistoryService;
 import com.ecommerce.ecommercespring.service.ProductService;
@@ -41,13 +43,13 @@ public class ProductController {
     private HistoryService historyService;
 
 	// API para obtener un producto by ID.
-    @GetMapping("/find/{id}")
+    @GetMapping("/get-product/{id}")
     public ResponseEntity<ProductDTO> findProductById(@PathVariable Long id) throws Exception {
         try {
         	ProductDTO prodDTO = productService.getProductById(id);
             return ResponseEntity.ok(prodDTO);
         } catch (RuntimeException e) {
-            return ResponseEntity.noContent().build(); // Retorna un código 204 si el chat no está encontrado
+            return ResponseEntity.noContent().build(); 
         }
     }
     
@@ -77,7 +79,7 @@ public class ProductController {
         	historyService.createHistory(TableType.PRODUCTO,ActionType.DELETE);
             return ResponseEntity.ok().build();
         } catch (RuntimeException e) {
-            return ResponseEntity.noContent().build(); // Retorna un código 204 si el chat no está encontrado
+            return ResponseEntity.noContent().build();
         }
     }
     
@@ -93,20 +95,20 @@ public class ProductController {
  	        	historyService.createHistory(TableType.PRODUCTO,ActionType.UPDATE);
  	        	 return ResponseEntity.ok(new ApiResponse("Producto actualizado con éxito"));
  	        } catch (RuntimeException e) {
- 	            return ResponseEntity.noContent().build(); // Retorna un código 204 si el chat no está encontrado
+ 	            return ResponseEntity.noContent().build(); 
  	        }
  	    }
     }
     
     // API para obtener todos los productos.
-    @GetMapping("/findAll")
+    @GetMapping("/find-all")
     public ResponseEntity<List<ProductDTO>> findAll() throws Exception {
     	
     	try {
         	List<ProductDTO> categoryAll = productService.getAllProduct();
             return ResponseEntity.ok(categoryAll);
         } catch (RuntimeException e) {
-            return ResponseEntity.noContent().build(); // Retorna un código 204 si el chat no está encontrado
+            return ResponseEntity.noContent().build(); 
         }
     }
     
@@ -123,6 +125,35 @@ public class ProductController {
     	List<ProductDTO> products = productService.searchProductsByPriceRange(priceStart, priceEnd);
     	return ResponseEntity.ok(products);
     }
+    
+    // API para obtener todos los productos por busqueda.
+    @GetMapping("/search-highlight")
+    public ResponseEntity<List<ProductDTO>> getAllProductsByHighlights() {
+        List<ProductDTO> products = productService.filterProductHighlights();
+        return ResponseEntity.ok(products);
+    }
+    
+    // API para obtener todos los productos por categoria.
+    @GetMapping("/categoria/{categoryName}")
+    public  ResponseEntity<List<ProductDTO>> getProductsByCategory(@PathVariable String categoryName) {
+       
+       
+        try {
+        	 List<ProductDTO> products = productService.findProductsByCategoria(categoryName);
+            
+            if (products.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                                     .body(Collections.emptyList()); // Devuelve una lista vacía
+            }
+            
+            return ResponseEntity.ok(products);
+        } catch (CategoryNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                                 .body(Collections.emptyList()); // Devuelve una lista vacía
+        }
+        
+    }
+    
     
     
     // API que registra un like.

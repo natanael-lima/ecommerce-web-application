@@ -50,6 +50,9 @@ public class Product {
  	@Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime timestamp;
  	
+ 	@Column(name="highlight")
+    private Boolean highlight;
+ 	
  	@ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "categoria_id")
  	@JsonBackReference

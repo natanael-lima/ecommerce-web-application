@@ -17,11 +17,11 @@ export class ProductService implements OnInit {
   }
 
   getProductById(id: number): Observable<any[]> {
-    return this.http.get<any[]>(`${environment.urlHost}api/product/find/${id}`);
+    return this.http.get<any[]>(`${environment.urlHost}api/product/get-product/${id}`);
   }
 
   getAllProducts(): Observable<any[]> {
-    return this.http.get<any[]>(`${environment.urlHost}api/product/findAll`);
+    return this.http.get<any[]>(`${environment.urlHost}api/product/find-all`);
   }
 
   getAllbyName(name: string): Observable<Product[]> {
@@ -31,4 +31,7 @@ export class ProductService implements OnInit {
   getAllByPrices(priceStart: number, priceEnd:number){
     return this.http.get<any>(`${environment.urlHost}api/product/price-range?priceStart=${encodeURIComponent(priceStart)}&priceEnd=${encodeURIComponent(priceEnd)}`);
   }
+
+
+
 }

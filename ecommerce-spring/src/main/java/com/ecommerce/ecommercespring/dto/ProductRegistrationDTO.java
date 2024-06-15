@@ -18,6 +18,7 @@ public class ProductRegistrationDTO {
     private Double price;
     private int stock;
     private String image;
+    private Boolean highlight;
     private String categoryName; // Nombre de la categoría
    
 }

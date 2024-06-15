@@ -17,6 +17,7 @@ import com.ecommerce.ecommercespring.dto.ProductDTO;
 import com.ecommerce.ecommercespring.dto.ProductRegistrationDTO;
 import com.ecommerce.ecommercespring.entity.Category;
 import com.ecommerce.ecommercespring.entity.Product;
+import com.ecommerce.ecommercespring.exception.CategoryNotFoundException;
 import com.ecommerce.ecommercespring.repository.CategoryRepository;
 import com.ecommerce.ecommercespring.repository.ProductRepository;
 import com.ecommerce.ecommercespring.response.ApiResponse;
@@ -79,6 +80,7 @@ public class ProductServiceImp implements ProductService {
 		        product.setPrice(request.getPrice());
 		        product.setStock(request.getStock());
 		        product.setImage(imageUrl); // Guardar la ruta de la imagen en el objeto Product
+		        product.setHighlight(request.getHighlight());
 		        product.setCategoria(categoria);
 
 		        productRepository.save(product);
@@ -293,4 +295,38 @@ public class ProductServiceImp implements ProductService {
 			
 			return allProductDTO;
 	}
+
+	@Override
+	public List<ProductDTO> filterProductHighlights() {
+		List<Product>  allProduct = productRepository.findByHighlight(true);		 
+		List<ProductDTO> allProductDTO = new ArrayList<>();
+				
+		for (Product prod : allProduct) {
+			allProductDTO.add(convertToDTO(prod));
+		}
+			
+			return allProductDTO;
+	}
+	
+	 public List<ProductDTO> findProductsByCategoria(String categoryName) {
+		 
+		 	// Primero, obtén la categoría por su nombre
+		    Optional<Category> category = categoryRepository.findByName(categoryName);
+		    
+		    
+		    // Si la categoría no existe, puedes manejarlo según tu lógica de negocio
+		    if (category == null) {
+		        // Por ejemplo, lanzar una excepción o devolver un mensaje de error
+		        throw new CategoryNotFoundException("Category not found: " + categoryName);
+		    }
+		 
+		 	List<Product>  allProduct = productRepository.findByCategoriaName(categoryName);		 
+			List<ProductDTO> allProductDTO = new ArrayList<>();
+					
+			for (Product prod : allProduct) {
+				allProductDTO.add(convertToDTO(prod));
+			}
+				
+				return allProductDTO;
+	    }
 }

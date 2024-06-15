@@ -29,4 +29,10 @@ public interface ProductRepository extends JpaRepository<Product,Long>{
 	
 	// Método para buscar productos por rango de precios
     public List<Product> findByPriceBetween(Double priceStart, Double priceEnd);
+    
+    // Método para buscar todos los productos destacados
+    public List<Product> findByHighlight(Boolean filter);
+    
+    // Método para buscar todos los productos by categoria
+    List<Product> findByCategoriaName(String categoryName);
 }

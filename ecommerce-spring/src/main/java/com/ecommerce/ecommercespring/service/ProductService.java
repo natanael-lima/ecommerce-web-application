@@ -20,13 +20,15 @@ public interface ProductService {
 	
 	public ProductDTO getProductById(Long id) throws Exception;
 	
-	List<ProductDTO> searchProductsByName(String name);
+	public List<ProductDTO> searchProductsByName(String name);
 	
-	List<ProductDTO> searchProductsByPriceRange(Double priceStart, Double priceEnd);
+	public List<ProductDTO> searchProductsByPriceRange(Double priceStart, Double priceEnd);
 	
 	public List<ProductDTO> getAllProduct() ;
 	
+	public List<ProductDTO> filterProductHighlights() ;
 	
+	public List<ProductDTO> findProductsByCategoria(String categoryName);
 	
 	
 }

@@ -1,5 +1,6 @@
 package com.ecommerce.ecommercespring.service.imp;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -7,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ecommerce.ecommercespring.dto.CategoryDTO;
 import com.ecommerce.ecommercespring.entity.Category;
+import com.ecommerce.ecommercespring.entity.Product;
 import com.ecommerce.ecommercespring.repository.CategoryRepository;
+import com.ecommerce.ecommercespring.response.ApiResponse;
 import com.ecommerce.ecommercespring.service.CategoryService;
 
 @Service
@@ -56,7 +59,7 @@ public class CategoryServiceImp implements CategoryService {
 	@Override
 	public void deleteCategory(Long id) {
 		// TODO Auto-generated method stub
-		
+		categoryRepository.deleteById(id);
 	}
 	
 	@Override
@@ -70,6 +73,26 @@ public class CategoryServiceImp implements CategoryService {
 		}
 	
 		return allCategoryDTO;
+	}
+
+	@Override
+	public ApiResponse updateCategory(CategoryDTO category) throws Exception {
+		Category cat = categoryRepository.findById(category.getId())
+	            .orElseThrow(() -> new Exception("Producto no encontrado"));
+		 // Actualización de campos del producto
+		cat.setName(category.getName());
+		cat.setDescription(category.getDescription());
+		cat.setTimestamp(LocalDateTime.now());
+		
+	    // Llamar al método de actualización del repositorio
+		categoryRepository.updateCategory(
+				cat.getId(),
+				cat.getName(),
+				cat.getDescription(),
+				cat.getTimestamp()
+	    );
+	    
+	    return new ApiResponse("El Producto se actualizó satisfactoriamente");
 	}
 
 }

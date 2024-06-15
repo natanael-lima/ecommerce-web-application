@@ -8,3 +8,25 @@
     background-color: rgb(53, 107, 17);;
     color: #ffffff;
 }
+
+.navbar-custom {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.8));
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra en la parte inferior */
+  }
+.divider {
+    position: relative;
+    width: 1px; /* Ancho de la barra divisoria */
+    height: 40px; /* Altura de la barra divisoria */
+    background-color: #ccc; /* Color de la barra divisoria */
+    margin: 0 10px 0 10px; /* Espacio entre la barra y los botones */
+  }
+  
+.divider::before {
+    content: "";
+    position: absolute;
+    top: -15px; /* Ajusta la posición verticalmente según el diseño deseado */
+    left: 0;
+    width: 100%;
+    height: calc(100% + 10px); /* Ajusta la altura para cubrir el área completa entre los botones */
+    background-color: transparent; /* Color del fondo detrás de la barra */
+  }  

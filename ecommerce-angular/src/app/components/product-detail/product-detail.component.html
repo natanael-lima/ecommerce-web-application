@@ -1,5 +1,21 @@
+<body class="bg-white" style="margin-top: 100px;">
 <section class="container mt-5">
     <div class="row">
+      <div class="m-1">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb breadcrumb-chevron p-3 bg-body rounded-3">
+            <li class="breadcrumb-item">
+              <a class="link-body-emphasis fw-semibold text-decoration-none" href="#">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a class="link-body-emphasis fw-semibold text-decoration-none" href="#">Product</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+              Data
+            </li>
+          </ol>
+        </nav>
+    </div>
       <!-- Imagen del producto -->
       <div class="col-md-8">
         <img [src]="baseUrl + product.image" alt="Batidor Eléctrico Manual" class="img-fluid product-image">
@@ -33,3 +49,4 @@
       </div>
     </div>
   </section>
+</body>

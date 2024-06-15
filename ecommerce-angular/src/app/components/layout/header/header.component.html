@@ -1,49 +1,95 @@
 
-<header class="py-3 border-bottom bg-body-tertiary navbar fixed-top d-none d-lg-block d-md-block d-sm-none">
-  <div class="container d-flex flex-wrap justify-content-center align-items-center">
-      <a href="/" class="d-flex align-items-center link-body-emphasis text-decoration-none">
+<header class="py-3 border-bottom bg-body-tertiary navbar fixed-top d-none d-lg-block d-md-block d-sm-none shadow" >
+  <div class="container d-flex flex-wrap justify-content-center align-items-center ">
+      <a href="/home" class="d-flex align-items-center link-body-emphasis text-decoration-none">
           <img src="../assets/logo.png" alt="" width="44px">
       </a>
+
+     <a class="navbar-brand" href="/home">EcoRapi</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExample01">
+        <ul class="navbar-nav me-auto mb-2">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/product">Todas las categorias</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Electrónica</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Hogar y Jardín</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Moda y Accesorios</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Libros y Medios</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Deportes y Entretenimiento</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Limpieza y Organización</a>
+          </li>
+         
+        </ul>
+       
+      </div>
+
+      
       <form class="col-lg-8 col-md-8 col-sm-12 col-xs-12 mt-2 m-2" (submit)="onSearch()">
           <div class="row align-items-center">
-              <div class="col-lg-7 col-md-10 col-sm-6 col-xs-6 col-7">
+              <div class="col-lg-8 col-md-10 col-sm-6 col-xs-6 col-7">
                   <input type="search" [(ngModel)]="searchName" name="search" class="form-control rounded-pill" placeholder="Buscar productos..." aria-label="Search">
               </div>
-              <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6 col-5">
+              <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-5">
                   <div class="input-group">
                       <button class="btn rounded-pill px-2 flex-grow-1 btn-custom" type="submit">
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                               <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                          </svg> Buscar</button>
+                          </svg> Buscar
+                        </button>
+                        <a class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover m-2" type="submit" data-bs-toggle="modal" data-bs-target="#loginUser">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                          </svg>
+                        </a>
+                        <span class="divider"></span>
+
+                        <a class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover m-2" href="#">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                          </svg>
+                        </a>
+                        
                   </div>
+                 
               </div>
-              <div class="col-lg-3 col-md-2 col-sm-6 col-xs-6 col-5">
-                <div class="btn-group flex-grow-1 d-none d-lg-block d-md-block d-sm-none ">
-                  <button class="btn rounded-pill px-3  btn-custom dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Categorias
-                  </button>
-                  <ul class="dropdown-menu">
-                      <li><a class="dropdown-item "  href="/product">Todas las Categorias</a></li>
-                      <li><a class="dropdown-item" href="#">Batidora</a></li>
-                      <li><a class="dropdown-item" href="#">Cafetera</a></li>
-                      <li><a class="dropdown-item" href="#">Freidora</a></li>
-                      <li><a class="dropdown-item" href="#">Pavas</a></li>
-                      <li><a class="dropdown-item" href="#">Termos</a></li>
-                  </ul>
-                </div>
-             </div> 
+              
           </div>
       </form>
   </div>
 </header>
-<main style="margin-top: 88px;">
-  <nav class="border-bottom navbar navbar-expand-lg" >
+
+
+
+
+
+
+  <main class="d-block d-lg-none d-md-none d-sm-block ">
+  <nav class="py-3 border-bottom bg-body-tertiary navbar fixed-top shadow">
     <div class="container d-flex flex-wrap justify-content-center">
       <a class="navbar-brand" href="/home">
         <img src="../assets/logo.png" alt="" width="44px" class="d-block d-lg-none d-md-none d-sm-block ">
       </a>
       <div class="col-10 col-lg-9 d-flex justify-content-end">
         <!-- Botón del toggler -->
+        <strong class="p-2">MENU</strong>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -93,6 +139,51 @@
     </div>
   </nav>
 </main>
+
+
+
+<div class="modal fade" id="loginUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content rounded-4 shadow">
+      <div class="modal-header p-5 pb-4 border-bottom-0">
+        <h1 class="fw-bold mb-0 fs-2">Sign up for free</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-5 pt-0">
+        <form class="">
+          <div class="form-floating mb-3">
+            <input type="email" class="form-control rounded-3" id="floatingInput" placeholder="name@example.com">
+            <label for="floatingInput">Email address</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" class="form-control rounded-3" id="floatingPassword" placeholder="Password">
+            <label for="floatingPassword">Password</label>
+          </div>
+          <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Sign up</button>
+          <small class="text-body-secondary">By clicking Sign up, you agree to the terms of use.</small>
+          <hr class="my-4">
+          <h2 class="fs-5 fw-bold mb-3">Or use a third-party</h2>
+          <button class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3" type="submit">
+            <svg class="bi me-1" width="16" height="16"><use xlink:href="#twitter"/></svg>
+            Sign up with Twitter
+          </button>
+          <button class="w-100 py-2 mb-2 btn btn-outline-primary rounded-3" type="submit">
+            <svg class="bi me-1" width="16" height="16"><use xlink:href="#facebook"/></svg>
+            Sign up with Facebook
+          </button>
+          <button class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3" type="submit">
+            <svg class="bi me-1" width="16" height="16"><use xlink:href="#github"/></svg>
+            Sign up with GitHub
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
 
 
 <!--
