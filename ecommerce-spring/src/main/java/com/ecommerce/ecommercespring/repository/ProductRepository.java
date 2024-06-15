@@ -35,4 +35,7 @@ public interface ProductRepository extends JpaRepository<Product,Long>{
     
     // Método para buscar todos los productos by categoria
     List<Product> findByCategoriaName(String categoryName);
+    
+    // Método para buscar todos los productos by color
+    //List<Product> findByColor(String color);
 }

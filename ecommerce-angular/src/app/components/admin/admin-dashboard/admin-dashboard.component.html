@@ -277,10 +277,10 @@
                           Agregar Categoria
                       </div>
                       <div class="card-body">
-                        <form class="was-validated" (ngSubmit)="onSubmit()" #categoryForm="ngForm">
+                        <form class="was-validated" novalidate (ngSubmit)="onSubmit()" #categoryForm="ngForm">
                           <div class="mb-3">
                             <label for="newCategoryName" class="form-label" >Nombre de la Categoria</label>
-                            <input type="text" class="form-control" id="newCategoryName"  name="newCategoryName" [(ngModel)]="categoria.name" [ngModelOptions]="{standalone: true}" required #newCategoryName="ngModel">
+                            <input type="text" class="form-control" id="newCategoryName"  name="newCategoryName" [(ngModel)]="categoria.name" placeholder="" value="" required #newCategoryName="ngModel">
                             <div *ngIf="newCategoryName.invalid && (newCategoryName.dirty || newCategoryName.touched)" class="invalid-feedback">
                               @if(newCategoryName.errors){
                                 <div >
@@ -291,7 +291,7 @@
                           </div>
                           <div class="mb-3">
                             <label for="newCategoryDescription" class="form-label" >Descripcion</label>
-                            <input type="text" class="form-control" id="newCategoryDescription" name="newCategoryDescription"  [(ngModel)]="categoria.description" [ngModelOptions]="{standalone: true}" required #newCategoryDescription="ngModel">
+                            <input type="text" class="form-control" id="newCategoryDescription" name="newCategoryDescription"  [(ngModel)]="categoria.description" placeholder="" value="" required #newCategoryDescription="ngModel">
                             <div *ngIf="newCategoryDescription.invalid && (newCategoryDescription.dirty || newCategoryDescription.touched)" class="invalid-feedback">
                               @if(newCategoryDescription.errors){
                                 <div >
@@ -302,7 +302,7 @@
                           </div>
                          
                           <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary rounded-pill" [disabled]="categoryForm.invalid">Guardar</button>
+                            <button type="submit" class="btn btn-primary rounded-pill" [disabled]="categoryForm.invalid" >Guardar</button>
                           </div>
                         </form>
                        </div> 
