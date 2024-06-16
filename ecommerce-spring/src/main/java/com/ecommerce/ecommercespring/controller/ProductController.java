@@ -55,18 +55,18 @@ public class ProductController {
     
     // API para registrar un nuevo producto.
     @PostMapping(value="/registration-product", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> registerProducto(@RequestPart("file") MultipartFile file, @RequestPart ProductRegistrationDTO request) throws Exception
+    public ResponseEntity<ApiResponse> registerProducto(@RequestPart("file") MultipartFile file, @RequestPart ProductRegistrationDTO request) throws Exception
     {	
     	 if (file.isEmpty() || request == null) {
-    	        return ResponseEntity.badRequest().body("Error: el archivo de imagen o la solicitud están vacíos");
+    	        return ResponseEntity.badRequest().body(new ApiResponse("Error: el archivo de imagen o la solicitud están vacíos"));
     	    } else {
     	        try {
     	         
     	            productService.saveProduct(request, file);
     	            historyService.createHistory(TableType.PRODUCTO,ActionType.CREATE);
-    	            return ResponseEntity.ok("El producto se registró correctamente");
+    	            return ResponseEntity.ok(new ApiResponse("El producto se registró correctamente"));
     	        } catch (IOException ex) {
-    	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al guardar la imagen: " + ex.getMessage());
+    	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ApiResponse("Error al guardar la imagen: " + ex.getMessage()));
     	        }
     	    }
     }

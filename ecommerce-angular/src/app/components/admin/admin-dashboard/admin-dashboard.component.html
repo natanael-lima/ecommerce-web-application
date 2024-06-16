@@ -277,7 +277,7 @@
                           Agregar Categoria
                       </div>
                       <div class="card-body">
-                        <form class="was-validated" novalidate (ngSubmit)="onSubmit()" #categoryForm="ngForm">
+                        <form class="was-validated" (ngSubmit)="onSubmit()" #categoryForm="ngForm">
                           <div class="mb-3">
                             <label for="newCategoryName" class="form-label" >Nombre de la Categoria</label>
                             <input type="text" class="form-control" id="newCategoryName"  name="newCategoryName" [(ngModel)]="categoria.name" placeholder="" value="" required #newCategoryName="ngModel">
@@ -571,63 +571,54 @@
                               Agregar Producto
                           </div>
                           <div class="card-body">
-                              <form>
+                              <form class="was-validated" (ngSubmit)="onSubmitProduct()" #productForm="ngForm" enctype="multipart/form-data">
                                   <div class="form-group mb-3">
-                                      <label for="productName">Nombre del Producto</label>
-                                      <input type="text" class="form-control" id="productName">
+                                      <label for="newProductName">Nombre del Producto</label>
+                                      <input type="text" class="form-control" id="newProductName"  name="newProductName" [(ngModel)]="producto.name" placeholder="" value="" required #newProductName="ngModel">
+                                      <div *ngIf="newProductName.invalid && (newProductName.dirty || newProductName.touched)" class="invalid-feedback">
+                                        @if(newProductName.errors){
+                                          <div >
+                                            Nombre de la Producto es requerido.
+                                          </div>
+                                        } 
+                                      </div>
                                   </div>
                                   <div class="form-group mb-3">
-                                      <label for="productCategory">Categoría</label>
-                                      <select class="form-control" id="productCategory">
-                                          <option value="1">Electrónica</option>
-                                          <option value="2">Ropa</option>
-                                          <option value="3">Hogar</option>
-                                          <!-- Agrega más opciones de categorías según sea necesario -->
+                                      <label for="newProductCategory">Categoría</label>
+                                      <select class="form-control" id="newProductCategory" name="newProductCategory" [(ngModel)]="producto.categoria" placeholder="" value="" required #newProductCategory="ngModel">
+                                        <option value="" disabled selected>Elegir</option>
+                                          <option *ngFor="let category of categories" [value]="category.name" > {{ category.name }}</option>
                                       </select>
                                   </div>
                                   <div class="form-group mb-3">
-                                      <label for="productPrice">Precio del Producto</label>
-                                      <input type="number" class="form-control" id="productPrice">
+                                      <label for="newProductPrice">Precio del Producto</label>
+                                      <input type="number" class="form-control" id="newProductPrice"  name="newProductPrice" [(ngModel)]="producto.price" placeholder="" value="" required #newProductPrice="ngModel">
                                   </div>
                                   <div class="form-group mb-3">
-                                    <label for="descripcion">Descripcion</label>
-                                    <input type="text" class="form-control" id="descripcion">
-                                </div>
-                                <div class="form-group mb-3">
-                                  <label for="stock">Stock</label>
-                                  <input type="number" class="form-control" id="stock">
-                              </div>
+                                    <label for="newProductDescription">Descripcion</label>
+                                    <input type="text" class="form-control" id="newProductDescription"  name="newProductDescription" [(ngModel)]="producto.description" placeholder="" value="" required #newProductDescription="ngModel">
+                                  </div>
+                                  <div class="form-group mb-3">
+                                  <label for="newProductStock">Stock</label>
+                                  <input type="number" class="form-control" id="newProductStock"  name="newProductStock" [(ngModel)]="producto.stock" placeholder="" value="" required #newProductStock="ngModel">
+                                  </div>
                                   <div class="form-group mb-3">
                                       <label for="productImage">Imagen del Producto</label>
                                       <div class="mb-3">
-                                        <input type="file" class="form-control" aria-label="file example" required>
-                                        <div class="invalid-feedback">Example invalid form file feedback</div>
+                                        <input id="file-input" type="file" class="form-control" (change)="onFileSelect($event)"  accept="image/*" aria-label="file example" required>
+                                        <div class="invalid-feedback">Seleccione la imagen</div>
+                                        @if(selectedImageURL){
+                                          <div class="image-preview">
+                                            <img [src]="selectedImageURL" alt="Preview" class="preview-image">
+                                          </div>
+                                        }
                                       </div>
                                     
                                   </div>
                                   <div class="d-grid gap-1">
-                                    <button type="submit" class="btn btn-success rounded-pill ">Agregar</button>
-                                    <!-- Button to trigger the toast -->
-                                    <button type="button" class="btn btn-primary" id="liveToastBtn">Show live toast</button>
-
-                                    <!-- Toast container -->
-                                    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-                                      <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-                                        <div class="toast-header">
-                                          <img src="..." class="rounded me-2" alt="...">
-                                          <strong class="me-auto">Bootstrap</strong>
-                                          <small>11 mins ago</small>
-                                          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                                        </div>
-                                        <div class="toast-body">
-                                          Hello, world! This is a toast message.
-                                        </div>
-                                      </div>
-                                    </div>
-
+                                    <button type="submit" class="btn btn-success rounded-pill">Agregar</button>
+                                   
                                   </div>
-                                  
-                                 
                               </form>
                           </div>
                       </div>
@@ -651,16 +642,14 @@
                                       </tr>
                                   </thead>
                                   <tbody>
-                                    <tr>
-                                      <td>1,001</td>
-                                      <td> <img width="50" height="50" src="https://apolomates.com.ar/wp-content/uploads/2023/04/media-manija-black-boca.png" alt=""> </td>
-                                      <td>Termo Staley</td>
-                                      <td>Bebida</td>
-                                      <td>$9999</td>
-                                      <td>500</td>
-                                      <td><button class="btn btn-danger rounded-pill px-3 me-2" data-bs-toggle="tooltip" data-bs-placement="top"
-                                        data-bs-custom-class="custom-tooltip"
-                                        data-bs-title="This top tooltip is themed via CSS variables."> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                    <tr *ngFor="let product of products">
+                                      <td>{{product.id}}</td>
+                                      <td> <img width="50" height="50" [src]="baseUrl + product.image" alt="{{product.image}}"> </td>
+                                      <td>{{product.name}}</td>
+                                      <td>{{product.categoria}}</td>
+                                      <td>{{product.price}}</td>
+                                      <td>{{product.stock}}</td>
+                                      <td><button class="btn btn-danger rounded-pill px-3 me-2" (click)="deleteProduct(product.id)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="This top tooltip is themed via CSS variables."> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
                                         <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
                                       </svg> </button > <button class="btn btn-primary rounded-pill px-3 me-2" data-bs-toggle="modal" data-bs-target="#editarProductoModal"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -668,25 +657,7 @@
                                         <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
                                       </svg></button> </td>
                                     </tr>
-                                    <tr>
-                                      <td>1,001</td>
-                                      <td> <svg class="bd-placeholder-img" width="50" height="50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
-                                        <rect width="100%" height="100%" fill="#777"></rect>
-                                      </svg></td>
-                                      <td>Termo Staley</td>
-                                      <td>Bebida</td>
-                                      <td>$9999</td>
-                                      <td>500</td>
-                                      <td><button class="btn btn-danger rounded-pill px-3 me-2" data-bs-toggle="tooltip" data-bs-placement="top"
-                                        data-bs-custom-class="custom-tooltip"
-                                        data-bs-title="This top tooltip is themed via CSS variables."> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
-                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
-                                      </svg> </button > <button class="btn btn-primary rounded-pill px-3 me-2" data-bs-toggle="modal" data-bs-target="#editarProductoModal"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-                                      </svg></button>  </td>
-                                    </tr>
+                                    
                                     
                                   </tbody>
                               </table>
@@ -968,4 +939,16 @@
       </main>
     </div>
     </div>
+
+    <script>
+      const toastTrigger = document.getElementById('liveToastBtn')
+      const toastLiveExample = document.getElementById('liveToast')
+
+      if (toastTrigger) {
+        const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+        toastTrigger.addEventListener('click', () => {
+          toastBootstrap.show()
+        })
+      }
+    </script>
 

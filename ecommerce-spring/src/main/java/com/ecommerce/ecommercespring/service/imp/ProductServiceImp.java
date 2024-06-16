@@ -98,9 +98,17 @@ public class ProductServiceImp implements ProductService {
 	}
 
 	@Override
-	public void deleteProduct(Long id) {
+	public void deleteProduct(Long id) throws Exception {
 		// TODO Auto-generated method stub
+		Product producto = productRepository.findById(id)
+	            .orElseThrow(() -> new Exception("Producto no encontrado"));
+		
+		// Guarda la ruta de la imagen antigua
+	    String oldImageUrl = producto.getImage();
+
 		productRepository.deleteById(id);
+		
+		deleteOldImage(oldImageUrl);
 	}
 
 	@Override

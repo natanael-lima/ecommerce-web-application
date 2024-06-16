@@ -10,6 +10,11 @@ import { CategoryRequest } from '../../../interfaces/categoryRequest';
 import { Category } from '../../../models/category';
 import { catchError, tap, throwError } from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
+import { ProductRequest } from '../../../interfaces/productRequest';
+import { Product } from '../../../models/product';
+import { ProductService } from '../../../services/product.service';
+import { environment } from '../../../../environments/environment.prod';
+import { Imagen } from '../../../models/imagen';
 
 
 
@@ -21,6 +26,8 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrl: './admin-dashboard.component.css'
 })
 export class AdminDashboardComponent implements OnInit{
+  baseUrl = environment.baseUrl;
+
   currentSection: string = 'dashboard'; // Sección actual
   currentUser: User ={
     id:0,
@@ -34,6 +41,12 @@ export class AdminDashboardComponent implements OnInit{
   categories: CategoryRequest[] = [];
   categoria: Category = new Category('', '', new Date());
 
+  products: ProductRequest[] = [];
+  producto: Product = new Product('', '',0, 0,'', new Date,false, '');
+  image:Imagen;
+
+  selectedImageURL: string | ArrayBuffer = '';
+
   // Propiedades para el formulario de edición
   editingCategory: CategoryRequest ={
       id:0,
@@ -42,12 +55,14 @@ export class AdminDashboardComponent implements OnInit{
       timestamp: new Date
     };
 
-  constructor(private categoryService:CategoryService,private userService:UserService, private formBuilder:FormBuilder, private loginService:LoginService,private router:Router ){
     
+  constructor(private productService:ProductService,private categoryService:CategoryService,private userService:UserService, private formBuilder:FormBuilder, private loginService:LoginService,private router:Router ){
+    this.image = new Imagen();
 }
 
 ngOnInit(): void {
     this.getAllCategory();
+    this.getAllProduct();
 
 }
 onSubmit() {
@@ -67,6 +82,62 @@ onSubmit() {
       return throwError(error);
     })
   ).subscribe();
+
+}
+onSubmitProduct(){
+  
+  const formData = new FormData();
+  // Agregar los datos del producto como un objeto, no como una cadena JSON
+  formData.append('request', new Blob([JSON.stringify({
+    name: this.producto.name,
+    description: this.producto.description,
+    price: this.producto.price,
+    stock: this.producto.stock,
+    categoryName: this.producto.categoria
+  })], {
+    type: 'application/json'
+  }));
+
+  // Agregar archivo de imagen de perfil
+  if (this.image.image) {
+     formData.append('file', this.image.image, this.image.image.name);
+  }
+  //formData.append('request', datosProduct);
+  console.log('Archivo:', formData.get('file'));
+  console.log('Obejeto:',formData.get('request'))
+
+  this.productService.createProduct(formData).pipe(
+    tap(response => {
+      console.log("Respuesta del servidor:", response);
+      if (response) {
+        console.log("Registro exitoso",response.message);
+        this.getAllProduct();
+      } else {
+        console.error('Error al registrar la producto:', response);
+        // Aquí puedes manejar otros tipos de errores según el caso
+      }
+    }),
+    catchError(error => {
+      console.error('Error al registrar la producto:', error);
+      return throwError(error);
+    })
+  ).subscribe();
+}
+
+onFileSelect(event: any) {
+  const file = event?.target?.files?.[0];
+  
+  if (file) {
+      this.image.image = file;
+      this.image.imageFileName = file.name;
+
+      // Crear una URL local para la imagen seleccionada
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (event) => {
+          this.selectedImageURL = event.target?.result as string;
+      };
+  }
 }
 
 getAllCategory(): void {
@@ -79,6 +150,17 @@ getAllCategory(): void {
       }
     );
   }
+
+getAllProduct(): void {
+    this.productService.getAllProducts().subscribe(
+      (data: ProductRequest[]) => {
+        this.products = data;
+      },
+      (error) => {
+        console.error('Error fetching categories:', error);
+      }
+    );
+  }  
 
 updateCategory() {
   if (this.editingCategory.id === null) {
@@ -105,6 +187,18 @@ deleteCategory(id:number){
   );
 }
 
+deleteProduct(id:number){
+  this.productService.deleteProduct(id).subscribe(
+    (data: Product) => {
+      console.log('Producto eliminada exitosamente:', data);
+      this.getAllProduct();
+    },
+    (error) => {
+      console.error('Error al eliminar la producto:', error);
+    }
+  );
+}
+
 // Función para cambiar la sección actual
 changeSection(section: string): void {
   this.currentSection = section;
@@ -127,5 +221,16 @@ loadCategory(categoryId: number): void {
   }
 
 
+  // Agregar campos de datos del perfil
+  //formData.append('name', this.producto.name);
+  //formData.append('description', this.producto.description);
+  //formData.append('price', this.producto.price.toString());
+  //formData.append('stock', this.producto.stock.toString());
+  //formData.append('categoryName', this.producto.categoria);
+
+  // Agregar archivo de imagen de perfil
+  //if (this.image.image) {
+  //    formData.append('file', this.image.image, this.image.image.name);
+  //}
 
 }

@@ -6,6 +6,7 @@ export class Product {
     stock: number;
     image: string;
     timestamp: Date; // Tipo corregido de date a Date
+    highlights: Boolean;
     categoria: string;
   
     constructor(
@@ -14,7 +15,8 @@ export class Product {
       price: number, 
       stock: number, 
       image: string, 
-      timestamp: Date, 
+      timestamp: Date,
+      highlights: Boolean, 
       categoria: string
     ) {
       this.name = name;
@@ -23,6 +25,7 @@ export class Product {
       this.stock = stock;
       this.image = image;
       this.timestamp = timestamp;
+      this.highlights=highlights;
       this.categoria = categoria;
     }
   }
