@@ -43,42 +43,14 @@
           <button class="btn btn-outline-success rounded-pill px-3 mb-2">See All</button>
           <div class="d-flex flex-row flex-wrap justify-content-between">
             <!-- Aquí puedes incluir las tarjetas de productos -->
-            <div class="card mb-3" style="width: 150px;">
-              <img src="https://www.sakurasa.com/sistema/imagenes/articulos/0020499.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Producto 1</h5>
+             <div *ngFor="let item of productsHighlights" >
+              <div class="card mb-3" style="width: 150px;">
+                  <img [src]="baseUrl + item.image" class="card-img-top" alt="{{item.image}}">
+                  <div class="card-body">
+                    <h5 class="card-title lead">{{item.name}}</h5>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="card mb-3" style="width: 150px;">
-              <img src="https://www.sakurasa.com/sistema/imagenes/articulos/0020499.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Producto 2</h5>
-              </div>
-            </div>
-            <div class="card mb-3" style="width: 150px;">
-              <img src="https://www.sakurasa.com/sistema/imagenes/articulos/0020499.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Producto 3</h5>
-              </div>
-            </div>
-            <div class="card mb-3" style="width: 150px;">
-              <img src="https://www.sakurasa.com/sistema/imagenes/articulos/0020499.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Producto 4</h5>
-              </div>
-            </div>
-            <div class="card mb-3" style="width: 150px;">
-              <img src="https://www.sakurasa.com/sistema/imagenes/articulos/0020499.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Producto 5</h5>
-              </div>
-            </div>
-            <div class="card mb-3" style="width: 150px;">
-              <img src="https://www.sakurasa.com/sistema/imagenes/articulos/0020499.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Producto 6</h5>
-              </div>
-            </div>
             <!-- Añade más tarjetas de productos aquí -->
           </div>
         </div>

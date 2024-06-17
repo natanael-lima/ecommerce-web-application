@@ -19,6 +19,7 @@ public class ProductDTO {
      Double price;
      int stock;
      String image;
+      Boolean highlight;
      LocalDateTime timestamp;
      String categoria;
 }

@@ -11,7 +11,7 @@ export const customInterceptor: HttpInterceptorFn = (req, next) => {
     if (req.body instanceof FormData) {
       modifiedReq = req.clone({
         setHeaders: {
-          'Accept': '/*',
+          'Accept': 'application/json', // cambie a json porque envia un request json + file que seria multi
           'Authorization': `Bearer ${myToken}`
           // No establecemos 'Content-Type' aquí porque el navegador lo hará automáticamente con el boundary correcto para FormData
         }

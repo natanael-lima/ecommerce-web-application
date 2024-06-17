@@ -54,7 +54,7 @@ public class ProductController {
     }
     
     // API para registrar un nuevo producto.
-    @PostMapping(value="/registration-product", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value="registration-product", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ApiResponse> registerProducto(@RequestPart("file") MultipartFile file, @RequestPart ProductRegistrationDTO request) throws Exception
     {	
     	 if (file.isEmpty() || request == null) {
@@ -84,15 +84,26 @@ public class ProductController {
     }
     
     // API para actualizar un producto.
-    @PutMapping(value="/update-product/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<ApiResponse> updateProduct(@PathVariable Long id, @RequestPart("file") MultipartFile file, @RequestPart ProductDTO product) throws Exception {
-    	 if (file.isEmpty() || product == null) {
+    @PutMapping(value="update-product/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ApiResponse> updateProduct(@PathVariable Long id, @RequestPart(value = "file", required = false) MultipartFile file, @RequestPart(value = "product", required = true) ProductDTO product, @RequestParam(value = "keepCurrentImage", required = false) Boolean keepCurrentImage) throws Exception {
+    	 if (product == null || (file == null && !keepCurrentImage)) {
     		 return ResponseEntity.badRequest().body(new ApiResponse("Error: el archivo de imagen o la solicitud están vacíos"));
  	    } else {
  	    	try {;
- 	    		product.setId(id);
- 	    		productService.updateProduct(product, file);  
- 	        	historyService.createHistory(TableType.PRODUCTO,ActionType.UPDATE);
+ 	    		
+ 	    	 	// Si file no es nulo, significa que hay una nueva imagen seleccionada, entonces la actualizamos.
+	 	       if (file != null) {
+	 	           		// Procesar la nueva imagen
+	 	    	   	    System.out.print("entre file update");
+	 	    	   		product.setId(id);
+	 	    	   		productService.updateProduct(product, file);  
+	 	       } else if (Boolean.TRUE.equals(keepCurrentImage)) {
+	 	           		// Mantener la imagen actual
+	 	    	   	  System.out.print("entre data update");
+		 	    	  product.setId(id);
+		 	    	  productService.updateProductDate(product);
+	 	       }
+	 	      historyService.createHistory(TableType.PRODUCTO,ActionType.UPDATE);
  	        	 return ResponseEntity.ok(new ApiResponse("Producto actualizado con éxito"));
  	        } catch (RuntimeException e) {
  	            return ResponseEntity.noContent().build(); 
@@ -136,8 +147,6 @@ public class ProductController {
     // API para obtener todos los productos por categoria.
     @GetMapping("/categoria/{categoryName}")
     public  ResponseEntity<List<ProductDTO>> getProductsByCategory(@PathVariable String categoryName) {
-       
-       
         try {
         	 List<ProductDTO> products = productService.findProductsByCategoria(categoryName);
             

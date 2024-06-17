@@ -110,11 +110,11 @@
             <div class="btn-toolbar mb-2 mb-md-0">
               <div class="dropdown mb-1">
                 <a href="#" class="d-flex align-items-center justify-content-start link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                  <img src="https://img.icons8.com/stickers/100/attendance-mark.png" alt="" width="32" height="32" class="rounded-circle me-2">
                   <strong>Username</strong>
                 </a>
                 <ul class="dropdown-menu text-small shadow ">
-                  <li><a class="dropdown-item" href="#">New project...</a></li>
+                  <li><a class="dropdown-item" href="#" disabled>Rol User</a></li>
                   <li><a class="dropdown-item" href="#">Profile</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="#" (click)="onLogout()">Cerrar Sesion</a></li>
@@ -254,17 +254,20 @@
           
         @if(currentSection === 'categoria' ){ 
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-             
-            <h1 class="h2">Panel de Control de Categoria</h1>
+            <h1 class="h2">Categorias</h1>
             <div class="btn-toolbar mb-2 mb-md-0">
-              <div class="btn-group me-2">
-                <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+              <div class="dropdown mb-1">
+                <a href="#" class="d-flex align-items-center justify-content-start link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="https://img.icons8.com/stickers/100/attendance-mark.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                  <strong>Username</strong>
+                </a>
+                <ul class="dropdown-menu text-small shadow ">
+                  <li><a class="dropdown-item" href="#" disabled>Rol User</a></li>
+                  <li><a class="dropdown-item" href="#">Profile</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#" (click)="onLogout()">Cerrar Sesion</a></li>
+                </ul>
               </div>
-              <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1">
-                <svg class="bi"><use xlink:href="#calendar3"/></svg>
-                This week
-              </button>
             </div>
           </div>
           <section class="dashboard-section">
@@ -353,17 +356,20 @@
          }
          @if(currentSection === 'feature_product' ){ 
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-             
-            <h1 class="h2">Panel de Control de Destacados</h1>
+            <h1 class="h2">Productos Destacados</h1>
             <div class="btn-toolbar mb-2 mb-md-0">
-              <div class="btn-group me-2">
-                <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+              <div class="dropdown mb-1">
+                <a href="#" class="d-flex align-items-center justify-content-start link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="https://img.icons8.com/stickers/100/attendance-mark.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                  <strong>Username</strong>
+                </a>
+                <ul class="dropdown-menu text-small shadow ">
+                  <li><a class="dropdown-item" href="#" disabled>Rol User</a></li>
+                  <li><a class="dropdown-item" href="#">Profile</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#" (click)="onLogout()">Cerrar Sesion</a></li>
+                </ul>
               </div>
-              <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1">
-                <svg class="bi"><use xlink:href="#calendar3"/></svg>
-                This week
-              </button>
             </div>
           </div>
           <section class="dashboard-section">
@@ -386,51 +392,13 @@
                                       </tr>
                                   </thead>
                                   <tbody>
-                                    <tr>
-                                      <td>01</td>
-                                      <td>
-                                        <svg class="bd-placeholder-img" width="50" height="50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
-                                          <rect width="100%" height="100%" fill="#777"></rect>
-                                        </svg>
+                                    <tr *ngFor="let item of productsHighlights">
+                                      <td>{{item.id}}</td>
+                                      <td><img width="50" height="50" [src]="baseUrl + item.image" alt="{{item.image}}">
+                                       
                                       </td>
-                                      <td>Pava Electrica</td>
-                                      <td>January 15, 2024</td>
-                                      <td>
-                                        <button class="btn btn-danger rounded-pill px-3 me-2" data-bs-toggle="tooltip" data-bs-placement="top"
-                                        data-bs-custom-class="custom-tooltip"
-                                        data-bs-title="This top tooltip is themed via CSS variables."> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
-                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
-                                      </svg> </button >
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td>02</td>
-                                      <td>
-                                        <svg class="bd-placeholder-img" width="50" height="50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
-                                          <rect width="100%" height="100%" fill="#777"></rect>
-                                        </svg>
-                                      </td>
-                                      <td>Sillon Gamer</td>
-                                      <td>January 14, 2024</td>
-                                      <td>
-                                        <button class="btn btn-danger rounded-pill px-3 me-2" data-bs-toggle="tooltip" data-bs-placement="top"
-                                        data-bs-custom-class="custom-tooltip"
-                                        data-bs-title="This top tooltip is themed via CSS variables."> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
-                                        <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
-                                      </svg> </button >
-                                      </td>
-                                    </tr>
-                                    <tr>
-                                      <td>03</td>
-                                      <td>
-                                        <svg class="bd-placeholder-img" width="50" height="50" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
-                                          <rect width="100%" height="100%" fill="#777"></rect>
-                                        </svg>
-                                      </td>
-                                      <td>Mesa De Pool</td>
-                                      <td>January 13, 2024</td>
+                                      <td>{{item.name}}</td>
+                                      <td>{{item.timestamp}}</td>
                                       <td>
                                         <button class="btn btn-danger rounded-pill px-3 me-2" data-bs-toggle="tooltip" data-bs-placement="top"
                                         data-bs-custom-class="custom-tooltip"
@@ -452,16 +420,20 @@
          }
         @if(currentSection === 'user' ){ 
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Panel de Control de Productos</h1>
+            <h1 class="h2">Usuarios</h1>
             <div class="btn-toolbar mb-2 mb-md-0">
-              <div class="btn-group me-2">
-                <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+              <div class="dropdown mb-1">
+                <a href="#" class="d-flex align-items-center justify-content-start link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="https://img.icons8.com/stickers/100/attendance-mark.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                  <strong>Username</strong>
+                </a>
+                <ul class="dropdown-menu text-small shadow ">
+                  <li><a class="dropdown-item" href="#" disabled>Rol User</a></li>
+                  <li><a class="dropdown-item" href="#">Profile</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#" (click)="onLogout()">Cerrar Sesion</a></li>
+                </ul>
               </div>
-              <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1">
-                <svg class="bi"><use xlink:href="#calendar3"/></svg>
-                This week
-              </button>
             </div>
           </div>
           <section class="dashboard-section">
@@ -550,16 +522,20 @@
          }
         @if(currentSection === 'products' ){ 
           <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Panel de Control de Productos</h1>
+            <h1 class="h2">Productos</h1>
             <div class="btn-toolbar mb-2 mb-md-0">
-              <div class="btn-group me-2">
-                <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+              <div class="dropdown mb-1">
+                <a href="#" class="d-flex align-items-center justify-content-start link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="https://img.icons8.com/stickers/100/attendance-mark.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                  <strong>Username</strong>
+                </a>
+                <ul class="dropdown-menu text-small shadow ">
+                  <li><a class="dropdown-item" href="#" disabled>Rol User</a></li>
+                  <li><a class="dropdown-item" href="#">Profile</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#" (click)="onLogout()">Cerrar Sesion</a></li>
+                </ul>
               </div>
-              <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1">
-                <svg class="bi"><use xlink:href="#calendar3"/></svg>
-                This week
-              </button>
             </div>
           </div>
           <section class="dashboard-section">
@@ -652,7 +628,7 @@
                                       <td><button class="btn btn-danger rounded-pill px-3 me-2" (click)="deleteProduct(product.id)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip" data-bs-title="This top tooltip is themed via CSS variables."> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
                                         <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
-                                      </svg> </button > <button class="btn btn-primary rounded-pill px-3 me-2" data-bs-toggle="modal" data-bs-target="#editarProductoModal"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                      </svg> </button > <button class="btn btn-primary rounded-pill px-3 me-2" data-bs-toggle="modal" data-bs-target="#editarProductoModal" (click)="loadProduct(product.id)"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                         <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                                         <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
                                       </svg></button> </td>
@@ -821,39 +797,74 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <form>
-                    <div class="mb-3">
-                      <label for="productName" class="form-label">Nombre del Producto</label>
-                      <input type="text" class="form-control" id="productName">
-                    </div>
-                    <div class="mb-3">
-                      <label for="productCategory" class="form-label">Categoría</label>
-                      <select class="form-select" id="productCategory">
-                        <option value="1">Electrónica</option>
-                        <option value="2">Ropa</option>
-                        <option value="3">Hogar</option>
-                        <!-- Agrega más opciones de categorías según sea necesario -->
-                      </select>
-                    </div>
-                    <div class="mb-3">
-                      <label for="productPrice" class="form-label">Precio del Producto</label>
-                      <input type="number" class="form-control" id="productPrice">
-                    </div>
-                    <div class="mb-3">
-                      <label for="productImage" class="form-label">Imagen del Producto</label>
-                      <input type="file" class="form-control" id="productImage" aria-label="file example" required>
-                      <div class="invalid-feedback">Por favor selecciona una imagen.</div>
-                    </div>
-                    <div class="mb-3">
-                      <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                        <label class="form-check-label" for="flexSwitchCheckDefault">Desctacar Producto</label>
-                      </div>
-                    </div>
-                    
-                    <div class="d-grid gap-2">
-                      <button type="submit" class="btn btn-primary">Actualizar</button>
-                    </div>
+                      <form class="was-validated" (ngSubmit)="updateProduct()" #productFormUpdate="ngForm" enctype="multipart/form-data">
+                                  <div class="form-group mb-3">
+                                      <label for="updateProductName">Nombre del Producto</label>
+                                      <input type="text" class="form-control" id="updateProductName"  name="updateProductName" [(ngModel)]="editingProduct.name" placeholder="" value="" required #updateProductName="ngModel">
+                                      <div *ngIf="updateProductName.invalid && (updateProductName.dirty || updateProductName.touched)" class="invalid-feedback">
+                                        @if(updateProductName.errors){
+                                          <div >
+                                            Nombre de la Producto es requerido.
+                                          </div>
+                                        } 
+                                      </div>
+                                  </div>
+                                  <div class="form-group mb-3">
+                                      <label for="updateProductCategory">Categoría</label>
+                                      <select class="form-control" id="updateProductCategory" name="updateProductCategory" [(ngModel)]="editingProduct.categoria" placeholder="" value="" required #updateProductCategory="ngModel">
+                                        <option value="" disabled selected>Elegir</option>
+                                          <option *ngFor="let category of categories" [value]="category.name" > {{ category.name }}</option>
+                                      </select>
+                                  </div>
+                                  <div class="form-group mb-3">
+                                      <label for="updateProductPrice">Precio del Producto</label>
+                                      <input type="number" class="form-control" id="updateProductPrice"  name="updateProductPrice" [(ngModel)]="editingProduct.price" placeholder="" value="" required #updateProductPrice="ngModel">
+                                  </div>
+                                  <div class="form-group mb-3">
+                                    <label for="updateProductDescription">Descripcion</label>
+                                    <input type="text" class="form-control" id="updateProductDescription"  name="updateProductDescription" [(ngModel)]="editingProduct.description" placeholder="" value="" required #updateProductDescription="ngModel">
+                                  </div>
+                                  <div class="form-group mb-3">
+                                  <label for="updateProductStock">Stock</label>
+                                  <input type="number" class="form-control" id="updateProductStock"  name="updateProductStock" [(ngModel)]="editingProduct.stock" placeholder="" value="" required #updateProductStock="ngModel">
+                                  </div>
+                                  @if(!changeImage){
+                                  <div class="form-group mb-3">
+                                      <label for="productImage">Imagen del Producto</label>
+                                      <div class="image-preview">
+                                        <div class="image-container">
+                                          <img [src]="baseUrl + editingProduct.image" alt="{{ editingProduct.image }}" class="preview-image">
+                                        </div>
+                                      </div>
+                                      <button class="change-image-button" (click)="toggleChangeImage()"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                                        <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41m-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9"/>
+                                        <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5 5 0 0 0 8 3M3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9z"/>
+                                      </svg> </button>
+                                  </div>}
+                                  @if(changeImage){
+                                    <div class="form-group mb-3">
+                                      <label for="productImage">Nueva Imagen del Producto</label>
+                                      <div class="mb-3">
+                                        <input id="file-input" type="file" class="form-control" (change)="onFileSelect($event)"  accept="image/*" aria-label="file example" required>
+                                        <div class="invalid-feedback">Seleccione la imagen</div>
+                                        @if(selectedImageURL){
+                                          <div class="image-preview">
+                                            <img [src]="selectedImageURL" alt="Preview" class="preview-image">
+                                          </div>
+                                        }
+                                      </div>
+                                    
+                                  </div>
+                                  }
+                                  <div class="mb-3">
+                                    <div class="form-check form-switch">
+                                      <input class="form-check-input" type="checkbox" role="switch" id="updateProductHigh"  name="updateProductHigh" [(ngModel)]="editingProduct.highlight">
+                                      <label class="form-check-label" for="updateProductHigh">Desctacar Producto</label>
+                                    </div>
+                                  </div>
+                                <div class="d-grid gap-2">
+                                  <button type="submit" class="btn btn-primary rounded-pill" [disabled]="productFormUpdate.invalid" data-bs-dismiss="modal">Actualizar</button>
+                                </div>
                   </form>
                 </div>
               </div>
@@ -939,16 +950,3 @@
       </main>
     </div>
     </div>
-
-    <script>
-      const toastTrigger = document.getElementById('liveToastBtn')
-      const toastLiveExample = document.getElementById('liveToast')
-
-      if (toastTrigger) {
-        const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-        toastTrigger.addEventListener('click', () => {
-          toastBootstrap.show()
-        })
-      }
-    </script>
-

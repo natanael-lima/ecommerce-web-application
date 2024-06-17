@@ -9,12 +9,12 @@ body {
   background: #ffffff;
 }
 .card-color{
-  background: linear-gradient(200deg, #3b3b3b, #555555);
+  background: linear-gradient(210deg, #5a5a5a, #181a19);
 }
 .circle-container {
   width: 66px; /* Ancho del contenedor */
   height: 66px; /* Altura del contenedor */
-  background-color: #57635a; /* Color de fondo del contenedor */
+  background-color: #181a19; /* Color de fondo del contenedor */
   border-radius: 50%; /* Hace que el contenedor sea circular */
   display: flex;
   align-items: center;
@@ -96,10 +96,36 @@ body {
     overflow: hidden;
     border-radius: 50%;
     border: 2px solid #ccc;
+    position: relative; /* Agregamos posición relativa para .image-preview */
   }
   
   .preview-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }  
+  }
+/*btn de edit product image*/
+.change-image-button {
+  /*position: relative;
+  /top: 50%;
+  right: -15px;*/
+  position: absolute;
+  top: 80%;
+  right: 385px;
+  transform: translateY(-50%);
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50%; /* Hace que el botón sea redondo */
+  width: 30px; /* Tamaño del botón */
+  height: 30px; /* Tamaño del botón */
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1; /* Asegura que esté encima de la imagen */
+}
+.change-image-button:hover {
+  background-color: #0056b3;
+}
+

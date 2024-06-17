@@ -6,7 +6,7 @@ export interface ProductRequest {
     stock: number;
     image: string;
     timestamp: Date; // Tipo corregido de date a Date
-    highlights: Boolean;
+    highlight: Boolean;
     categoria: string;
    
   

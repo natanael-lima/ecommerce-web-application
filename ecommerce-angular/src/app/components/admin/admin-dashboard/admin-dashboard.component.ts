@@ -42,10 +42,11 @@ export class AdminDashboardComponent implements OnInit{
   categoria: Category = new Category('', '', new Date());
 
   products: ProductRequest[] = [];
+  productsHighlights: ProductRequest[] = [];
   producto: Product = new Product('', '',0, 0,'', new Date,false, '');
   image:Imagen;
 
-  selectedImageURL: string | ArrayBuffer = '';
+  selectedImageURL: string | ArrayBuffer= '';
 
   // Propiedades para el formulario de edición
   editingCategory: CategoryRequest ={
@@ -54,7 +55,20 @@ export class AdminDashboardComponent implements OnInit{
       description:'',
       timestamp: new Date
     };
+  // Propiedades para el formulario de edición
+  editingProduct: ProductRequest ={
+    id: 0,
+    name: '',
+    description: '',
+    price: 0, // Tipo corregido de double a number
+    stock: 0,
+    image: '',
+    timestamp: new Date,
+    highlight: true,
+    categoria: ''
 
+  };  
+  changeImage = false;
     
   constructor(private productService:ProductService,private categoryService:CategoryService,private userService:UserService, private formBuilder:FormBuilder, private loginService:LoginService,private router:Router ){
     this.image = new Imagen();
@@ -63,7 +77,7 @@ export class AdminDashboardComponent implements OnInit{
 ngOnInit(): void {
     this.getAllCategory();
     this.getAllProduct();
-
+    this.getAllProductbyHighlight();
 }
 onSubmit() {
   console.log('Datos a guardar:', this.categoria);
@@ -85,7 +99,6 @@ onSubmit() {
 
 }
 onSubmitProduct(){
-  
   const formData = new FormData();
   // Agregar los datos del producto como un objeto, no como una cadena JSON
   formData.append('request', new Blob([JSON.stringify({
@@ -114,7 +127,6 @@ onSubmitProduct(){
         this.getAllProduct();
       } else {
         console.error('Error al registrar la producto:', response);
-        // Aquí puedes manejar otros tipos de errores según el caso
       }
     }),
     catchError(error => {
@@ -160,8 +172,71 @@ getAllProduct(): void {
         console.error('Error fetching categories:', error);
       }
     );
-  }  
+  }
+  
+getAllProductbyHighlight(): void {
+    this.productService.getAllProductsHighlight().subscribe(
+      (data: ProductRequest[]) => {
+        this.productsHighlights = data;
+      },
+      (error) => {
+        console.error('Error fetching categories:', error);
+      }
+    );
+  }   
 
+  updateProduct(){
+    const formData = new FormData();
+    // Agregar los datos del producto como un objeto, no como una cadena JSON
+    formData.append('product', new Blob([JSON.stringify({
+      name: this.editingProduct.name,
+      description: this.editingProduct.description,
+      price: this.editingProduct.price,
+      stock: this.editingProduct.stock,
+      highlight: this.editingProduct.highlight,
+      categoryName: this.editingProduct.categoria
+    })], {
+      type: 'application/json'
+    }));
+
+
+    // Verificar si hay una nueva imagen seleccionada para el producto
+    if (this.image.image) {
+      // Agregar la nueva imagen al FormData
+      formData.append('file', this.image.image, this.image.image.name);
+  } else {
+      // Agregar un parámetro indicando que se debe mantener la imagen actual
+      formData.append('keepCurrentImage', 'true');
+  }
+
+    console.log('Archivo:', formData.get('file'));
+    console.log('Objeto:',formData.get('request'))
+  
+    this.productService.updateProduct(formData,this.editingProduct.id).pipe(
+      tap(response => {
+        console.log("Respuesta del servidor:", response);
+        if (response) {
+          console.log("Update exitoso",response.message);
+          this.getAllProduct();
+          this.getAllProductbyHighlight();
+          this.getAllCategory()
+        } else {
+          console.error('Error al actualizar la producto:', response);
+        }
+      }),
+      catchError(error => {
+        console.error('Error al actualizar la producto:', error);
+        return throwError(error);
+      })
+    ).subscribe();
+  }
+
+toggleChangeImage() {
+    if (!this.changeImage) {
+      this.selectedImageURL = 'null';
+      this.changeImage=true;
+    }
+}
 updateCategory() {
   if (this.editingCategory.id === null) {
     console.error('No hay categoría seleccionada para editar');
@@ -170,6 +245,8 @@ updateCategory() {
   this.categoryService.updateCategory(this.editingCategory)
     .subscribe(updatedCategory => {
       console.log('Categoría actualizada:', updatedCategory);
+      this.getAllProduct();
+      this.getAllProductbyHighlight();
       this.getAllCategory()
       // Cerrar el modal programáticamente
   });
@@ -219,6 +296,17 @@ loadCategory(categoryId: number): void {
       }
     );
   }
+loadProduct(productId: number): void {
+    this.productService.getProductById(productId).subscribe(
+    (data: any) => {
+        this.editingProduct = data;
+      },
+      (error) => {
+        console.error('Error fetching product details:', error);
+      }
+    );
+  }
+
 
 
   // Agregar campos de datos del perfil

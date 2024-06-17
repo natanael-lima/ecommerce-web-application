@@ -140,6 +140,7 @@ public class ProductServiceImp implements ProductService {
 	            .price(prod.getPrice())
 	            .stock(prod.getStock())
 	            .image(prod.getImage())
+	            .highlight(prod.getHighlight())
 	            .timestamp(prod.getTimestamp())
 	            .categoria(prod.getCategoria().getName())
 	            .build();
@@ -155,6 +156,7 @@ public class ProductServiceImp implements ProductService {
 	            .price(prod.getPrice())
 	            .stock(prod.getStock())
 	            .image(prod.getImage())
+	            .highlight(prod.getHighlight())
 	            .timestamp(prod.getTimestamp())
 	            .categoria(prod.getCategoria().getName())
 	            .build();
@@ -215,6 +217,7 @@ public class ProductServiceImp implements ProductService {
 	    producto.setDescription(dto.getDescription());
 	    producto.setPrice(dto.getPrice());
 	    producto.setStock(dto.getStock());
+	    producto.setHighlight(dto.getHighlight());
 	    producto.setTimestamp(LocalDateTime.now());
 	    
 	    // Actualización de la categoría si se proporciona
@@ -240,12 +243,51 @@ public class ProductServiceImp implements ProductService {
 	            producto.getPrice(),
 	            producto.getStock(),
 	            producto.getImage(),
+	            producto.getHighlight(),
 	            producto.getTimestamp(),
 	            producto.getCategoria()
 	    );
 	    
 	    return new ApiResponse("El Producto se actualizó satisfactoriamente");
 	}
+	
+	@Override
+	public ApiResponse updateProductDate(ProductDTO dto) throws Exception {
+		// TODO Auto-generated method stub
+		Product producto = productRepository.findById(dto.getId())
+	            .orElseThrow(() -> new Exception("Producto no encontrado"));
+		 
+		
+	    // Actualización de campos del producto
+	    producto.setName(dto.getName());
+	    producto.setDescription(dto.getDescription());
+	    producto.setPrice(dto.getPrice());
+	    producto.setStock(dto.getStock());
+	    producto.setHighlight(dto.getHighlight());
+	    producto.setTimestamp(LocalDateTime.now());
+	    
+	    // Actualización de la categoría si se proporciona
+	    if (dto.getCategoria() != null && dto.getCategoria() != null) {
+	        Category categoria = categoryRepository.findByName(dto.getCategoria())
+	                .orElseThrow(() -> new Exception("La categoría con nombre " + dto.getCategoria() + " no existe"));
+	        producto.setCategoria(categoria);
+	    }
+	    	    
+	    // Llamar al método de actualización del repositorio
+	    productRepository.updateProductJSON(
+	            producto.getId(),
+	            producto.getName(),
+	            producto.getDescription(),
+	            producto.getPrice(),
+	            producto.getStock(),
+	            producto.getHighlight(),
+	            producto.getTimestamp(),
+	            producto.getCategoria()
+	    );
+	    
+	    return new ApiResponse("El Producto se actualizó satisfactoriamente");
+	}
+	
 	
 
 	// Método para eliminar la imagen antigua del sistema de archivos

@@ -14,6 +14,8 @@ public interface ProductService {
 	
 	public ApiResponse updateProduct(ProductDTO product, MultipartFile file) throws Exception;
 	
+	public ApiResponse updateProductDate(ProductDTO product) throws Exception;
+	
 	public void deleteProduct(Long id) throws Exception;
 	
 	public Product findProductById(Long id);

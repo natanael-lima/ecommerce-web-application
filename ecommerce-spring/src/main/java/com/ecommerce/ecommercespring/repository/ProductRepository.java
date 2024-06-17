@@ -22,10 +22,17 @@ public interface ProductRepository extends JpaRepository<Product,Long>{
 	
 	@Modifying
     @Transactional
-    @Query("update Product p set p.name=:name, p.description=:description, p.price=:price, p.stock=:stock, p.image=:image, p.timestamp=:timestamp, p.categoria=:categoria where p.id = :id")
+    @Query("update Product p set p.name=:name, p.description=:description, p.price=:price, p.stock=:stock, p.image=:image, p.highlight=:highlight, p.timestamp=:timestamp, p.categoria=:categoria where p.id = :id")
     void updateProduct(@Param("id") Long id, @Param("name") String name, @Param("description") String description, 
-                       @Param("price") Double price, @Param("stock") int stock, @Param("image") String image, 
+                       @Param("price") Double price, @Param("stock") int stock, @Param("image") String image, @Param("highlight") Boolean highlight,
                        @Param("timestamp") LocalDateTime timestamp, @Param("categoria") Category categoria);
+	@Modifying
+    @Transactional
+    @Query("update Product p set p.name=:name, p.description=:description, p.price=:price, p.stock=:stock, p.highlight=:highlight, p.timestamp=:timestamp, p.categoria=:categoria where p.id = :id")
+    void updateProductJSON(@Param("id") Long id, @Param("name") String name, @Param("description") String description, 
+                       @Param("price") Double price, @Param("stock") int stock, @Param("highlight") Boolean highlight,
+                       @Param("timestamp") LocalDateTime timestamp, @Param("categoria") Category categoria);
+	
 	
 	// Método para buscar productos por rango de precios
     public List<Product> findByPriceBetween(Double priceStart, Double priceEnd);

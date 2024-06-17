@@ -46,6 +46,13 @@ export class ProductService implements OnInit {
   getAllByPrices(priceStart: number, priceEnd:number){
     return this.http.get<any>(`${environment.urlHost}api/product/price-range?priceStart=${encodeURIComponent(priceStart)}&priceEnd=${encodeURIComponent(priceEnd)}`);
   }
+  getAllProductsHighlight(): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.urlHost}api/product/search-highlight`);
+  }
+  getAllProductsByCategory(name: string): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.urlHost}api/product/categoria/${name}`);
+  }
+
 
   private handleError(error: HttpErrorResponse) {
     console.error('Error completo:', error);
