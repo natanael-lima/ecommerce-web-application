@@ -37,26 +37,129 @@
     <h3 class="pb-4 mb-4 fst-italic border-bottom">
       Productos Destacadas
     </h3>
-    <div id="carouselExampleControls" class="carousel slide mt-5 mb-5" data-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <button class="btn btn-outline-success rounded-pill px-3 mb-2">See All</button>
-          <div class="d-flex flex-row flex-wrap justify-content-between">
-            <!-- Aquí puedes incluir las tarjetas de productos -->
-             <div *ngFor="let item of productsHighlights" >
-              <div class="card mb-3" style="width: 150px;">
-                  <img [src]="baseUrl + item.image" class="card-img-top" alt="{{item.image}}">
-                  <div class="card-body">
-                    <h5 class="card-title lead">{{item.name}}</h5>
-                  </div>
+          <div id="dest" class="carousel slide mt-5 mb-5" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <button class="btn btn-outline-success rounded-pill px-3 mb-2">See All</button>
+                <div class="d-flex flex-row flex-wrap justify-content-between">
+                  <!-- Aquí puedes incluir las tarjetas de productos -->
+                  <div *ngFor="let item of productsHighlights" >
+                      <div class="card mb-3" style="width: 150px;">
+                        <img [src]="baseUrl + item.image" class="card-img-top" alt="{{item.image}}">
+                        <div class="card-body">
+                          <h5 class="card-title lead">{{item.name}}</h5>
+                        </div>
+                      </div>
+                    </div>
+                  <!-- Añade más tarjetas de productos aquí -->
                 </div>
               </div>
-            <!-- Añade más tarjetas de productos aquí -->
+              <!-- Añade más elementos de carousel-item si tienes más productos -->
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#dest" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#dest" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+          
+          <h3>PRUEBA1</h3>
+          <div class="multiple-card-slider">
+            <div id="aaa" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner-new carousel-inner">
+                    <div class="carousel-item active" data-bs-interval="10000" *ngFor="let item of productsHighlights">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{item.name}}</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                                    the card's content.</p>
+                                <a href="#" class="btn btn-primary">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#aaa" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#aaa" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+        
+ 
+    <H3>PRUEBA2</H3>  
+    <div class="container mt-5">
+      <div id="car" class="carousel slide" data-bs-ride="false">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="d-flex justify-content-around">
+              <div class="card">
+                <img src="https://via.placeholder.com/250x150" class="card-img-top" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">Card 1</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+              </div>
+              <div class="card">
+                <img src="https://via.placeholder.com/250x150" class="card-img-top" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">Card 2</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+              </div>
+              <div class="card">
+                <img src="https://via.placeholder.com/250x150" class="card-img-top" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">Card 3</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="d-flex justify-content-around">
+              <div class="card">
+                <img src="https://via.placeholder.com/250x150" class="card-img-top" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">Card 4</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+              </div>
+              <div class="card">
+                <img src="https://via.placeholder.com/250x150" class="card-img-top" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">Card 5</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+              </div>
+              <div class="card">
+                <img src="https://via.placeholder.com/250x150" class="card-img-top" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">Card 6</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <!-- Añade más elementos de carousel-item si tienes más productos -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#car" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#car" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
       </div>
     </div>
+  
+
    <div class="row mt-5 mb-5 d-none d-md-block d-lg-block">
       <div class="col">
         <a class="banner-link" href="#" title="Juego de honor">
@@ -108,53 +211,33 @@
       <h3 class="pb-4 mb-4 fst-italic border-bottom">
         Marcas Destacadas
       </h3>
-      <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <div class="d-flex flex-row flex-wrap justify-content-between">
-              <!-- Aquí puedes incluir las tarjetas de productos -->
-              <div class="card mb-3 border-0" style="width: 150px;">
-                <img src="https://http2.mlstatic.com/D_NQ_NP_857004-MLA70394344842_072023-O.webp" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Producto 1</h5>
-                </div>
-              </div>
-              <div class="card mb-3 border-0" style="width: 150px;">
-                <img src="https://http2.mlstatic.com/D_NQ_NP_857004-MLA70394344842_072023-O.webp" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Producto 1</h5>
-                </div>
-              </div>
-              <div class="card mb-3 border-0" style="width: 150px;">
-                <img src="https://http2.mlstatic.com/D_NQ_NP_857004-MLA70394344842_072023-O.webp" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Producto 1</h5>
-                </div>
-              </div>
-              <div class="card mb-3 border-0" style="width: 150px;">
-                <img src="https://http2.mlstatic.com/D_NQ_NP_857004-MLA70394344842_072023-O.webp" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Producto 1</h5>
-                </div>
-              </div>
-              <div class="card mb-3 border-0" style="width: 150px;">
-                <img src="https://http2.mlstatic.com/D_NQ_NP_857004-MLA70394344842_072023-O.webp" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Producto 1</h5>
-                </div>
-              </div>
-              <div class="card mb-3 border-0" style="width: 150px;">
-                <img src="https://http2.mlstatic.com/D_NQ_NP_857004-MLA70394344842_072023-O.webp" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Producto 1</h5>
-                </div>
-              </div>
-              <!-- Añade más tarjetas de productos aquí -->
-            </div>
-          </div>
-          <!-- Añade más elementos de carousel-item si tienes más productos -->
+      <div class="logos">
+        <div class="logos-slide">
+          <img src="https://http2.mlstatic.com/D_NQ_NP_857004-MLA70394344842_072023-O.webp" />
+          <img src="https://http2.mlstatic.com/D_NQ_NP_857004-MLA70394344842_072023-O.webp" />
+          <img src="https://http2.mlstatic.com/D_NQ_NP_857004-MLA70394344842_072023-O.webp" />
+          <img src="https://http2.mlstatic.com/D_NQ_NP_857004-MLA70394344842_072023-O.webp" />
+          <img src="https://http2.mlstatic.com/D_NQ_NP_857004-MLA70394344842_072023-O.webp" />
+          <img src="https://http2.mlstatic.com/D_NQ_NP_857004-MLA70394344842_072023-O.webp" />
+          <img src="https://http2.mlstatic.com/D_NQ_NP_857004-MLA70394344842_072023-O.webp" />
+          <img src="https://http2.mlstatic.com/D_NQ_NP_857004-MLA70394344842_072023-O.webp" />
+        </div>
+  
+        <div class="logos-slide">
+          <img src="https://http2.mlstatic.com/D_NQ_NP_857004-MLA70394344842_072023-O.webp" />
+          <img src="https://http2.mlstatic.com/D_NQ_NP_857004-MLA70394344842_072023-O.webp" />
+          <img src="https://http2.mlstatic.com/D_NQ_NP_857004-MLA70394344842_072023-O.webp" />
+          <img src="https://http2.mlstatic.com/D_NQ_NP_857004-MLA70394344842_072023-O.webp" />
+          <img src="https://http2.mlstatic.com/D_NQ_NP_857004-MLA70394344842_072023-O.webp" />
+          <img src="https://http2.mlstatic.com/D_NQ_NP_857004-MLA70394344842_072023-O.webp" />
+          <img src="https://http2.mlstatic.com/D_NQ_NP_857004-MLA70394344842_072023-O.webp" />
+          <img src="https://http2.mlstatic.com/D_NQ_NP_857004-MLA70394344842_072023-O.webp" />
         </div>
       </div>
   </div>
 
 </main>
+<script>
+ 
+</script>
+
