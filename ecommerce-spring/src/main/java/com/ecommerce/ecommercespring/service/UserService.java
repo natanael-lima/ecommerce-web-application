@@ -28,5 +28,8 @@ public interface UserService {
 	public boolean existsAdminRole();
 	
 	public boolean existsUsername(String name);
+	
+	Optional<User> findByUsername(String username);
+	
 
 }

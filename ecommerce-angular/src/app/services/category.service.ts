@@ -37,7 +37,7 @@ export class CategoryService {
   }
 
   getAllCategorys(): Observable<any[]> {
-    return this.http.get<any[]>(`${environment.urlHost}api/category/find-all`);
+    return this.http.get<any[]>(`${environment.urlHost}api/category/get-all`);
   }
 
   private handleError(error: HttpErrorResponse) {

@@ -36,7 +36,7 @@ export class ProductService implements OnInit {
   }
 
   getAllProducts(): Observable<any[]> {
-    return this.http.get<any[]>(`${environment.urlHost}api/product/find-all`);
+    return this.http.get<any[]>(`${environment.urlHost}api/product/get-all`);
   }
 
   getAllbyName(name: string): Observable<Product[]> {

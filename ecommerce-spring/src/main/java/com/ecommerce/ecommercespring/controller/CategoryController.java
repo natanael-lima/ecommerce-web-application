@@ -92,7 +92,7 @@ public class CategoryController {
     
     
     // API para obtener una lista de todos las categorias.
-    @GetMapping("/find-all")
+    @GetMapping("/get-all")
     public ResponseEntity<List<CategoryDTO>> findAll() throws Exception {
         try {
         	List<CategoryDTO> categoryAll = categoryService.getAllCategory();

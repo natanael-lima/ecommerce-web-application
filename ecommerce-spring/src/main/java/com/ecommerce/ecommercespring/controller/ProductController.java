@@ -111,9 +111,21 @@ public class ProductController {
  	    }
     }
     
-    // API para obtener todos los productos.
-    @GetMapping("/find-all")
+    // API para obtener todos los usuarios.
+    @GetMapping("/get-all")
     public ResponseEntity<List<ProductDTO>> findAll() throws Exception {
+    	
+    	try {
+        	List<ProductDTO> categoryAll = productService.getAllProduct();
+            return ResponseEntity.ok(categoryAll);
+        } catch (RuntimeException e) {
+            return ResponseEntity.noContent().build(); 
+        }
+    }
+    
+ // API para obtener todos los usuarios menos el autenticado.
+    @GetMapping("/get-all-except-me")
+    public ResponseEntity<List<ProductDTO>> findAllExceptMe() throws Exception {
     	
     	try {
         	List<ProductDTO> categoryAll = productService.getAllProduct();

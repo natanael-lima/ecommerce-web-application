@@ -155,12 +155,18 @@ public class UserServiceImp implements UserService {
 		return userRepository.existsAdminRole();
 	}
 
-
-
 	@Override
 	public boolean existsUsername(String name) {
 		// TODO Auto-generated method stub
 		return userRepository.existsByUsername(name);
+	}
+	
+	@Override
+	public Optional<User>findByUsername(String username) {
+		// TODO Auto-generated method stub
+		Optional<User> result= userRepository.findByUsername(username);
+		
+		return result;
 	}
 
 }

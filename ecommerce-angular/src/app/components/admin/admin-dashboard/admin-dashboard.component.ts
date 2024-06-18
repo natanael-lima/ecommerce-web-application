@@ -4,7 +4,7 @@ import { FormBuilder, FormsModule } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
 import { LoginService } from '../../../services/login.service';
 import { Router } from '@angular/router';
-import { User } from '../../../interfaces/user';
+import { UserRequest } from '../../../interfaces/userRequest';
 import { CategoryService } from '../../../services/category.service';
 import { CategoryRequest } from '../../../interfaces/categoryRequest';
 import { Category } from '../../../models/category';
@@ -15,6 +15,9 @@ import { Product } from '../../../models/product';
 import { ProductService } from '../../../services/product.service';
 import { environment } from '../../../../environments/environment.prod';
 import { Imagen } from '../../../models/imagen';
+import { User } from '../../../models/user';
+import { HistoryRequest } from '../../../interfaces/historyRequest';
+import { HistoryService } from '../../../services/history.service';
 
 
 
@@ -29,13 +32,15 @@ export class AdminDashboardComponent implements OnInit{
   baseUrl = environment.baseUrl;
 
   currentSection: string = 'dashboard'; // Sección actual
-  currentUser: User ={
+  currentUser: UserRequest ={
     id:0,
     name:'',
     lastname:'',
     username:'',
-    role:''
+    role:'',
+    timestamp:new Date()
   };
+  newUser: User = {name:'',lastname:'',username:'',password:''};
 
   isLoggedIn: boolean = false;
   categories: CategoryRequest[] = [];
@@ -45,9 +50,9 @@ export class AdminDashboardComponent implements OnInit{
   productsHighlights: ProductRequest[] = [];
   producto: Product = new Product('', '',0, 0,'', new Date,false, '');
   image:Imagen;
-
   selectedImageURL: string | ArrayBuffer= '';
 
+  histories: HistoryRequest[] = [];
   // Propiedades para el formulario de edición
   editingCategory: CategoryRequest ={
       id:0,
@@ -68,9 +73,21 @@ export class AdminDashboardComponent implements OnInit{
     categoria: ''
 
   };  
+
+  editingUser: UserRequest ={
+    id: 0,
+    name:'',
+    lastname:'',
+    username:'',
+    role:'',
+    timestamp:new Date()
+  };
+
   changeImage = false;
+
+  users: UserRequest[] = [];
     
-  constructor(private productService:ProductService,private categoryService:CategoryService,private userService:UserService, private formBuilder:FormBuilder, private loginService:LoginService,private router:Router ){
+  constructor(private historyService:HistoryService,private productService:ProductService,private categoryService:CategoryService,private userService:UserService, private formBuilder:FormBuilder, private loginService:LoginService,private router:Router ){
     this.image = new Imagen();
 }
 
@@ -78,8 +95,19 @@ ngOnInit(): void {
     this.getAllCategory();
     this.getAllProduct();
     this.getAllProductbyHighlight();
+    this.getAllUser();
+    this.getAllHistory();
+    this.userService.getCurrentUser().subscribe(
+      (data: UserRequest) => {
+        this.currentUser = data;
+      },
+      (error) => {
+        console.error('Error fetching user actual:', error);
+      }
+    );
+
 }
-onSubmit() {
+onSubmitCategory() {
   console.log('Datos a guardar:', this.categoria);
   this.categoryService.createCategory(this.categoria).pipe(
     tap(response => {
@@ -96,8 +124,8 @@ onSubmit() {
       return throwError(error);
     })
   ).subscribe();
-
 }
+
 onSubmitProduct(){
   const formData = new FormData();
   // Agregar los datos del producto como un objeto, no como una cadena JSON
@@ -136,6 +164,25 @@ onSubmitProduct(){
   ).subscribe();
 }
 
+onSubmitUser() {
+  console.log('Datos a guardar:', this.newUser);
+  this.userService.createUser(this.newUser).pipe(
+    tap(response => {
+      if (response) {
+        console.log("Registro exitoso",response);
+        this.getAllUser();
+      } else {
+        console.error('Error al registrar la user:', response);
+        // Aquí puedes manejar otros tipos de errores según el caso
+      }
+    }),
+    catchError(error => {
+      console.error('Error al registrar la user:', error);
+      return throwError(error);
+    })
+  ).subscribe();
+}
+
 onFileSelect(event: any) {
   const file = event?.target?.files?.[0];
   
@@ -169,7 +216,7 @@ getAllProduct(): void {
         this.products = data;
       },
       (error) => {
-        console.error('Error fetching categories:', error);
+        console.error('Error fetching productos:', error);
       }
     );
   }
@@ -180,12 +227,32 @@ getAllProductbyHighlight(): void {
         this.productsHighlights = data;
       },
       (error) => {
-        console.error('Error fetching categories:', error);
+        console.error('Error fetching productos destacados:', error);
       }
     );
   }   
 
-  updateProduct(){
+getAllUser(): void {
+    this.userService.getAllUsers().subscribe(
+      (data: UserRequest[]) => {
+        this.users = data;
+      },
+      (error) => {
+        console.error('Error fetching users:', error);
+      }
+    );
+}  
+getAllHistory(): void {
+  this.historyService.getAllHistory().subscribe(
+    (data: HistoryRequest[]) => {
+      this.histories = data;
+    },
+    (error) => {
+      console.error('Error fetching histories:', error);
+    }
+  );
+}
+updateProduct(){
     const formData = new FormData();
     // Agregar los datos del producto como un objeto, no como una cadena JSON
     formData.append('product', new Blob([JSON.stringify({
@@ -252,6 +319,22 @@ updateCategory() {
   });
 }
 
+updateUser() {
+  if (this.editingUser.id === null) {
+    console.error('No hay user seleccionada para editar');
+    return;
+  }
+  this.userService.updateUser(this.editingUser)
+    .subscribe(response => {
+      console.log('User actualizada:', response);
+      this.getAllProduct();
+      this.getAllProductbyHighlight();
+      this.getAllCategory();
+      this.getAllUser();
+      // Cerrar el modal programáticamente
+  });
+}
+
 deleteCategory(id:number){
   this.categoryService.deleteCategory(id).subscribe(
     (data: Category) => {
@@ -275,6 +358,22 @@ deleteProduct(id:number){
     }
   );
 }
+
+deleteUser(id: number): void {
+  this.userService.deleteUser(id).pipe(
+    tap(response => {
+      if (response) {
+        console.log('Usuario eliminado exitosamente:', response);
+        this.getAllUser();
+      } 
+    }),
+    catchError(error => {
+      console.error('Error al eliminar el usuario:', error);
+      return throwError(error);
+    })
+  ).subscribe();
+}
+
 
 // Función para cambiar la sección actual
 changeSection(section: string): void {
@@ -306,7 +405,16 @@ loadProduct(productId: number): void {
       }
     );
   }
-
+loadUser(userId: number): void {
+    this.userService.getUserById(userId).subscribe(
+    (data: any) => {
+        this.editingUser = data;
+      },
+      (error) => {
+        console.error('Error fetching product details:', error);
+      }
+    );
+  }
 
 
   // Agregar campos de datos del perfil

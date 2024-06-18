@@ -30,7 +30,7 @@ public class HistoryController {
         }
     }
 	// API para obtener una lista de todos las categorias.
-    @GetMapping("/find-all")
+    @GetMapping("/get-all")
     public ResponseEntity<List<HistoryDTO>> findAll() throws Exception {
         try {
         	List<HistoryDTO> historyAll = historyService.getAllHistory();

@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { environment } from '../../environments/environment.prod';
-import { User } from '../interfaces/user';
+import { UserRequest } from '../interfaces/userRequest';
 import { Observable, catchError, throwError } from 'rxjs';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,8 @@ export class UserService implements OnInit{
 
 
 // Método para registrar un usuario
-registerUser(formData:FormData): Observable<User> { 
-  return this.http.post<User>(`${environment.urlHost}auth/registration-user`, formData).pipe(
+createUser(data:User): Observable<User> { 
+  return this.http.post<User>(`${environment.urlHost}auth/registration-user`, data).pipe(
   );
  }
 // Método para verficar username
@@ -35,26 +36,26 @@ checkUsernameExists(username: string): Observable<any> {
 }
 
 // Método para obtener los datos del usuario actualmente logueado
- getCurrentUser(): Observable<User> {
-  return this.http.get<User>(`${environment.urlHost}api/user/current`).pipe(
+ getCurrentUser(): Observable<UserRequest> {
+  return this.http.get<UserRequest>(`${environment.urlHost}api/user/current`).pipe(
     catchError(this.handleError)
   );
 }
 
 // Método para obtener todos los usuarios
-getAllUsers(): Observable<User[]> {
-  return this.http.get<User[]>(`${environment.urlHost}api/user/get-all-users`);
+getAllUsers(): Observable<UserRequest[]> {
+  return this.http.get<UserRequest[]>(`${environment.urlHost}api/user/get-all`);
    
 }
 
 // Método para eliminar un usuario
-deleteUser(id:number): Observable<User[]> {
-  return this.http.delete<User[]>(`${environment.urlHost}api/user/delete-user/${id}`);
+deleteUser(id:number): Observable<User> {
+  return this.http.delete<User>(`${environment.urlHost}api/user/delete-user/${id}`);
 }
 
 // Método para actualizar un usuario
-updateUser(data:User): Observable<User> {
-  return this.http.put<User>(`${environment.urlHost}api/user/update-user`,data).pipe(
+updateUser(data:UserRequest): Observable<UserRequest> {
+  return this.http.put<UserRequest>(`${environment.urlHost}api/user/update-user`,data).pipe(
     catchError(this.handleError)
   );
 }

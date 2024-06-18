@@ -111,11 +111,11 @@
               <div class="dropdown mb-1">
                 <a href="#" class="d-flex align-items-center justify-content-start link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                   <img src="https://img.icons8.com/stickers/100/attendance-mark.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                  <strong>Username</strong>
+                  <strong>{{currentUser.name}}</strong>
                 </a>
                 <ul class="dropdown-menu text-small shadow ">
-                  <li><a class="dropdown-item" href="#" disabled>Rol User</a></li>
-                  <li><a class="dropdown-item" href="#">Profile</a></li>
+                  <li><a class="dropdown-item" href="#" disabled>Rol: {{currentUser.role}}</a></li>
+                  <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editProfile" >Perfil</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="#" (click)="onLogout()">Cerrar Sesion</a></li>
                 </ul>
@@ -214,29 +214,11 @@
                                     </thead>
                                     <tbody>
                                         <!-- Agrega aquí las filas de la tabla -->
-                                        <tr>
-                                            <td>2024-05-01</td>
-                                            <td>Agregado</td>
-                                            <td>Producto A</td>
+                                        <tr *ngFor="let history of histories">
+                                            <td>{{history.timestamp | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+                                            <td>{{history.action}}</td>
+                                            <td>{{history.tableType}}</td>
                                             <td>Usuario 1</td>
-                                        </tr>
-                                        <tr>
-                                          <td>2024-05-01</td>
-                                          <td>Agregado</td>
-                                          <td>Producto A</td>
-                                          <td>Usuario 1</td>
-                                        </tr>
-                                        <tr>
-                                          <td>2024-05-01</td>
-                                          <td>Agregado</td>
-                                          <td>Producto A</td>
-                                          <td>Usuario 1</td>
-                                        </tr>
-                                        <tr>
-                                          <td>2024-05-01</td>
-                                          <td>Agregado</td>
-                                          <td>Producto A</td>
-                                          <td>Usuario 1</td>
                                         </tr>
                                         <!-- Agrega más filas según sea necesario -->
                                     </tbody>
@@ -259,11 +241,11 @@
               <div class="dropdown mb-1">
                 <a href="#" class="d-flex align-items-center justify-content-start link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                   <img src="https://img.icons8.com/stickers/100/attendance-mark.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                  <strong>Username</strong>
+                  <strong>{{currentUser.name}}</strong>
                 </a>
                 <ul class="dropdown-menu text-small shadow ">
-                  <li><a class="dropdown-item" href="#" disabled>Rol User</a></li>
-                  <li><a class="dropdown-item" href="#">Profile</a></li>
+                  <li><a class="dropdown-item" href="#" disabled >Rol: {{currentUser.role}}</a></li>
+                  <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editProfile" >Perfil</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="#" (click)="onLogout()">Cerrar Sesion</a></li>
                 </ul>
@@ -280,7 +262,7 @@
                           Agregar Categoria
                       </div>
                       <div class="card-body">
-                        <form class="was-validated" (ngSubmit)="onSubmit()" #categoryForm="ngForm">
+                        <form class="was-validated" (ngSubmit)="onSubmitCategory()" #categoryForm="ngForm">
                           <div class="mb-3">
                             <label for="newCategoryName" class="form-label" >Nombre de la Categoria</label>
                             <input type="text" class="form-control" id="newCategoryName"  name="newCategoryName" [(ngModel)]="categoria.name" placeholder="" value="" required #newCategoryName="ngModel">
@@ -305,7 +287,7 @@
                           </div>
                          
                           <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary rounded-pill" [disabled]="categoryForm.invalid" >Guardar</button>
+                            <button type="submit" class="btn btn-success rounded-pill" [disabled]="categoryForm.invalid" >Guardar</button>
                           </div>
                         </form>
                        </div> 
@@ -361,11 +343,11 @@
               <div class="dropdown mb-1">
                 <a href="#" class="d-flex align-items-center justify-content-start link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                   <img src="https://img.icons8.com/stickers/100/attendance-mark.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                  <strong>Username</strong>
+                  <strong>{{currentUser.name}}</strong>
                 </a>
                 <ul class="dropdown-menu text-small shadow ">
-                  <li><a class="dropdown-item" href="#" disabled>Rol User</a></li>
-                  <li><a class="dropdown-item" href="#">Profile</a></li>
+                  <li><a class="dropdown-item" href="#" disabled>Rol: {{currentUser.role}}</a></li>
+                  <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editProfile" >Perfil</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="#" (click)="onLogout()">Cerrar Sesion</a></li>
                 </ul>
@@ -425,11 +407,11 @@
               <div class="dropdown mb-1">
                 <a href="#" class="d-flex align-items-center justify-content-start link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                   <img src="https://img.icons8.com/stickers/100/attendance-mark.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                  <strong>Username</strong>
+                  <strong>{{currentUser.name}}</strong>
                 </a>
                 <ul class="dropdown-menu text-small shadow ">
-                  <li><a class="dropdown-item" href="#" disabled>Rol User</a></li>
-                  <li><a class="dropdown-item" href="#">Profile</a></li>
+                  <li><a class="dropdown-item" href="#" disabled>Rol: {{currentUser.role}}</a></li>
+                  <li><a class="dropdown-item" href="#">Perfil</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="#" (click)="onLogout()">Cerrar Sesion</a></li>
                 </ul>
@@ -445,26 +427,26 @@
                               Agregar Usuario
                           </div>
                           <div class="card-body">
-                            <form>
+                            <form class="was-validated" (ngSubmit)="onSubmitUser()" #userForm="ngForm" >
                               <div class="mb-3">
-                                <label for="productName" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="productName">
+                                <label for="newUserName" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="newUserName"  name="newUserName" [(ngModel)]="newUser.name" placeholder="" value="" required #newUserName="ngModel">
                               </div>
                               <div class="mb-3">
-                                <label for="productName" class="form-label">Apellido</label>
-                                <input type="text" class="form-control" id="productName">
+                                <label for="newUserLastname" class="form-label">Apellido</label>
+                                <input type="text" class="form-control" id="newUserLastname"  name="newUserLastname" [(ngModel)]="newUser.lastname">
                               </div>
                               <div class="mb-3">
-                                <label for="productName" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="productName">
+                                <label for="newUserUsername" class="form-label">Username</label>
+                                <input type="text" class="form-control"  id="newUserUsername"  name="newUserUsername" [(ngModel)]="newUser.username">
                               </div>
                               <div class="mb-3">
-                                <label for="productPrice" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="productPrice">
+                                <label for="newUserPassword" class="form-label">Password</label>
+                                <input type="password" class="form-control"  id="newUserPassword"  name="newUserPassword" [(ngModel)]="newUser.password">
                               </div>
                              
                               <div class="d-grid gap-2">
-                                <button type="submit" class="btn btn-primary">Agregar</button>
+                                <button type="submit" class="btn btn-success rounded-pill" [disabled]="userForm.invalid">Agregar</button>
                               </div>
                             </form>
                           </div>
@@ -488,29 +470,21 @@
                                       </tr>
                                   </thead>
                                   <tbody>
-                                    <tr>
-                                      <td>11</td>
-                                      <td>Pedro</td>
-                                      <td>Alavrez</td>
-                                      <td>pedrogmail.com</td>
-                                      <td>12/12/2004</td>
-                                      <td><button class="btn btn-danger rounded-pill px-3 me-2">Eliminar <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                    <tr *ngFor="let user of users">
+                                      <td>{{user.id}}</td>
+                                      <td>{{user.lastname}}</td>
+                                      <td>{{user.name}}</td>
+                                      <td>{{user.username}}</td>
+                                      <td>{{user.timestamp | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+                                      <td><button class="btn btn-danger rounded-pill px-3 me-2" type="submit"  (click)="deleteUser(user.id)"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
                                         <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
-                                      </svg> </button > <button class="btn btn-primary rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#editarProductoModal">Editar <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                      </svg> </button > <button class="btn btn-primary rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#editarUserModal" (click)="loadUser(user.id)"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                         <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                                         <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
                                       </svg></button> </td>
                                     </tr>
-                                    <tr>
-                                      <td>12</td>
-                                      <td>Miguel</td>
-                                      <td>Obama</td>
-                                      <td>obamagmail.com</td>
-                                      <td>12/12/2004</td>
-                                      <td><button class="btn btn-danger rounded-pill px-3 me-2">Eliminar </button > <button class="btn btn-primary rounded-pill px-3" data-bs-toggle="modal" data-bs-target="#editarProductoModal">Editar</button> </td>
-                                    </tr>
-                                    
+
                                   </tbody>
                               </table>
                           </div>
@@ -527,11 +501,11 @@
               <div class="dropdown mb-1">
                 <a href="#" class="d-flex align-items-center justify-content-start link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                   <img src="https://img.icons8.com/stickers/100/attendance-mark.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                  <strong>Username</strong>
+                  <strong>{{currentUser.name}}</strong>
                 </a>
                 <ul class="dropdown-menu text-small shadow ">
-                  <li><a class="dropdown-item" href="#" disabled>Rol User</a></li>
-                  <li><a class="dropdown-item" href="#">Profile</a></li>
+                  <li><a class="dropdown-item" href="#" disabled>Rol: {{currentUser.role}}</a></li>
+                  <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editProfile" >Perfil</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="#" (click)="onLogout()">Cerrar Sesion</a></li>
                 </ul>
@@ -592,7 +566,7 @@
                                     
                                   </div>
                                   <div class="d-grid gap-1">
-                                    <button type="submit" class="btn btn-success rounded-pill">Agregar</button>
+                                    <button type="submit" class="btn btn-success rounded-pill" [disabled]="productForm.invalid" >Agregar</button>
                                    
                                   </div>
                               </form>
@@ -791,7 +765,7 @@
           <!-- Modal Producto-->
           <div class="modal fade" id="editarProductoModal" tabindex="-1" aria-labelledby="editarProductoModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
+              <div class="modal-content p-3">
                 <div class="modal-header">
                   <h5 class="modal-title" id="editarProductoModalLabel">Editar Producto</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -873,7 +847,7 @@
           <!-- Modal Categoria -->
           <div class="modal fade" id="editarCategoriaModal" tabindex="-1" aria-labelledby="editarCategoriaModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
+              <div class="modal-content p-3">
                 <div class="modal-header">
                   <h5 class="modal-title" id="editarCategoriaModalLabel">Editar Categoria</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -903,50 +877,108 @@
                       </div>
                     </div>
                     <!-- Más campos aquí según tu formulario -->
-                    <div class="col-12">
+                    <div class="d-grid gap-2">
                       <button type="submit" class="btn btn-primary rounded-pill" [disabled]="editForm.invalid" data-bs-dismiss="modal">Actualizar</button>
                     </div>
                   </form>
-                  
                 </div>
               </div>
             </div>
           </div>
           <!-- Modal User -->
-          <div class="modal fade" id="editarCategoriaModal" tabindex="-1" aria-labelledby="editarCategoriaModalLabel" aria-hidden="true">
+          <div class="modal fade" id="editarUserModal" tabindex="-1" aria-labelledby="editarUserModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
+              <div class="modal-content p-3">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="editarCategoriaModalLabel">Editar User</h5>
+                  <h5 class="modal-title" id="editarUserModalLabel">Editar User</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <form>
+                  <form (ngSubmit)="updateUser()" #editFormUser="ngForm">
                     <div class="mb-3">
-                      <label for="productName" class="form-label">Nombre</label>
-                      <input type="text" class="form-control" id="productName">
+                      <label for="userNameEdit" class="form-label">Nombre</label>
+                      <input type="text" class="form-control" id="userNameEdit" name="userNameEdit" [(ngModel)]="editingUser.name" required #userNameEdit="ngModel">
                     </div>
                     <div class="mb-3">
-                      <label for="productName" class="form-label">Apellido</label>
-                      <input type="text" class="form-control" id="productName">
+                      <label for="userLastnameEdit" class="form-label">Apellido</label>
+                      <input type="text" class="form-control" id="userLastnameEdit" name="userLastnameEdit" [(ngModel)]="editingUser.lastname" required #userLastnameEdit="ngModel">
                     </div>
                     <div class="mb-3">
-                      <label for="productName" class="form-label">Username</label>
-                      <input type="text" class="form-control" id="productName">
+                      <label for="userUsernameEdit" class="form-label">Username</label>
+                      <input type="text" class="form-control" id="userUsernameEdit" name="userUsernameEdit" [(ngModel)]="editingUser.username" required #userUsernameEdit="ngModel">
                     </div>
-                    <div class="mb-3">
-                      <label for="productPrice" class="form-label">Password</label>
-                      <input type="password" class="form-control" id="productPrice">
-                    </div>
-                   
                     <div class="d-grid gap-2">
-                      <button type="submit" class="btn btn-primary">Actualizar</button>
+                      <button type="submit" class="btn btn-primary rounded-pill" [disabled]="editFormUser.invalid" data-bs-dismiss="modal">Actualizar</button>
                     </div>
                   </form>
                 </div>
               </div>
             </div>
           </div>
+           <!-- Modal Profile -->
+           <div class="modal fade" id="editProfile" tabindex="-1" aria-labelledby="editarUserModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content p-3">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="editarUserModalLabel">Editar User</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form (ngSubmit)="updateUser()" #editProfile="ngForm">
+                    <div class="mb-3">
+                      <label for="profileNameEdit" class="form-label">Nombre</label>
+                      <input type="text" class="form-control" id="profileNameEdit" name="profileNameEdit" [(ngModel)]="currentUser.name" required #profileNameEdit="ngModel">
+                    </div>
+                    <div class="mb-3">
+                      <label for="profileLastnameEdit" class="form-label">Apellido</label>
+                      <input type="text" class="form-control" id="profileLastnameEdit" name="profileLastnameEdit" [(ngModel)]="currentUser.lastname" required #profileLastnameEdit="ngModel">
+                    </div>
+                    <div class="mb-3">
+                      <label for="profileUsernameEdit" class="form-label">Username</label>
+                      <input type="text" class="form-control" id="profileUsernameEdit" name="profileUsernameEdit" [(ngModel)]="currentUser.username" required #profileUsernameEdit="ngModel">
+                    </div>
+                    
+                      <button type="submit" class="btn btn-primary rounded-pill m-2" [disabled]="editProfile.invalid" data-bs-dismiss="modal">Actualizar</button>
+                      <button type="button" class="btn btn-outline-dark rounded-pill btn-sm" data-bs-toggle="modal" data-bs-target="#modalPassword"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-key-fill" viewBox="0 0 16 16">
+                        <path d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2M2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+                      </svg> Cambiar Password</button>
+                  
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Modal Password -->
+          <div class="modal fade" id="modalPassword" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content p-3">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Change your password</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="alert alert-danger" role="alert">
+                    Invalid password reset token!
+                  </div>
+                  <form>
+                    <div class="mb-3">
+                      <label for="new-password" class="col-form-label">New password:</label>
+                      <input type="password" class="form-control" id="new-password">
+                    </div>
+                    <div class="mb-3">
+                      <label for="confirm-password" class="col-form-label">Confirm password:</label>
+                      <input type="password" class="form-control" id="confirm-password">
+                    </div>
+                  </form>
+                </div>
+                <div class="d-grid gap-2 ">
+                  <button type="submit" class="btn btn-primary rounded-pill" data-bs-dismiss="modal">Cambiar password</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
       </main>
     </div>
     </div>
