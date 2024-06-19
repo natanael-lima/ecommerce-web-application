@@ -44,7 +44,7 @@
                           </svg>
                         </a>
                         <span class="divider"></span>
-                        <a style="--bs-icon-link-transform: translate3d(0, -.125rem, 0); --bs-link-hover-color-rgb: 25, 135, 84;" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover m-2 icon-link-hover" href="#">
+                        <a style="--bs-icon-link-transform: translate3d(0, -.125rem, 0); --bs-link-hover-color-rgb: 25, 135, 84;" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover m-2 icon-link-hover" data-bs-toggle="modal" data-bs-target="#shop-cart">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
                             <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
                           </svg>
@@ -156,70 +156,65 @@
   </div>
 </div>
 
-
-
-
-
-
-<!--
-<main style="margin-top: 88px;">
-    <nav class="border-bottom navbar navbar-expand-lg">
-        <div class="container-fluid container d-flex flex-wrap justify-content-center">
-          <div class="collapse navbar-collapse" id="navbarScroll">
-            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-             
-              <div class="btn-group flex-grow-1">
-                <button class="btn rounded-pill px-3  btn-custom dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Categorias
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item "  href="/product">Todas las Categorias</a></li>
-                    <li><a class="dropdown-item" href="#">Batidora</a></li>
-                    <li><a class="dropdown-item" href="#">Cafetera</a></li>
-                    <li><a class="dropdown-item" href="#">Freidora</a></li>
-                    <li><a class="dropdown-item" href="#">Pavas</a></li>
-                    <li><a class="dropdown-item" href="#">Termos</a></li>
-                </ul>
+<!--Modal Cart-->
+<div class="modal left fade" id="shop-cart" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Carrito de Compras</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div *ngFor="let item of cartItems; let i = index" class="cart-item">
+            <!-- Primera parte: Imagen y detalles del producto -->
+            <div class="row align-items-center">
+              <div class="col-md-4">
+                <div class="product-image">
+                  <img src="https://via.placeholder.com/50" alt="{{ item.name }}" class="img-thumbnail">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="product-details">
+                  <h5>{{ item.name }}</h5>
+                 
+                  <p>${{ item.price }} x {{ item.quantity }}</p>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="text-end">
+                  <a class="btn btn-danger btn-sm rounded-pill" (click)="removeFromCart(i)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                      <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                    </svg>
+                  </a>
+                </div>
+              </div>
             </div>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Preparación y Servicio de Bebidas
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Pavas eléctricas</a></li>
-                  <li><a class="dropdown-item" href="#">Termos</a></li>
-                  <li><a class="dropdown-item" href="#">Vasos</a></li>
-                  <li><a class="dropdown-item" href="#">Tazas</a></li>
-                  <li><a class="dropdown-item" href="#">Jarros</a></li>
-                </ul>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Cocina y Comedor
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Cubiertos</a></li>
-                  <li><a class="dropdown-item" href="#">Tapers</a></li>
-                  <li><a class="dropdown-item" href="#">Platos</a></li>
-                </ul>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Calefacción y Electricidad
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Caloventores</a></li>
-                  <li><a class="dropdown-item" href="#">Estufas</a></li>
-                  <li><a class="dropdown-item" href="#">Radiadores</a></li>
-                  <li><a class="dropdown-item" href="#">Calefactores eléctricos</a></li>
-                </ul>
-              </li>
-            </ul>
-            <form class="d-flex" role="search">
-              <button class="btn btn-outline-success rounded-pill" type="submit">Contacto</button>
-            </form>
+          
+            <!-- Segunda parte: Controles de cantidad -->
+            <div class="row mt-2">
+              <div class="col-md-6">
+                <div class="input-group mb-3 btn-group-sm" role="group" aria-label="Small button group">
+                  <button class="btn btn-outline-dark" type="button" (click)="decrementQuantity(i)">-</button>
+                  <input type="text" class="form-control text-center" [(ngModel)]="item.quantity" readonly>
+                  <button class="btn btn-outline-dark" type="button" (click)="increaseQuantity(i)">+</button>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </nav>
-</main>-->
+        
+      
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success" (click)="checkout()">Comprar</button>
+        <button class="btn btn-danger" (click)="clearCart()">Limpiar Carrito</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 

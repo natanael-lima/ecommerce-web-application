@@ -8,11 +8,16 @@ import { SearchService } from '../../../services/search.service';
 import { Router } from '@angular/router';
 import { CategoryService } from '../../../services/category.service';
 import { CategoryRequest } from '../../../interfaces/categoryRequest';
-
+interface CartItem {
+  id: number;
+  name: string;
+  price: number;
+  quantity: number;
+}
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [FormsModule,CommonModule],
+  imports: [FormsModule, HttpClientModule,CommonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
@@ -20,6 +25,15 @@ export class HeaderComponent implements OnInit {
 
   searchName: string = '';
   categories: CategoryRequest[] = []; // Lista de categorias
+  cartItems: CartItem[] = [
+    { id: 1, name: 'Producto 1', price: 100, quantity: 1 },
+    { id: 2, name: 'Producto 2', price: 200, quantity: 2 }
+  ];
+  isCartVisible = false;
+
+  value: number = 1;
+
+ 
 
   constructor(private categoryService:CategoryService, private searchService: SearchService, private router: Router) {}
 
@@ -44,5 +58,37 @@ export class HeaderComponent implements OnInit {
       }
     );
   }
+
+  toggleCart() {
+    this.isCartVisible = !this.isCartVisible;
+  }
+
+  increaseQuantity(index: number) {
+    this.cartItems[index].quantity++;
+    this.value += 1;
+  }
+  decrementQuantity(index: number) {
+    if (this.value > 1) {
+      this.cartItems[index].quantity--;
+      this.value += 1;
+    }
+  }
+
+  removeFromCart(index: number) {
+    this.cartItems.splice(index, 1);
+  }
+
+  clearCart() {
+    this.cartItems = [];
+  }
+
+  checkout() {
+    alert('Compra realizada!');
+    this.clearCart();
+    this.toggleCart();
+  }
+
+
+  
 
 }
