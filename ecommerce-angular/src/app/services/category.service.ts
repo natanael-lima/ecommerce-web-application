@@ -40,6 +40,12 @@ export class CategoryService {
     return this.http.get<any[]>(`${environment.urlHost}api/category/get-all`);
   }
 
+// Método para contart total
+countCategories(): Observable<number> {
+  return this.http.get<number>(`${environment.urlHost}api/category/count-category`).pipe(
+    catchError(this.handleError)
+  );
+}  
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       console.error('Ocurrio un error:', error.error.message);

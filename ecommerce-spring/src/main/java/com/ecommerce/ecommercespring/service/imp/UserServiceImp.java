@@ -223,4 +223,12 @@ public class UserServiceImp implements UserService {
 		return result;
 	}
 
+
+
+	@Override
+	public int countAllUsers() {
+		// TODO Auto-generated method stub
+		return (int) userRepository.count();
+	}
+
 }

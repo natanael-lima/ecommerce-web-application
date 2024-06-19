@@ -21,5 +21,7 @@ public interface CategoryService {
 	public void deleteCategory(Long id);
 	
 	public ApiResponse updateCategory(CategoryDTO product) throws Exception;
+	
+	public int countAllCategories();
 
 }

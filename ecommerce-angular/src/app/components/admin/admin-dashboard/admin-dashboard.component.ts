@@ -34,6 +34,10 @@ export class AdminDashboardComponent implements OnInit{
   
   baseUrl = environment.baseUrl; // URI base para mostrar image 
   //isLoggedIn: boolean = false; 
+  //Dashboard
+  countProduct:number=0;
+  countCategory:number=0;
+  countUser:number=0;
 
   currentSection: string = 'dashboard'; // Sección actual
   // Propiedades para user actual
@@ -120,6 +124,7 @@ ngOnInit(): void {
     this.getAllUser();
     this.getAllHistory();
     this.getMostSearchProduct();
+    this.getCountDashboard();
     this.userService.getCurrentUser().subscribe(
       (data: UserRequest) => {
         this.currentUser = data;
@@ -221,6 +226,34 @@ onFileSelect(event: any) {
       };
   }
 }
+
+getCountDashboard(): void {
+  this.categoryService.countCategories().subscribe(
+    (data: number) => {
+      this.countCategory = data;
+    },
+    (error) => {
+      console.error('Error fetching categories:', error);
+    }
+  );
+  this.userService.countUsers().subscribe(
+    (data: number) => {
+      this.countUser = data;
+    },
+    (error) => {
+      console.error('Error fetching categories:', error);
+    }
+  );
+  this.productService.countProducts().subscribe(
+    (data: number) => {
+      this.countProduct = data;
+    },
+    (error) => {
+      console.error('Error fetching categories:', error);
+    }
+  );
+}
+
 
 getAllCategory(): void {
     this.categoryService.getAllCategorys().subscribe(

@@ -35,7 +35,7 @@ public interface UserService {
 	
 	Optional<User> findByUsername(String username);
 	
-	
+	public int countAllUsers();
 	
 	
 }

@@ -25,6 +25,7 @@ import com.ecommerce.ecommercespring.dto.UserDTO;
 import com.ecommerce.ecommercespring.entity.User;
 import com.ecommerce.ecommercespring.enums.ActionType;
 import com.ecommerce.ecommercespring.enums.TableType;
+import com.ecommerce.ecommercespring.exception.CategoryNotFoundException;
 import com.ecommerce.ecommercespring.exception.ResourceNotFoundException;
 import com.ecommerce.ecommercespring.repository.UserRepository;
 import com.ecommerce.ecommercespring.request.ChangePasswordRequest;
@@ -218,6 +219,22 @@ public class UserController {
 	    }
 	    
 	    return ResponseEntity.ok(users); // Retorna 200 OK con la lista de usuarios
+    }
+    
+    // API para contar users.
+    @GetMapping("/count-user")
+    public  ResponseEntity<Integer> getCountUsers() {
+        try {
+        	int total  = userService.countAllUsers();
+            
+            if (total==0) {
+            	return ResponseEntity.status(HttpStatus.NOT_FOUND).body(0);
+            }
+            return ResponseEntity.ok(total);
+        } catch (CategoryNotFoundException e) {
+        	return ResponseEntity.noContent().build(); 
+        }
+        
     }
 
 }

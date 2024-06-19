@@ -48,38 +48,6 @@
     cursor: pointer;
   }
 
-/*V3*/
-.cards-wrapper {
-  display: flex;
-  justify-content: center;
-}
-.card img {
-  max-width: 100%;
-  max-height: 100%;
-}
-.card {
-  margin: 0 0.5em;
-  box-shadow: 2px 6px 8px 0 rgba(22, 22, 26, 0.18);
-  border: none;
-  border-radius: 0;
-}
-.carousel-inner {
-  padding: 1em;
-}
-.carousel-control-prev,
-.carousel-control-next {
-  background-color: #e1e1e1;
-  width: 5vh;
-  height: 5vh;
-  border-radius: 50%;
-  top: 50%;
-  transform: translateY(-50%);
-}
-@media (min-width: 768px) {
-  .card img {
-    height: 11em;
-  }
-}
 /*slider logos*/
 @keyframes slide {
   from {
@@ -142,7 +110,6 @@
 .card-carousel {
   display: flex;
   overflow-x: visible;
-  
 }
 
 .card-slide {
@@ -153,11 +120,11 @@
   animation-play-state: paused;
 }
 
-
 .card {
-  width: 300px; /* Ancho de cada card */
+  /*width: 300px;  Ancho de cada card */
   margin: 0 10px; /* Espacio entre las cards */
   transition: transform 0.3s ease; /* Transición para el efecto de zoom */
+  box-shadow: 2px 6px 8px 0 rgba(22, 22, 26, 0.18);
 }
 
 .card:hover {
@@ -166,6 +133,24 @@
 
 .card img {
   height: 150px; /* Altura de la imagen de la card */
+}
+
+.card-category img {
+  height: 300px; /* para categoria card */
+}
+.card-mini{
+  height: 70px; /* minicard para categoria */
+  width: 70px; /* minicard para categoria */
+  display: inline-block;
+  margin: 0 10px; /* Espaciado horizontal entre las imágenes */
+}
+.card-mini img{
+  height: 70px; /* minicard para categoria */
+  width: 70px;
+}
+
+.card-mini:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Añade una sombra más intensa al hacer hover */
 }
 
 @keyframes slides {

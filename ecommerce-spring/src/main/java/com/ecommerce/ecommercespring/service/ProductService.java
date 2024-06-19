@@ -35,5 +35,8 @@ public interface ProductService {
 	
 	public List<ProductDTO> findProductsByCategoria(String categoryName);
 	
+	public int countAllProducts();
+	
+	
 	
 }

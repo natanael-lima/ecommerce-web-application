@@ -57,8 +57,14 @@ export class ProductService implements OnInit {
   
   // Método para obtener el producto mas buscado.
  getMostSearched(): Observable<SearchRequest> {
-  return this.http.get<SearchRequest>(`${environment.urlHost}api/product/most-searched`);
-   
+  return this.http.get<SearchRequest>(`${environment.urlHost}api/product/most-searched`); 
+}
+
+// Método para contart total
+countProducts(): Observable<number> {
+  return this.http.get<number>(`${environment.urlHost}api/product/count-product`).pipe(
+    catchError(this.handleError)
+  );
 }
 
 

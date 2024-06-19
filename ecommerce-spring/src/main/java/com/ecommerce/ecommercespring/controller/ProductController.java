@@ -175,26 +175,22 @@ public class ProductController {
         
     }
     
-    
-    
-    // API que registra un like.
-    /*@PostMapping("/register/{id}")
-    public ResponseEntity<Map<String, String>> ActionLike(@PathVariable Long targetId) {
-    
-    	UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        String username = userDetails.getUsername(); // Si el username se utiliza para buscar el UserProfile
-        UserProfile actor = userProfileService.findByUsername(username); // Método para buscar el UserProfile por nombre de usuario
-        UserProfile target = userProfileService.findUserById(targetId);
-        matchService.processAction(actor, target,ActionType.LIKE);
-        Map<String, String> response = new HashMap<>();
-        response.put("message", "El like se registro correctamente");
-        return ResponseEntity.ok(response);
+    // API para contar productos.
+    @GetMapping("/count-product")
+    public  ResponseEntity<Integer> getCountProducts() {
+    	try {
+            int total = productService.countAllProducts();
+            
+            if (total == 0) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(0);
+            }
+            return ResponseEntity.ok(total);
+        } catch (CategoryNotFoundException e) {
+            return ResponseEntity.noContent().build(); 
+        }
         
-        if (request==null) {
-	        return ResponseEntity.badRequest().body(new String("Error ya existe ese producto o es vacio"));
-	    } else {
-	    	productService.saveProduct(request);
-	    	return ResponseEntity.ok("El producto registro correctamente");
-    	   }
-    }*/
+    }
+    
+    
+ 
 }	

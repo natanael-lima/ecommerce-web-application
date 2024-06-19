@@ -4,6 +4,7 @@ package com.ecommerce.ecommercespring.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,6 +25,7 @@ import com.ecommerce.ecommercespring.entity.Category;
 import com.ecommerce.ecommercespring.entity.Product;
 import com.ecommerce.ecommercespring.enums.ActionType;
 import com.ecommerce.ecommercespring.enums.TableType;
+import com.ecommerce.ecommercespring.exception.CategoryNotFoundException;
 import com.ecommerce.ecommercespring.response.ApiResponse;
 import com.ecommerce.ecommercespring.service.CategoryService;
 import com.ecommerce.ecommercespring.service.HistoryService;
@@ -100,6 +102,22 @@ public class CategoryController {
         } catch (RuntimeException e) {
             return ResponseEntity.noContent().build(); // Retorna un código 204 si el chat no está encontrado
         }
+    }
+    
+    // API para contar categories.
+    @GetMapping("/count-category")
+    public  ResponseEntity<Integer> getCountProducts() {
+        try {
+        	int total  = categoryService.countAllCategories();
+            
+            if (total==0) {
+            	return ResponseEntity.status(HttpStatus.NOT_FOUND).body(0);
+            }
+            return ResponseEntity.ok(total);
+        } catch (CategoryNotFoundException e) {
+        	return ResponseEntity.noContent().build(); 
+        }
+        
     }
     
     

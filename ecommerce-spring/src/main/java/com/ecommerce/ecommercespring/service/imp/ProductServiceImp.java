@@ -406,4 +406,10 @@ public class ProductServiceImp implements ProductService {
 				
 				return allProductDTO;
 	    }
+
+	@Override
+	public int countAllProducts() {
+		// TODO Auto-generated method stub
+		return (int) productRepository.count();
+	}
 }

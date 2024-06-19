@@ -82,6 +82,13 @@ updatePassword(id:number,  change :PasswordRequest): Observable<PasswordRequest>
   );
 }
 
+// Método para contart total
+countUsers(): Observable<number> {
+  return this.http.get<number>(`${environment.urlHost}api/user/count-user`).pipe(
+    catchError(this.handleError)
+  );
+}
+
 private handleError(error: any): Observable<never> {
   console.error('Ocurrio un error:', error);
   // Puedes manejar el error aquí, por ejemplo, mostrar un mensaje de error

@@ -95,4 +95,10 @@ public class CategoryServiceImp implements CategoryService {
 	    return new ApiResponse("El Producto se actualizó satisfactoriamente");
 	}
 
+	@Override
+	public int countAllCategories() {
+		// TODO Auto-generated method stub
+		return (int) categoryRepository.count();
+	}
+
 }
