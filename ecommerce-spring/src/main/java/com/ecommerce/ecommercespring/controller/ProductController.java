@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ecommerce.ecommercespring.dto.ProductDTO;
 import com.ecommerce.ecommercespring.dto.ProductRegistrationDTO;
 import com.ecommerce.ecommercespring.entity.Product;
+import com.ecommerce.ecommercespring.entity.SearchHistory;
 import com.ecommerce.ecommercespring.enums.ActionType;
 import com.ecommerce.ecommercespring.enums.TableType;
 import com.ecommerce.ecommercespring.exception.CategoryNotFoundException;
@@ -123,23 +124,22 @@ public class ProductController {
         }
     }
     
- // API para obtener todos los usuarios menos el autenticado.
-    @GetMapping("/get-all-except-me")
-    public ResponseEntity<List<ProductDTO>> findAllExceptMe() throws Exception {
-    	
-    	try {
-        	List<ProductDTO> categoryAll = productService.getAllProduct();
-            return ResponseEntity.ok(categoryAll);
-        } catch (RuntimeException e) {
-            return ResponseEntity.noContent().build(); 
-        }
-    }
     
     // API para obtener todos los productos por busqueda.
     @GetMapping("/search-products")
     public ResponseEntity<List<ProductDTO>> searchProductsByName(@RequestParam String name) {
         List<ProductDTO> products = productService.searchProductsByName(name);
         return ResponseEntity.ok(products);
+    }
+    // API para obtener el producto mas buscado
+    @GetMapping("/most-searched")
+    public ResponseEntity<SearchHistory> getMostSearchedProduct() {
+    	try {
+    		SearchHistory searchHistory = productService.getMostSearchedProduct();
+            return ResponseEntity.ok(searchHistory);
+        } catch (RuntimeException e) {
+            return ResponseEntity.noContent().build(); 
+        }
     }
     
     // Endpoint para buscar productos por rango de precios

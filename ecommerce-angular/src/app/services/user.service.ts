@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment.prod';
 import { UserRequest } from '../interfaces/userRequest';
 import { Observable, catchError, throwError } from 'rxjs';
 import { User } from '../models/user';
+import { PasswordRequest } from '../interfaces/passwordRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -42,8 +43,15 @@ checkUsernameExists(username: string): Observable<any> {
   );
 }
 
-// Método para obtener todos los usuarios
+
+// Método para obtener todos los usuarios excepto el logueado
 getAllUsers(): Observable<UserRequest[]> {
+  return this.http.get<UserRequest[]>(`${environment.urlHost}api/user/get-all-except-me`);
+   
+}
+
+// Método para obtener todos los usuarios basico
+getAllUsersBasic(): Observable<UserRequest[]> {
   return this.http.get<UserRequest[]>(`${environment.urlHost}api/user/get-all`);
    
 }
@@ -60,6 +68,12 @@ updateUser(data:UserRequest): Observable<UserRequest> {
   );
 }
 
+// Método para actualizar un password
+updatePassword(id:number,  change :PasswordRequest): Observable<PasswordRequest> {
+  return this.http.put<PasswordRequest>(`${environment.urlHost}api/user/${id}/change-password`,change).pipe(
+    catchError(this.handleError)
+  );
+}
 
 private handleError(error: any): Observable<never> {
   console.error('Ocurrio un error:', error);

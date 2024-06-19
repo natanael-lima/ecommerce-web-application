@@ -949,30 +949,36 @@
             </div>
           </div>
           <!-- Modal Password -->
-          <div class="modal fade" id="modalPassword" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal fade" id="modalPassword" tabindex="-1" aria-labelledby="editarPassLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content p-3">
                 <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="exampleModalLabel">Change your password</h1>
+                  <h1 class="modal-title fs-5" id="editarPassLabel">Change your password</h1>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <div class="alert alert-danger" role="alert">
-                    Invalid password reset token!
-                  </div>
-                  <form>
+                  @if(newPassword !== newPasswordRepeat && newPasswordRepeat !== ''){
+                    <div class="alert alert-danger" role="alert">
+                      Las contraseñas no coinciden.
+                    </div>
+                  }
+                  <form (ngSubmit)="changePassword()" #editPassword="ngForm">
                     <div class="mb-3">
-                      <label for="new-password" class="col-form-label">New password:</label>
-                      <input type="password" class="form-control" id="new-password">
+                      <label for="passwordCurrentEdit" class="col-form-label">Current Password:</label>
+                      <input type="password" class="form-control" id="passwordCurrentEdit" name="passwordCurrentEdit" [(ngModel)]="oldPassword" required #passwordCurrentEdit="ngModel">
                     </div>
                     <div class="mb-3">
-                      <label for="confirm-password" class="col-form-label">Confirm password:</label>
-                      <input type="password" class="form-control" id="confirm-password">
+                      <label for="passwordNewEdit" class="col-form-label">New password:</label>
+                      <input type="password" class="form-control" id="passwordNewEdit" name="passwordNewEdit" [(ngModel)]="newPassword" required #passwordNewEdit="ngModel">
+                    </div>
+                    <div class="mb-3">
+                      <label for="passwordConfirmEdit" class="col-form-label">Confirm password:</label>
+                      <input type="password" class="form-control" id="passwordConfirmEdit" name="passwordConfirmEdit" [(ngModel)]="newPasswordRepeat" required #passwordConfirmEdit="ngModel">
+                    </div>
+                    <div class="d-grid gap-2">
+                      <button type="submit" class="btn btn-primary rounded-pill" [disabled]="editPassword.invalid" data-bs-dismiss="modal">Cambiar password</button>
                     </div>
                   </form>
-                </div>
-                <div class="d-grid gap-2 ">
-                  <button type="submit" class="btn btn-primary rounded-pill" data-bs-dismiss="modal">Cambiar password</button>
                 </div>
               </div>
             </div>

@@ -18,6 +18,7 @@ import { Imagen } from '../../../models/imagen';
 import { User } from '../../../models/user';
 import { HistoryRequest } from '../../../interfaces/historyRequest';
 import { HistoryService } from '../../../services/history.service';
+import { PasswordRequest } from '../../../interfaces/passwordRequest';
 
 
 
@@ -29,9 +30,12 @@ import { HistoryService } from '../../../services/history.service';
   styleUrl: './admin-dashboard.component.css'
 })
 export class AdminDashboardComponent implements OnInit{
-  baseUrl = environment.baseUrl;
+  
+  baseUrl = environment.baseUrl; // URI base para mostrar image 
+  //isLoggedIn: boolean = false; 
 
   currentSection: string = 'dashboard'; // Sección actual
+  // Propiedades para user actual
   currentUser: UserRequest ={
     id:0,
     name:'',
@@ -40,32 +44,35 @@ export class AdminDashboardComponent implements OnInit{
     role:'',
     timestamp:new Date()
   };
+  // Propiedades para user nuevo usuario
   newUser: User = {name:'',lastname:'',username:'',password:''};
 
-  isLoggedIn: boolean = false;
-  categories: CategoryRequest[] = [];
-  categoria: Category = new Category('', '', new Date());
+  users: UserRequest[] = []; // Lista de usuarios
+  categories: CategoryRequest[] = []; // Lista de categorias
+  products: ProductRequest[] = []; // Lista de productos
+  productsHighlights: ProductRequest[] = []; // Lista de productos destacados
+  histories: HistoryRequest[] = []; // Lista de historia de acciones en panel de control
 
-  products: ProductRequest[] = [];
-  productsHighlights: ProductRequest[] = [];
+
+  categoria: Category = new Category('', '', new Date());
   producto: Product = new Product('', '',0, 0,'', new Date,false, '');
+
   image:Imagen;
   selectedImageURL: string | ArrayBuffer= '';
 
-  histories: HistoryRequest[] = [];
-  // Propiedades para el formulario de edición
+  // Propiedades para el formulario de edición categoria
   editingCategory: CategoryRequest ={
       id:0,
       name:'',
       description:'',
       timestamp: new Date
     };
-  // Propiedades para el formulario de edición
+  // Propiedades para el formulario de edición product
   editingProduct: ProductRequest ={
     id: 0,
     name: '',
     description: '',
-    price: 0, // Tipo corregido de double a number
+    price: 0, 
     stock: 0,
     image: '',
     timestamp: new Date,
@@ -73,7 +80,7 @@ export class AdminDashboardComponent implements OnInit{
     categoria: ''
 
   };  
-
+  // Propiedades para el formulario de edición user
   editingUser: UserRequest ={
     id: 0,
     name:'',
@@ -83,10 +90,17 @@ export class AdminDashboardComponent implements OnInit{
     timestamp:new Date()
   };
 
-  changeImage = false;
+  changeImage = false; // Valida si quiere editar imagen o solo texto en product
 
-  users: UserRequest[] = [];
-    
+ // Propiedades para el formulario de edición password
+  password: PasswordRequest ={
+    currentPassword:'',
+    newPassword:''
+  };
+  oldPassword!: String;
+  newPassword!: String;
+  newPasswordRepeat!: String;
+
   constructor(private historyService:HistoryService,private productService:ProductService,private categoryService:CategoryService,private userService:UserService, private formBuilder:FormBuilder, private loginService:LoginService,private router:Router ){
     this.image = new Imagen();
 }
@@ -265,8 +279,6 @@ updateProduct(){
     })], {
       type: 'application/json'
     }));
-
-
     // Verificar si hay una nueva imagen seleccionada para el producto
     if (this.image.image) {
       // Agregar la nueva imagen al FormData
@@ -334,6 +346,34 @@ updateUser() {
       // Cerrar el modal programáticamente
   });
 }
+
+changePassword() {
+  console.log('Entré a cambiar la contraseña');
+
+  if (!this.currentUser.id) {
+    console.log('No hay usuario para cambiar la contraseña');
+    return;
+  }
+
+  if (this.newPassword !== this.newPasswordRepeat) {
+    console.log('Las contraseñas no coinciden');
+    return;
+  }
+  console.log('Las contraseñas coinciden');
+  this.password.newPassword = this.newPassword.toString();
+  this.password.currentPassword = this.oldPassword.toString();
+
+  this.userService.updatePassword(this.currentUser.id,this.password)
+    .subscribe(response => {
+      console.log('Password actualizado:', response);
+      this.getAllProduct();
+      this.getAllProductbyHighlight();
+      this.getAllCategory();
+      this.getAllUser();
+      // Cerrar el modal programáticamente
+  });
+}
+
 
 deleteCategory(id:number){
   this.categoryService.deleteCategory(id).subscribe(

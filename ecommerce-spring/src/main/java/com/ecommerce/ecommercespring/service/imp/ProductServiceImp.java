@@ -17,9 +17,11 @@ import com.ecommerce.ecommercespring.dto.ProductDTO;
 import com.ecommerce.ecommercespring.dto.ProductRegistrationDTO;
 import com.ecommerce.ecommercespring.entity.Category;
 import com.ecommerce.ecommercespring.entity.Product;
+import com.ecommerce.ecommercespring.entity.SearchHistory;
 import com.ecommerce.ecommercespring.exception.CategoryNotFoundException;
 import com.ecommerce.ecommercespring.repository.CategoryRepository;
 import com.ecommerce.ecommercespring.repository.ProductRepository;
+import com.ecommerce.ecommercespring.repository.SearchHistoryRepository;
 import com.ecommerce.ecommercespring.response.ApiResponse;
 import com.ecommerce.ecommercespring.service.ProductService;
 
@@ -31,6 +33,9 @@ public class ProductServiceImp implements ProductService {
 	
 	@Autowired
 	private CategoryRepository categoryRepository;
+	
+	@Autowired
+    private SearchHistoryRepository searchHistoryRepository;
 
 	@Override
 	public void saveProduct(ProductRegistrationDTO request, MultipartFile file) throws Exception {
@@ -193,15 +198,37 @@ public class ProductServiceImp implements ProductService {
 	@Override
 	public List<ProductDTO> searchProductsByName(String name) {
 		// TODO Auto-generated method stub
-				List<Product>  allProduct = productRepository.findByNameContaining(name);		 
+				List<Product>  allProduct = productRepository.findByNameContainingIgnoreCase(name);		 
 				List<ProductDTO> allProductDTO = new ArrayList<>();
 						
 				for (Product prod : allProduct) {
 					allProductDTO.add(convertToDTO(prod));
 				}
-					
-					return allProductDTO;
+				
+				if (!allProductDTO.isEmpty()) {
+		            saveSearchQuery(name);
+		        }
+				
+				return allProductDTO;
 	}
+	
+	public SearchHistory getMostSearchedProduct() {
+        return searchHistoryRepository.findTopByOrderBySearchCountDesc().orElse(null);
+    }
+	
+	private void saveSearchQuery(String query) {
+        Optional<SearchHistory> searchHistoryOptional = searchHistoryRepository.findByQuery(query);
+        SearchHistory searchHistory;
+        if (searchHistoryOptional.isPresent()) {
+            searchHistory = searchHistoryOptional.get();
+            searchHistory.setSearchCount(searchHistory.getSearchCount() + 1);
+        } else {
+            searchHistory = new SearchHistory();
+            searchHistory.setQuery(query);
+            searchHistory.setSearchCount(1);
+        }
+        searchHistoryRepository.save(searchHistory);
+    }
 
 	@Override
 	public ApiResponse updateProduct(ProductDTO dto, MultipartFile file) throws Exception {

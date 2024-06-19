@@ -15,11 +15,15 @@ public interface UserService {
 	
 	public ApiResponse updateUser(UserDTO userRequest);
 	
+	public void changePassword(Long userId, String currentPassword, String newPassword) throws Exception;;
+	
 	public UserDTO getUserById(Long id) throws Exception;
 	
 	public UserDTO getUser(Long id);
 	
 	public List<UserDTO> getAllUser() throws Exception;
+	
+	public List<UserDTO> getAllUserExceptMe(String name) throws Exception;
 	
 	public void deleteUser(Long id);
 	
@@ -31,5 +35,7 @@ public interface UserService {
 	
 	Optional<User> findByUsername(String username);
 	
-
+	
+	
+	
 }

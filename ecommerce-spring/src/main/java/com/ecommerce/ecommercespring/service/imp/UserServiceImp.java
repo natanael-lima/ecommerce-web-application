@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.ecommerce.ecommercespring.dto.UserDTO;
 import com.ecommerce.ecommercespring.entity.User;
 import com.ecommerce.ecommercespring.enums.RoleType;
+import com.ecommerce.ecommercespring.exception.ResourceNotFoundException;
 import com.ecommerce.ecommercespring.repository.UserRepository;
 import com.ecommerce.ecommercespring.response.ApiResponse;
 import com.ecommerce.ecommercespring.service.UserService;
@@ -112,7 +115,20 @@ public class UserServiceImp implements UserService {
 			
 				return allUsersDTO;
 	}
-
+	
+	@Override
+	public List<UserDTO> getAllUserExceptMe(String name) throws Exception {
+		// TODO Auto-generated method stub
+				List<User>  allUsers = userRepository.findAllByUsernameNot(name);		 
+				List<UserDTO> allUsersDTO = new ArrayList<>();
+				
+				for (User u : allUsers) {
+					allUsersDTO.add(convertToDTO(u));
+				}
+			
+				return allUsersDTO;
+	}
+	
 	@Override
 	public void deleteUser(Long id) {
 		// TODO Auto-generated method stub
@@ -135,7 +151,22 @@ public class UserServiceImp implements UserService {
 		  return new ApiResponse("El usuario se actualizo satisfactoriamente");
 	}
 
+	public void changePassword(Long userId, String currentPassword, String newPassword) throws Exception {
+        // Encuentra el usuario por su ID
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado con id: " + userId));
 
+        // Verifica si la contraseña actual coincide
+        if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
+            throw new BadRequestException("La contraseña actual es incorrecta.");
+        }
+
+        // Encripta y establece la nueva contraseña
+        user.setPassword(passwordEncoder.encode(newPassword));
+
+        // Guarda el usuario actualizado en la base de datos
+        userRepository.save(user);
+    }
 
 	@Override
 	public boolean existsByName(String name) {

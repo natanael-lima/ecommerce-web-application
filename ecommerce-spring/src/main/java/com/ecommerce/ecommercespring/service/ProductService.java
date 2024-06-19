@@ -5,6 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ecommerce.ecommercespring.dto.ProductDTO;
 import com.ecommerce.ecommercespring.dto.ProductRegistrationDTO;
 import com.ecommerce.ecommercespring.entity.Product;
+import com.ecommerce.ecommercespring.entity.SearchHistory;
 import com.ecommerce.ecommercespring.response.ApiResponse;
 
 
@@ -23,6 +24,8 @@ public interface ProductService {
 	public ProductDTO getProductById(Long id) throws Exception;
 	
 	public List<ProductDTO> searchProductsByName(String name);
+	
+	public SearchHistory getMostSearchedProduct();
 	
 	public List<ProductDTO> searchProductsByPriceRange(Double priceStart, Double priceEnd);
 	
