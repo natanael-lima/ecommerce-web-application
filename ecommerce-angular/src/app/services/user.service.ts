@@ -63,7 +63,14 @@ deleteUser(id:number): Observable<User> {
 
 // Método para actualizar un usuario
 updateUser(data:UserRequest): Observable<UserRequest> {
-  return this.http.put<UserRequest>(`${environment.urlHost}api/user/update-user`,data).pipe(
+  return this.http.put<UserRequest>(`${environment.urlHost}api/user/update-user/${data.id}`,data).pipe(
+    catchError(this.handleError)
+  );
+}
+
+// Método para actualizar un usuario sin pasar id
+updateUserByQuery(data:UserRequest): Observable<UserRequest> {
+  return this.http.put<UserRequest>(`${environment.urlHost}api/user/update-user-query`,data).pipe(
     catchError(this.handleError)
   );
 }

@@ -6,6 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { SearchService } from '../../../services/search.service';
 import { Router } from '@angular/router';
+import { CategoryService } from '../../../services/category.service';
+import { CategoryRequest } from '../../../interfaces/categoryRequest';
 
 @Component({
   selector: 'app-header',
@@ -17,11 +19,13 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
   searchName: string = '';
+  categories: CategoryRequest[] = []; // Lista de categorias
 
-  constructor(private searchService: SearchService, private router: Router) {}
+  constructor(private categoryService:CategoryService, private searchService: SearchService, private router: Router) {}
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+
+    this.getAllCategory();
   }
 
   onSearch(): void {
@@ -29,4 +33,16 @@ export class HeaderComponent implements OnInit {
     this.searchService.setSearchTerm(this.searchName.trim());
     this.router.navigate(['/product']); // Redirige al componente de productos
   }
+
+  getAllCategory(): void {
+    this.categoryService.getAllCategorys().subscribe(
+      (data: CategoryRequest[]) => {
+        this.categories = data;
+      },
+      (error) => {
+        console.error('Error fetching categories:', error);
+      }
+    );
+  }
+
 }

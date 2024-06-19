@@ -19,6 +19,7 @@ import { User } from '../../../models/user';
 import { HistoryRequest } from '../../../interfaces/historyRequest';
 import { HistoryService } from '../../../services/history.service';
 import { PasswordRequest } from '../../../interfaces/passwordRequest';
+import { SearchRequest } from '../../../interfaces/searchRequest';
 
 
 
@@ -101,6 +102,13 @@ export class AdminDashboardComponent implements OnInit{
   newPassword!: String;
   newPasswordRepeat!: String;
 
+  // Propiedades para producto mas buscado
+  mostSearched: SearchRequest ={
+    id:0,
+    query:'',
+    searchCount:0
+  };
+
   constructor(private historyService:HistoryService,private productService:ProductService,private categoryService:CategoryService,private userService:UserService, private formBuilder:FormBuilder, private loginService:LoginService,private router:Router ){
     this.image = new Imagen();
 }
@@ -111,6 +119,7 @@ ngOnInit(): void {
     this.getAllProductbyHighlight();
     this.getAllUser();
     this.getAllHistory();
+    this.getMostSearchProduct();
     this.userService.getCurrentUser().subscribe(
       (data: UserRequest) => {
         this.currentUser = data;
@@ -266,6 +275,17 @@ getAllHistory(): void {
     }
   );
 }
+getMostSearchProduct(): void {
+  this.productService.getMostSearched().subscribe(
+    (data: SearchRequest) => {
+      this.mostSearched = data;
+    },
+    (error) => {
+      console.error('Error fetching most search product:', error);
+    }
+  );
+}
+
 updateProduct(){
     const formData = new FormData();
     // Agregar los datos del producto como un objeto, no como una cadena JSON
@@ -346,6 +366,23 @@ updateUser() {
       // Cerrar el modal programáticamente
   });
 }
+
+updateUserCurrent() {
+  if (this.currentUser.id === null) {
+    console.error('No hay user seleccionada para editar');
+    return;
+  }
+  this.userService.updateUser(this.currentUser)
+    .subscribe(response => {
+      console.log('User actualizada:', response);
+      this.getAllProduct();
+      this.getAllProductbyHighlight();
+      this.getAllCategory();
+      this.getAllUser();
+      // Cerrar el modal programáticamente
+  });
+}
+
 
 changePassword() {
   console.log('Entré a cambiar la contraseña');

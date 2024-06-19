@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment.prod';
 import { Product } from '../models/product';
 import { Observable, catchError, throwError } from 'rxjs';
 import { ProductRequest } from '../interfaces/productRequest';
+import { SearchRequest } from '../interfaces/searchRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -31,8 +32,8 @@ export class ProductService implements OnInit {
     return this.http.delete<ProductRequest>(`${environment.urlHost}api/product/delete-product/${id}`);
   }
 
-  getProductById(id: number): Observable<any[]> {
-    return this.http.get<any[]>(`${environment.urlHost}api/product/get-product/${id}`);
+  getProductById(id: number): Observable<any> {
+    return this.http.get<any>(`${environment.urlHost}api/product/get-product/${id}`);
   }
 
   getAllProducts(): Observable<any[]> {
@@ -46,12 +47,19 @@ export class ProductService implements OnInit {
   getAllByPrices(priceStart: number, priceEnd:number){
     return this.http.get<any>(`${environment.urlHost}api/product/price-range?priceStart=${encodeURIComponent(priceStart)}&priceEnd=${encodeURIComponent(priceEnd)}`);
   }
-  getAllProductsHighlight(): Observable<any[]> {
-    return this.http.get<any[]>(`${environment.urlHost}api/product/search-highlight`);
-  }
   getAllProductsByCategory(name: string): Observable<any[]> {
     return this.http.get<any[]>(`${environment.urlHost}api/product/categoria/${name}`);
   }
+
+  getAllProductsHighlight(): Observable<any[]> {
+    return this.http.get<any[]>(`${environment.urlHost}api/product/search-highlight`);
+  }
+  
+  // Método para obtener el producto mas buscado.
+ getMostSearched(): Observable<SearchRequest> {
+  return this.http.get<SearchRequest>(`${environment.urlHost}api/product/most-searched`);
+   
+}
 
 
   private handleError(error: HttpErrorResponse) {

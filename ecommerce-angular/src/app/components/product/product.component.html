@@ -20,25 +20,22 @@
           <!-- Filtro de Productos -->
           <div class="col-md-3 mt-2">
             <h4 class="mb-2">Categorias</h4>
-            <select class="form-select mb-2">
-              <option selected>Todos</option>
-              <option value="1">Cocina y Comedor</option>
-              <option value="2">Calefacción y Electricidad</option>
-              <option value="3">Preparación y Servicio de Bebidas</option>
+            <select class="form-select mb-2" (change)="searchProductsByCategory($event)">
+              <option value="">Todos</option>
+              <option *ngFor="let item of categories" [value]="item.name">{{ item.name }}</option>
             </select>
             <h4 class="mb-2 mt-5 ">Filtrar por</h4>
             <div class="h5 h6-md mb-3 mt-3 mr-3">Precio</div>
-            <form class="row g-3">
+            <form class="row g-3"  (click)="searchProductsByPrice()">
               <div class="col-6">
                 <label class="form-label ">Desde</label>
-                  <input type="number" name="min_price" step="1" min="0" class="form-control" value="" placeholder="1.624">
+                  <input type="number" name="min_price" step="1" min="0" class="form-control" value="" placeholder="1.624" id="min_price" [(ngModel)]="price1">
               </div>
               <div class="col-6">
                 <label class="form-label">Hasta</label>
-                <input type="number" name="max_price" step="1" min="0" class="form-control" value="" placeholder="60.843">
-               
+                <input type="number" name="max_price" step="1" min="0" class="form-control" value="" placeholder="60.843" id="max_price" [(ngModel)]="price2">
               </div>
-              <button type="submit" class="btn btn-success btn-small rounded-pill" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator-fill" viewBox="0 0 16 16">
+              <button type="submit" class="btn btn-success btn-small rounded-pill"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator-fill" viewBox="0 0 16 16">
                 <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zm2 .5v2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5h-7a.5.5 0 0 0-.5.5m0 4v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M4.5 9a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM4 12.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5M7.5 6a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM7 9.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m.5 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zM10 6.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5m.5 2.5a.5.5 0 0 0-.5.5v4a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 0-.5-.5z"/>
               </svg> Aplicar</button>
           </form>

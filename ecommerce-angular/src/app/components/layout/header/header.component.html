@@ -13,29 +13,15 @@
       <div class="collapse navbar-collapse" id="navbarsExample01">
         <ul class="navbar-nav me-auto mb-2">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+            <a class="nav-link active" aria-current="page" href="/home">Inicio</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="/product">Todas las categorias</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Electrónica</a>
+          <li class="nav-item" *ngFor="let item of categories">
+            <a class="nav-link" href="#">{{item.name}}</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Hogar y Jardín</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Moda y Accesorios</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Libros y Medios</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Deportes y Entretenimiento</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Limpieza y Organización</a>
-          </li>
+          
         </ul>
       </div>
 
@@ -58,8 +44,7 @@
                           </svg>
                         </a>
                         <span class="divider"></span>
-
-                        <a style="--bs-icon-link-transform: translate3d(0, -.125rem, 0);" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover m-2 icon-link-hover" href="#">
+                        <a style="--bs-icon-link-transform: translate3d(0, -.125rem, 0); --bs-link-hover-color-rgb: 25, 135, 84;" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover m-2 icon-link-hover" href="#">
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
                             <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
                           </svg>
@@ -73,9 +58,6 @@
       </form>
   </div>
 </header>
-
-
-
 
 
 
@@ -94,39 +76,34 @@
       </div>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <div class="btn-group flex-grow-1 d-none d-lg-block d-md-block d-sm-none ">
-            <button class="btn rounded-pill px-3  btn-custom dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Categorias
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item "  href="/product">Todas las Categorias</a></li>
-                <li><a class="dropdown-item" href="#">Batidora</a></li>
-                <li><a class="dropdown-item" href="#">Cafetera</a></li>
-                <li><a class="dropdown-item" href="#">Freidora</a></li>
-                <li><a class="dropdown-item" href="#">Pavas</a></li>
-                <li><a class="dropdown-item" href="#">Termos</a></li>
-            </ul>
-        </div>
+            <!-- 
+            <div class="btn-group flex-grow-1 d-none d-lg-block d-md-block d-sm-none ">
+              <button class="btn rounded-pill px-3  btn-custom dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Categorias
+              </button>
+              <ul class="dropdown-menu">
+                  <li><a class="dropdown-item "  href="/product">Todas las Categorias</a></li>
+                  <li><a class="dropdown-item" href="#">Batidora</a></li>
+                  <li><a class="dropdown-item" href="#">Cafetera</a></li>
+                  <li><a class="dropdown-item" href="#">Freidora</a></li>
+                  <li><a class="dropdown-item" href="#">Pavas</a></li>
+                  <li><a class="dropdown-item" href="#">Termos</a></li>
+              </ul>
+            </div>  -->
+           <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/home">Inicio</a>
+          </li>  
           <li class="nav-item">
-            <a class="nav-link" href="#">Electrodomesticos</a>
+            <a class="nav-link" aria-current="page" href="/product">Todas las Categorias</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Hogar</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Limpieza</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Plasticos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Deporte</a>
+          <li class="nav-item" *ngFor="let item of categories">
+            <a class="nav-link" href="#">{{item.name}}</a>
           </li>
         </ul>
-        <form class="d-block d-lg-none d-md-none d-sm-block " role="search">
+        <form class="d-block d-lg-none d-md-none d-sm-block " role="search" (submit)="onSearch()">
           <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6 col-12">
             <div class="input-group">
-              <input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search">
+              <input class="form-control me-2" type="search" placeholder="Buscar..." aria-label="Search" [(ngModel)]="searchName" name="searchMobile" >
               <button class="btn btn-outline-success" type="submit"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
             </svg>  Search</button>

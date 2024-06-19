@@ -17,4 +17,6 @@ export class SearchService {
   getSearchTerm(): Observable<string> {
     return this.searchTermSubject.asObservable();
   }
+
+  
 }

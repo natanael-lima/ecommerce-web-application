@@ -18,6 +18,7 @@ import com.ecommerce.ecommercespring.repository.UserRepository;
 import com.ecommerce.ecommercespring.response.ApiResponse;
 import com.ecommerce.ecommercespring.service.UserService;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -139,17 +140,39 @@ public class UserServiceImp implements UserService {
 
 	@Override
 	public ApiResponse updateUser(UserDTO userRequest) {
-		User user = User.builder()
-		        .id(userRequest.getId())
-		        .lastname(userRequest.getLastname())
-		        .name(userRequest.getName())
-		        .timestamp(LocalDateTime.now())
-		        .role(RoleType.USER)
-		        .build();
-		// Guardar el usuario en la base de datos
-		userRepository.updateUser(user.getId(), user.getLastname(), user.getName());
+		 User user = userRepository.findById(userRequest.getId())
+                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+		
+		    // Actualizar solo los campos que pueden ser modificados
+	        user.setLastname(userRequest.getLastname());
+	        user.setName(userRequest.getName());
+	        user.setTimestamp(LocalDateTime.now());
+		   // Guardar el usuario en la base de datos
+
+
+	       // No es necesario llamar a userRepository.updateUser(user.getId(), user.getLastname(), user.getName());
+	        // Spring Data JPA se encargará de actualizar el usuario automáticamente al llamar a save()
+	        userRepository.save(user);
 		  return new ApiResponse("El usuario se actualizo satisfactoriamente");
 	}
+	
+	@Transactional
+	public ApiResponse updateUserBuildQuery(UserDTO userRequest) {
+		 User user = userRepository.findById(userRequest.getId())
+                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+		
+		 User user1 = User.builder()
+			        .id(userRequest.getId())
+			        .lastname(userRequest.getLastname())
+			        .name(userRequest.getName())
+			        .role(RoleType.USER)
+			        .build();
+			        
+			        userRepository.updateUser(user1.getId(), user1.getLastname(), user1.getName());
+		  return new ApiResponse("El usuario se actualizo satisfactoriamente");
+	}
+
+	
 
 	public void changePassword(Long userId, String currentPassword, String newPassword) throws Exception {
         // Encuentra el usuario por su ID

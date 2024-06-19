@@ -117,7 +117,7 @@
                   <li><a class="dropdown-item" href="#" disabled>Rol: {{currentUser.role}}</a></li>
                   <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editProfile" >Perfil</a></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#" (click)="onLogout()">Cerrar Sesion</a></li>
+                  <li><a class="dropdown-item" (click)="onLogout()">Cerrar Sesion</a></li>
                 </ul>
               </div>
             </div>
@@ -179,7 +179,7 @@
                                   </div>
                         </div>
                     </div>
-                    <!-- Card 4: Cantidad de Visitas -->
+                    <!-- Card 4: Producto buscado -->
                     <div class="col-lg-3">
                       <div class="card card-color">
                                <!-- Contenedor circular con iconos -->
@@ -191,7 +191,8 @@
                                 <div class="card-body">
                                     <p class="card-title text-light text-center lead">Producto mas Buscado</p>
                                     <!-- Agrega aquí la cantidad de productos -->
-                                    <h2 class="card-text text-white text-center">Pava Electrica</h2>
+                                    <h2 class="card-text text-white text-center">{{mostSearched.query}}</h2>
+                                    <!--<p class="card-text text-white text-center">Cantidad Veces : {{mostSearched.searchCount}}</p>-->
                                 </div>
                       </div>
                   </div>
@@ -247,7 +248,7 @@
                   <li><a class="dropdown-item" href="#" disabled >Rol: {{currentUser.role}}</a></li>
                   <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editProfile" >Perfil</a></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#" (click)="onLogout()">Cerrar Sesion</a></li>
+                  <li><a class="dropdown-item" (click)="onLogout()">Cerrar Sesion</a></li>
                 </ul>
               </div>
             </div>
@@ -349,7 +350,7 @@
                   <li><a class="dropdown-item" href="#" disabled>Rol: {{currentUser.role}}</a></li>
                   <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editProfile" >Perfil</a></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#" (click)="onLogout()">Cerrar Sesion</a></li>
+                  <li><a class="dropdown-item"  (click)="onLogout()">Cerrar Sesion</a></li>
                 </ul>
               </div>
             </div>
@@ -413,7 +414,7 @@
                   <li><a class="dropdown-item" href="#" disabled>Rol: {{currentUser.role}}</a></li>
                   <li><a class="dropdown-item" href="#">Perfil</a></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#" (click)="onLogout()">Cerrar Sesion</a></li>
+                  <li><a class="dropdown-item" (click)="onLogout()">Cerrar Sesion</a></li>
                 </ul>
               </div>
             </div>
@@ -472,8 +473,8 @@
                                   <tbody>
                                     <tr *ngFor="let user of users">
                                       <td>{{user.id}}</td>
-                                      <td>{{user.lastname}}</td>
                                       <td>{{user.name}}</td>
+                                      <td>{{user.lastname}}</td>
                                       <td>{{user.username}}</td>
                                       <td>{{user.timestamp | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
                                       <td><button class="btn btn-danger rounded-pill px-3 me-2" type="submit"  (click)="deleteUser(user.id)"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
@@ -507,7 +508,7 @@
                   <li><a class="dropdown-item" href="#" disabled>Rol: {{currentUser.role}}</a></li>
                   <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editProfile" >Perfil</a></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#" (click)="onLogout()">Cerrar Sesion</a></li>
+                  <li><a class="dropdown-item"  (click)="onLogout()">Cerrar Sesion</a></li>
                 </ul>
               </div>
             </div>
@@ -537,7 +538,7 @@
                                       <label for="newProductCategory">Categoría</label>
                                       <select class="form-control" id="newProductCategory" name="newProductCategory" [(ngModel)]="producto.categoria" placeholder="" value="" required #newProductCategory="ngModel">
                                         <option value="" disabled selected>Elegir</option>
-                                          <option *ngFor="let category of categories" [value]="category.name" > {{ category.name }}</option>
+                                          <option *ngFor="let category of categories" > {{ category.name }}</option>
                                       </select>
                                   </div>
                                   <div class="form-group mb-3">
@@ -905,7 +906,7 @@
                     </div>
                     <div class="mb-3">
                       <label for="userUsernameEdit" class="form-label">Username</label>
-                      <input type="text" class="form-control" id="userUsernameEdit" name="userUsernameEdit" [(ngModel)]="editingUser.username" required #userUsernameEdit="ngModel">
+                      <input disabled type="text" class="form-control" id="userUsernameEdit" name="userUsernameEdit" [(ngModel)]="editingUser.username" required #userUsernameEdit="ngModel">
                     </div>
                     <div class="d-grid gap-2">
                       <button type="submit" class="btn btn-primary rounded-pill" [disabled]="editFormUser.invalid" data-bs-dismiss="modal">Actualizar</button>
@@ -924,7 +925,7 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <form (ngSubmit)="updateUser()" #editProfile="ngForm">
+                  <form (ngSubmit)="updateUserCurrent()" #editProfileModal="ngForm">
                     <div class="mb-3">
                       <label for="profileNameEdit" class="form-label">Nombre</label>
                       <input type="text" class="form-control" id="profileNameEdit" name="profileNameEdit" [(ngModel)]="currentUser.name" required #profileNameEdit="ngModel">
@@ -933,12 +934,9 @@
                       <label for="profileLastnameEdit" class="form-label">Apellido</label>
                       <input type="text" class="form-control" id="profileLastnameEdit" name="profileLastnameEdit" [(ngModel)]="currentUser.lastname" required #profileLastnameEdit="ngModel">
                     </div>
-                    <div class="mb-3">
-                      <label for="profileUsernameEdit" class="form-label">Username</label>
-                      <input type="text" class="form-control" id="profileUsernameEdit" name="profileUsernameEdit" [(ngModel)]="currentUser.username" required #profileUsernameEdit="ngModel">
-                    </div>
                     
-                      <button type="submit" class="btn btn-primary rounded-pill m-2" [disabled]="editProfile.invalid" data-bs-dismiss="modal">Actualizar</button>
+                    
+                      <button type="submit" class="btn btn-primary rounded-pill m-2" [disabled]="editProfileModal.invalid" data-bs-dismiss="modal">Actualizar</button>
                       <button type="button" class="btn btn-outline-dark rounded-pill btn-sm" data-bs-toggle="modal" data-bs-target="#modalPassword"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-key-fill" viewBox="0 0 16 16">
                         <path d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2M2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
                       </svg> Cambiar Password</button>

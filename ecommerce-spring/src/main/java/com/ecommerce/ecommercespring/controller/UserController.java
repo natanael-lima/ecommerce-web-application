@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -47,18 +48,32 @@ public class UserController {
 	
 	
 	// API para actualizar los datos del usuario.
-    @PutMapping("/update-user")
-    public ResponseEntity<ApiResponse> updateUser(@RequestBody UserDTO userRequest)
+    @PutMapping("/update-user/{id}")
+    public ResponseEntity<ApiResponse> updateUser(@PathVariable Long id, @RequestBody UserDTO userRequest)
     {	
-    	try {
-    		userService.updateUser(userRequest);
-            historyService.createHistory(TableType.USUARIO, ActionType.UPDATE);
-            return ResponseEntity.ok(new ApiResponse( "Usuario actualizado correctamente"));
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(404).body(new ApiResponse("Usuario no encontrado o editar"));
-        }
+    	 try {
+             userRequest.setId(id);
+             ApiResponse response = userService.updateUser(userRequest);
+             return ResponseEntity.ok(response);
+         } catch (RuntimeException e) {
+             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("Usuario no encontrado o no se pudo actualizar"));
+         }
     	
     }
+    
+    // API para actualizar dedatos descartado
+    @PutMapping("/update-user-query")
+    public ResponseEntity<ApiResponse> updateUserQuery(@RequestBody UserDTO userRequest)
+    {	
+    	 try {
+             ApiResponse response = userService.updateUser(userRequest);
+             return ResponseEntity.ok(response);
+         } catch (RuntimeException e) {
+             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("Usuario no encontrado o no se pudo actualizar"));
+         }
+    	
+    }
+    
     
     // API para eliminar los datos del usuario.
     @DeleteMapping("/delete-user/{id}")

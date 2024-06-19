@@ -48,51 +48,6 @@
     cursor: pointer;
   }
 
-/*v1*/
-.carousel-inner-high {
-  display: flex;
-  overflow: hidden;
-}
-.carousel-item-high {
-  flex: 0 0 20%;
-  min-width: 20%;
-  box-sizing: border-box;
-  padding: 10px;
-  transition: transform 0.5s ease, opacity 0.5s ease;
-}
-/*v2*/
-.carousel-inner{
-  display: block;
-}
-.multiple-card-slider .carousel-inner {
-  padding: 1em;
-}
-.multiple-card-slider .card {
-  margin: 0 0.5em;
-  box-shadow: 2px 6px 8px 0 rgba(22, 22, 26, 0.18);
-  border: none;
-}
-.multiple-card-slider .carousel-control-prev,
-.multiple-card-slider .carousel-control-next {
-  background-color: #e1e1e1;
-  width: 3em;
-  height: 3em;
-  border-radius: 50%;
-  top: 50%;
-  transform: translateY(-50%);
-}
-@media (min-width: 768px) {
-  .multiple-card-slider .carousel-item {
-    margin-right: 0;
-    flex: 0 0 calc(100% / 3);
-    display: inline-block;
-    backface-visibility: visible;
-  }
-  .multiple-card-slider .carousel-inner {
-    display: flex;
-  }
-}
-
 /*V3*/
 .cards-wrapper {
   display: flex;
@@ -176,3 +131,51 @@
   height: 50px;
   margin: 0 40px;
 }
+
+/* Estilos para el slider de cards de productos */
+.card-productos {
+  overflow: hidden;
+  padding: 60px 0;
+  background: white;
+}
+
+.card-carousel {
+  display: flex;
+  overflow-x: visible;
+  
+}
+
+.card-slide {
+  display: flex;
+  animation: slide 20s infinite linear;
+}
+.card-carousel:hover .card-slide {
+  animation-play-state: paused;
+}
+
+
+.card {
+  width: 300px; /* Ancho de cada card */
+  margin: 0 10px; /* Espacio entre las cards */
+  transition: transform 0.3s ease; /* Transición para el efecto de zoom */
+}
+
+.card:hover {
+  transform: scale(1.05); /* Efecto de zoom al hacer hover */
+}
+
+.card img {
+  height: 150px; /* Altura de la imagen de la card */
+}
+
+@keyframes slides {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(calc(-100% * 1)); /* Ajusta según la cantidad de cards en una sección */
+  }
+}
+
+
+
