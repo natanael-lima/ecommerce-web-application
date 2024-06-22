@@ -38,7 +38,7 @@
       Productos Destacadas
     </h3>
     <!-- Slider de Cards -->
-      <button class="btn btn-success rounded-pill mt-2"><a class="icon-link link-light icon-link-hover link-underline-opacity-0" href="#">
+      <button class="btn btn-custom rounded-pill"><a class="icon-link link-light icon-link-hover link-underline-opacity-0" (click)="navigateToProduct()">
         Ver Todos Los Productos  
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
@@ -49,23 +49,24 @@
           <div class="card-carousel">
             <!-- Primera sección de cards -->
             <div class="card-slide" *ngFor="let item of productsHighlights" >
-              <div class="card rounded-pill text-center overflow-hidden border-0 shado rounded-top p-0" style="width: 12rem;">
+              <div class="card rounded-pill text-center overflow-hidden border-0 shado rounded-top p-0" style="width: 10rem;">
                 <img [src]="baseUrl + item.image" class="card-img-top" alt="{{item.image}}">
                 <div class="card-body" >
                   <h5 class="card-title fw-bold">{{item.name}}</h5>
-                  <a href="#" class="btn btn-success px-3 rounded-pill">Comprar Ahora</a>
-                  <a href="#" class="btn btn-success px-3 rounded-pill">Añadir a carrito</a>
+                  <a class="btn btn-custom px-3 rounded-pill" (click)="navigateToProductDetail(item.id)">Ver Ahora</a>
+                  <!--<a href="#" class="btn btn-success px-3 rounded-pill">Añadir a carrito</a>-->
                   <p class="mt-3">${{item.price}}</p>
                 </div>
               </div>
             </div>
             <!-- Segunda sección de cards (para efecto infinito) -->
             <div class="card-slide" *ngFor="let item of productsHighlights">
-              <div class="card rounded-pill text-center overflow-hidden border-0 shado rounded-top p-0" style="width: 12rem;">
+              <div class="card rounded-pill text-center overflow-hidden border-0 shado rounded-top p-0" style="width: 10rem;">
                 <img [src]="baseUrl + item.image" class="card-img-top" alt="{{item.image}}">
                 <div class="card-body" >
                   <h5 class="card-title fw-bold">{{item.name}}</h5>
                   <a href="#" class="btn btn-success px-3 rounded-pill">Comprar Ahora</a>
+                  <!--<a href="#" class="btn btn-success px-3 rounded-pill">Añadir a carrito</a>-->
                   <p class="mt-3">${{item.price}}</p>
                 </div>
               </div>
@@ -76,15 +77,15 @@
    <div class="row mt-5 mb-5 d-none d-md-block d-lg-block">
       <div class="col">
         <a class="banner-link" href="#" title="Juego de honor">
-          <img src="https://i.postimg.cc/7YB0YSD8/banner-github.png" alt="Banner">
+          <img src="https://i.postimg.cc/G21M54gm/banner-ecommece.png" alt="Banner">
           <div class="banner-logo-text">
-            <img class="logo d-none d-lg-block " src="https://http2.mlstatic.com/storage/homes-korriban/assets/images/touchpoint_trailer/logo-mercado-play-v2.png" alt="Ahora podés ver series y películas">
-            <div class="text">
+            <img class="logo d-none d-lg-block " src="https://spurgeon.ar/wp-content/uploads/2023/01/version-horizontal-large-logo-mercado-pago-1024x267.webp" alt="Ahora podés ver series y películas">
+            <div class="text mt-5">
               <span class="primary-title text-white">Ahora podés </span>
-              <span class="secondary-title text-white">ver series y películas</span>
+              <span class="secondary-title text-white">pagar con QR y USDT</span>
             </div>
             <div class="actions">
-              <button type="button" class="action-button">Ir a Mercado Play</button>
+              <button type="button" class="btn btn-primary rounded-pill mt-3">Ir a Mercado Pago</button>
             </div>
           </div>
         </a>
@@ -120,7 +121,7 @@
         </div>
       </div>
       <div class="col-md-4 col-sm-6 mb-3 mb-sm-0">
-        <div class="card border rounded shadow-sm">
+        <div class="card card-category border rounded shadow-sm">
           <img src="https://http2.mlstatic.com/D_NQ_656400-MLA76552695464_052024-OO.webp" class="card-img-top" alt="Pava Electrica" height="450">
           <div class="card-body d-flex flex-column">
             <h5 class="card-title">CONSTRUCCIÓN</h5>

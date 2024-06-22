@@ -47,6 +47,13 @@ export class HomeComponent implements OnInit{
         console.error('Error fetching categories:', error);
       }
     );
-  }   
+  }
+  
+  navigateToProductDetail(productId: number): void {
+    this.router.navigate(['/product/product-detail', productId]);
+  }
 
+  navigateToProduct(): void {
+    this.router.navigate(['/product']);
+  }
 }

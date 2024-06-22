@@ -4,7 +4,7 @@ import { Product } from '../../models/product';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../../environments/environment.prod';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SearchService } from '../../services/search.service';
 import { CategoryService } from '../../services/category.service';
 import { CategoryRequest } from '../../interfaces/categoryRequest';
@@ -19,30 +19,55 @@ import { CategoryRequest } from '../../interfaces/categoryRequest';
 export class ProductComponent implements OnInit{
 
   baseUrl = environment.baseUrl;
-  products: any[] = [];
+  products: Product[] = [];
   searchName: string = '';
-  router: any;
+
   categories: CategoryRequest[] = []; // Lista de categorias
 
   price1!:number;
   price2!:number;
   
-  constructor(private categoryService:CategoryService,private productService: ProductService, private searchService: SearchService,private route: Router) {}
+  constructor(private categoryService:CategoryService,private productService: ProductService, private searchService: SearchService,private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    // Llamar al método con un nombre de ejemplo
-    this.getAllProducts();
-    this.getAllCategory();
+
+  this.getAllCategory();
+  //Listar productos por categoria desde navegador
+  this.route.queryParams.subscribe(params => {
+    const category = params['category'];
+    console.log("devuelto:",category);
+    if (category) {
+      console.log("si:",category);
+      this.loadProductsByCategory(category);
+    } else {
+      console.log("no:",category);
+      this.getAllProducts();
+      
+    }
+  });
 
     this.searchService.getSearchTerm().subscribe((searchTerm: string) => {
       if (searchTerm.trim()) {
         this.searchProducts(searchTerm.trim());
       } else {
-        this.getAllProducts();
+        //this.getAllProducts();
       }
     });
 
   }
+
+  loadProductsByCategory(category: string) {
+    this.productService.getAllProductsByCategory(category).subscribe(
+      (data: Product[]) => {
+        this.products = data;
+        console.log("Productos de load",this.products);
+      },
+      (error) => {
+        console.error('Error fetching products:', error);
+      }
+    );
+  }
+
   getAllProducts(): void {
     this.productService.getAllProducts().subscribe(
       (data: Product[]) => {
@@ -95,7 +120,6 @@ export class ProductComponent implements OnInit{
 
   searchProductsByPrice(): void {
 
-
     if (this.price1===null && this.price2===null) {
       // Lógica para obtener todos los productos cuando se selecciona "Todos"
       this.getAllProducts();
@@ -114,6 +138,6 @@ export class ProductComponent implements OnInit{
 
 
   navigateToProductDetail(productId: number): void {
-    this.route.navigate(['/product/product-detail', productId]);
+    this.router.navigate(['/product/product-detail', productId]);
   }
 }

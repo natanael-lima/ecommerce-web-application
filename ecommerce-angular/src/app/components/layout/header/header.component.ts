@@ -8,6 +8,7 @@ import { SearchService } from '../../../services/search.service';
 import { Router } from '@angular/router';
 import { CategoryService } from '../../../services/category.service';
 import { CategoryRequest } from '../../../interfaces/categoryRequest';
+import { ProductRequest } from '../../../interfaces/productRequest';
 interface CartItem {
   id: number;
   name: string;
@@ -24,6 +25,7 @@ interface CartItem {
 export class HeaderComponent implements OnInit {
 
   searchName: string = '';
+  products: Product[] = [];
   categories: CategoryRequest[] = []; // Lista de categorias
   cartItems: CartItem[] = [
     { id: 1, name: 'Producto 1', price: 100, quantity: 1 },
@@ -35,7 +37,7 @@ export class HeaderComponent implements OnInit {
 
  
 
-  constructor(private categoryService:CategoryService, private searchService: SearchService, private router: Router) {}
+  constructor(private categoryService:CategoryService,private productService: ProductService, private searchService: SearchService, private router: Router) {}
 
   ngOnInit(): void {
 
@@ -58,6 +60,27 @@ export class HeaderComponent implements OnInit {
       }
     );
   }
+  getAllProducts(): void {
+    this.productService.getAllProducts().subscribe(
+      (data: Product[]) => {
+        this.products = data;
+      },
+      (error) => {
+        console.error('Error fetching products:', error);
+      }
+    );
+  }
+
+  searchProductsByCategory(category:string): void {
+    if (category === '') {
+      // Lógica para obtener todos los productos cuando se selecciona "Todos"
+       this.router.navigate(['/product']); // Redirige al componente de productos
+    } else {
+      // Lógica para obtener productos por categoría
+      this.router.navigate(['/product'], { queryParams: { category: category } });
+    }
+  }
+
 
   toggleCart() {
     this.isCartVisible = !this.isCartVisible;

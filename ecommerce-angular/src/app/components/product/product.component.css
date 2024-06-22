@@ -21,3 +21,13 @@
 .card:hover .overlay {
     opacity: 1; /* Hacer visible la superposición cuando se pasa el cursor sobre la tarjeta */
 }
+.btn-custom{
+    background-color: #1C2F33;
+    color: white;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Agregar transición */
+}
+
+.btn-custom:hover{
+    background-color:#131f22;;
+    color: #ffffff;
+}

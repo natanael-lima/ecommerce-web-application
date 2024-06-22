@@ -23,7 +23,7 @@
     justify-content: flex-end;
     align-items: flex-start;
     padding: 50px;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
   }
 .banner-logo-text .logo {
@@ -47,6 +47,16 @@
     font-size: 1rem;
     cursor: pointer;
   }
+.btn-custom{
+    background-color: #1C2F33;
+    color: white;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Agregar transición */
+}
+
+.btn-custom:hover{
+    background-color:#131f22;;
+    color: #ffffff;
+}
 
 /*slider logos*/
 @keyframes slide {
@@ -103,7 +113,7 @@
 /* Estilos para el slider de cards de productos */
 .card-productos {
   overflow: hidden;
-  padding: 60px 0;
+  padding: 20px 0;
   background: white;
 }
 
@@ -114,7 +124,8 @@
 
 .card-slide {
   display: flex;
-  animation: slide 20s infinite linear;
+  animation: slide 10s infinite linear;
+  margin: 5px;
 }
 .card-carousel:hover .card-slide {
   animation-play-state: paused;
