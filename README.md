@@ -33,3 +33,31 @@ Proyecto Griiin es una plataforma de comercio electrónico con un panel de contr
 2. **Ejecuta la aplicación Spring Boot:**
    ```bash
    mvn spring-boot:run
+3. **Configuración del Frontend**
+   - Navega al directorio `frontend`:
+   ```bash
+   cd frontend
+   npm install
+   ng serve
+5. **Acceso a la Aplicación:**
+   - Accede a la aplicación en tu navegador en http://localhost:4200.
+   
+## Vista Previa del Proyecto
+
+![Vista previa de la aplicación](https://i.postimg.cc/c6qqxRhB/project-ecommerce.png)
+
+## Contribuciones
+
+Las contribuciones son bienvenidas. Si deseas contribuir a este proyecto, por favor realiza un fork del repositorio, crea una rama con tus cambios y envía un pull request.
+
+## Licencia
+
+Este proyecto está licenciado bajo la Licencia MIT. Para más detalles, consulta el archivo LICENSE.
+
+## Contacto
+
+Si tienes alguna pregunta o sugerencia, no dudes en ponerte en contacto.
+
+- **Autor:** Natanael Lima
+- **Repositorio:** [GitHub](https://github.com/natanael-lima/ecommerce-web-application)
+
